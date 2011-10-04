@@ -1,0 +1,8 @@
+---
+layout: post
+title: Rubyists: Time To Learn How to Act
+---
+
+h1. {{ page.title }}
+
+
