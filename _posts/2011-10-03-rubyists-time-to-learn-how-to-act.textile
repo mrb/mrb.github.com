@@ -5,4 +5,30 @@ title: Rubyists, Time To Learn How to Act
 
 h1. {{ page.title }}
 
+h2. Growth and Change
 
+As the Ruby community matures, so do the topics that occupy the discussions, both online and at conferences.  Now that we've innovated web frameworks, templating languages, dependency managers, and more, we're starting to realize that we also need to be innovating systems programming, and even the Virtual machine which runs our code.
+
+Of course some memebers of the Ruby community have known this for years -- alternate Virtual Machines go back years and some of the earliest popular Ruby libraries deftly display skill with systems concepts.  RubyConf 2011 was a very encouraging display in this regard -- talks about JRuby and Rubinius were packed, while attendees also turned out to talks about implementation details and features included in the new versions of Ruby.
+
+One of the most contentious topics is also one of the most complicated, and thinking back to my beginnings with the language, one that I wouldn't have anticipated 5 years ago.  My poor ability to predict trends aside, issues of Concurrency dominated a variety of discussions at RubyConf, and have produced some interesting opinions and projects at that.
+
+h2. The State of Concurrency
+
+While the most widely used Ruby Virtual Machine, CRuby (also known as MRI) struggles with political issues and other unfortunate bureaucracy that ultimately hold back its rapid progress, both JRuby and Rubinius offer very promising alternatives for Rubyists who wish to look beyond the "spawn multiple processes and pay it forward with RAM" approach that has been successful for a lot of people up until now.*
+
+It's no coincidence that these issues are gaining steam now that many of the freshface idealistic Rubyists have moved to Silicon Valley or are otherwise making success for themselves -- with traffic and money come new issues.  Concurrency is not a pet project for companies who need to serve large amounts of traffic.  It's not an academic exercise, a passing fad, or a Yak Shave -- it's the difference between success and failure.
+
+There are a lot of good resources for background on how CRuby ended up in the position it is in now, the role of the Garbage Collector in Ruby's ability to be concurrent, and what the plans are for its future.
+
+h2. Join the Rubinius Revolution
+
+
+
+h2. Just Use JRuby
+
+The first and clearly most straightforward approach for RIGHT NOW is to stop messing around and give JRuby a shot
+
+h2. Try Not To Be Hateful
+
+* Note that MacRuby also gives you access to Concurrency ...
