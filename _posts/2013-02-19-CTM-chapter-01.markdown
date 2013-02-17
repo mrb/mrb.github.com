@@ -25,6 +25,8 @@ Here are some of my favorite quotes from the chapter, which mostly take the form
 
 The pedagogy that the authors employ is introduced in this chapter, and I find it effective. The authors introduce ideas with simple explanations and minimal examples, and pay close attention to the progression as they go.
 
+Starting with a calculator that is used to describe functions, and running through data structures, program correctness, semantics, higher order programming, concurrency, nondeterminism, and atomicity, a system which starts simply and then becomes complexity is not only explained to us, it is plainly illustrated.
+
 This chapter makes me very excited for the book though I'm nervous because I know things are going to get considerably more difficult. The end of the chapter contains some hints as to the means by which all of the various programming paradigms will be explored, and the breadth is impressive.
 
 #### Unabridged Notes
