@@ -10,8 +10,8 @@ html, body {
 
 body {
   background-color: white;
-  font: 14px helvetica, arial, clean, sans-serif;
-  *font-size: small;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
 }
 
 h1 {
@@ -55,68 +55,61 @@ ul.posts {
   margin-bottom: 2em;
 }
 
-  ul.posts li {
-    line-height: 1.75em;
-    text-align: left;
-  }
+ul.posts li {
+  line-height: 1.75em;
+  text-align: left;
+}
 
-  ul.posts span {
-    color: #aaa;
-    font-family: Monaco, "Courier New", monospace;
-    font-size: 80%;
-  }
-
+ul.posts span {
+  color: #aaa;
+  font-family: Monaco, "Courier New", monospace;
+  font-size: 80%;
+}
 
 .site {
   font-size: 110%;
   text-align: justify;
-  width: 40em;
+  width: 50em;
   margin: 1em auto 2em auto;
   line-height: 1.5em;
 }
 
-.top{
-	margin: auto;
-	width: 60em;
-	padding:0px;
-}
-
 .title {
   color: #000;
-	margin: 0;
-	font: 50px/56px 'DejaVuSerifCondensed-Bold', Arial, sans-serif;letter-spacing: 0;
+  margin: 0;
+  font: 28px/32px 'DejaVuSerifCondensed-Bold', Arial, sans-serif;letter-spacing: 0;
 }
 
-  .site .title a {
-    color: #a00;
-    text-decoration: none;
-  }
+.site .title a {
+  color: #a00;
+  text-decoration: none;
+}
 
-  .site .title a:hover {
-    color: black;
-  }
+.site .title a:hover {
+  color: black;
+}
 
-  .site .title a.extra {
-    color: #aaa;
-    text-decoration: none;
-    margin-left: 1em;
-  }
+.site .title a.extra {
+  color: #aaa;
+  text-decoration: none;
+  margin-left: 1em;
+}
 
-  .site .title a.extra:hover {
-    color: black;
-  }
+.site .title a.extra:hover {
+  color: black;
+}
 
-  .site .meta {
-    color: #aaa;
-  }
+.site .meta {
+  color: #aaa;
+}
 
-	.site .footer {
-	    font-size: 80%;
-	    color: #666;
-	    border-top: 4px solid #eee;
-	    margin-top: 2em;
-	    overflow: hidden;
-	  }
+.site .footer {
+  font-size: 80%;
+  color: #666;
+  border-top: 4px solid #eee;
+  margin-top: 2em;
+  overflow: hidden;
+}
 
 #post {
    margin-left: auto;
@@ -127,8 +120,8 @@ ul.posts {
   border: 1px dashed #ccf;
   background-color: #ffe;
   padding: 0 .4em;
-	margin-top: .5em;
-	margin-bottom: .5em;
+  margin-top: .5em;
+  margin-bottom: .5em;
 }
 
 #post ul,
@@ -153,6 +146,3 @@ ul.posts {
 	src: url('DejaVuSerifCondensed-Bold.eot');
 	src: local('DejaVuSerifCondensed-Bold'), local('DejaVuSerifCondensed-Bold'), url('DejaVuSerifCondensed-Bold.woff') format('woff'), url('DejaVuSerifCondensed-Bold.ttf') format('truetype'), url('DejaVuSerifCondensed-Bold.svg#DejaVuSerifCondensed-Bold') format('svg');
 }
-
-
-
