@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Learning How To Learn Programming"
-published: true
+published: false
 ---
 # 
 
