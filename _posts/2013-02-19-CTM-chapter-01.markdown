@@ -1,14 +1,16 @@
 ---
 layout: post
-title: "The Beginning of a Long Journey - Notes on CTM Chapter 01"
+title: "The Beginning of a Long Journey"
 ---
-## The Beginning of a Long Journey
+# 
+
+### The Beginning of a Long Journey: Notes on _CTM_ Chapter 01
 
 This is the first in a series of posts I will be making about Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a>. <a href="http://twitter.com/brixen">Several</a> <a href="http://twitter.com/swannodette">smart</a>  <a href="http://twitter.com/fogus">people</a> have recommended the book for various reasons, and it fits in with my recent attempts to destroy and rebuild my knowledge of Computer Science and programming, from scratch.
 
 The book is immensely long and complex, so posting may take a long time. I plan to post a summary of each chapter, along with some thoughts, and then I'll post as much of my note taking while reading as possible. I hope you'll follow along and enjoy my take.
 
-## Chapter 1 - Introduction to Programming Concepts
+#### Chapter 1 - Introduction to Programming Concepts
 
 #### Summary
 
@@ -16,12 +18,17 @@ A whirlwind tour through pretty much every concept that is essential to understa
 
 Here are some of my favorite quotes from the chapter, which mostly take the form of very precise definitions for key concepts, and highlight the very readable writing style:
 
-* "This expression uses `Fact`, the very function we are defining! This is called recursion. It is perfectly normal and no cause for alarm."
-* A program's specification is "a mathematical definition of the inputs that a program needs and the output that it calculates"
-* Concurrency is "Several independent activities, each of which executes at its own pace"
-* A race condition is "observable nondeterminism"
-* "Programming with concurrency and state together is largely a question of mastering the interleavings"
-* "An operation is atomic if no intermediate states can be observed"
+> "This expression uses `Fact`, the very function we are defining! This is called recursion. It is perfectly normal and no cause for alarm."
+
+> A program's specification is "a mathematical definition of the inputs that a program needs and the output that it calculates"
+
+> Concurrency is "Several independent activities, each of which executes at its own pace"
+
+> A race condition is "observable nondeterminism"
+
+> "Programming with concurrency and state together is largely a question of mastering the interleavings"
+
+> "An operation is atomic if no intermediate states can be observed"
 
 The pedagogy that the authors employ is introduced in this chapter, and I find it effective. The authors introduce ideas with simple explanations and minimal examples, and pay close attention to the progression as they go.
 
