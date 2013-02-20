@@ -11,7 +11,7 @@ html, body {
 body {
   background-color: white;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 h1 {
@@ -140,9 +140,16 @@ ul.posts span {
   border: none;
 }
 
+blockquote{
+  font-style:italic;
+  line-height: 180%;
+  font-size: 110%;
+}
+
 /* Fonts */
 @font-face {
 	font-family: 'DejaVuSerifCondensed-Bold';
 	src: url('DejaVuSerifCondensed-Bold.eot');
 	src: local('DejaVuSerifCondensed-Bold'), local('DejaVuSerifCondensed-Bold'), url('DejaVuSerifCondensed-Bold.woff') format('woff'), url('DejaVuSerifCondensed-Bold.ttf') format('truetype'), url('DejaVuSerifCondensed-Bold.svg#DejaVuSerifCondensed-Bold') format('svg');
 }
+
