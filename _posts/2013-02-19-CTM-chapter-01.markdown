@@ -12,8 +12,6 @@ The book is immensely long and complex, so posting may take a long time. I plan 
 
 #### Chapter 1 - Introduction to Programming Concepts
 
-#### Summary
-
 A whirlwind tour through pretty much every concept that is essential to understanding how to "tell a computer how to do its job." Refreshingly devoid of the baggage of other typical techniques for explaining difficult concepts, the authors plow through various subjects in a crisp, enlightening way. The relationships between each topic are made clear, and you get the sense that they are setting the stage for some deep exploration.
 
 Here are some of my favorite quotes from the chapter, which mostly take the form of very precise definitions for key concepts, and highlight the very readable writing style:
