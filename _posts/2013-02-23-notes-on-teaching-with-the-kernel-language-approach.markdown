@@ -7,19 +7,17 @@ published: false
 
 ### Learning How To Learn Programming: Notes on _Teaching Programming with the Kernel Language Approach_
 
-These are some notes on a paper, <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the teaching techniques used in _Concepts, Techniques, and Models of Computer Programming_ by Van Roy and Haridi, which I am <a href="http://michaelrbernste.in/2013/02/19/CTM-chapter-01.html">currently studying</a>. As a former Computer Science educator I am intrigued by the approach that the book takes, and as a Functional Programming and Computer Science history fan I am intrigued by how it positions itself as an improvement on the techniques in _The Structure and Interpretation of Computer Programs_. Browsing around on the book's <a href="http://www.info.ucl.ac.be/~pvr/book.html">rather dense web site</a>, I found a link to this paper, which seemed to provide an interesting link between the book and the classroom.
+These are some notes on a paper, <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the teaching techniques used in _Concepts, Techniques, and Models of Computer Programming_ by Van Roy and Haridi, who also wrote this paper.
 
->"We present the kernel language approach, a new way to teach programming that situates most of the widely-known programming paradigms (including imperative, object-oriented, concurrent, logic, and functional) in a uniform setting that shows their deep relationships and how to use them together."
+Bridging the gap between the pure ideas of computer science and the realities of practical programming is impacted by the venue - the workplace, the classroom and the laboratory all have different needs. Van Roy and Haridi present "a new way to teach programming" that exposes and challenges the basic assumptions of typical computer science education, with the goal of empowering the student with a strong grasp of underlying principles balanced by practical application.
 
-Right away I start to imagine what this _kernel language approach_ could be, since I know that this does not reflect typical Computer Science education in any form that I had seen before. The technique can be summed up as follows:
+The classroom is the first place many people get exposed to computer science and programming but many professional programmers are self-taught, and regardless of their pedigree, computer science education is a scarce resource. Ultimately I'm interested in how the concepts the Van Roy and Haridi champion can be applied to professional programming. How can we harness the power of kernel language concepts and shine the light on the _deus ex machina_ of "how computers work?"
+
+> "We present the kernel language approach, a new way to teach programming that situates most of the widely-known programming paradigms (including imperative, object-oriented, concurrent, logic, and functional) in a uniform setting that shows their deep relationships and how to use them together."
 
 > "Widely-different practical languages...are explained by straightforward translations into closely-related kernel languages, simple languages that consist of small numbers of programmer-significant concepts."
 
-Another common way to learn how to program is to be given a survey of various programming languages over the course of a Semester or two. According to the authors, this practice:
-
-> "...multiplies the intellectual effort of the student and instructor (since each language has its own syntax and semantics) but does not show the deep connections between the paradigms."
-
-The kernel language approach is presented as being in in line with Ableson and Sussman's use of underlying concepts of programming to teach, but kernel languages both abstract these concepts from a specific programming language and allow programmers to learn their language of choice more deeply.
+These two quotes sum up the _what_ and the _how_ of the kernel language approach. At this point its challenging not to indulge the "practical" part of your brain that says that there's no point in studying a language that you can't use in production. I have to remind myself that I didn't learn to program in a language that I ended up using in any professional capacity, and that many around me learned with an entirely different toolchain, an entirely different mindset, an entirely different venue.
 
 According to the text, programming is typically taught in one of three different ways:
 
@@ -37,7 +35,7 @@ I couldn't help but note that my industry is entirely based on the most complex 
 
 #### The Creative Extension Principle
 
-An interesting explanation is given to how the simpler kernel languages are extended to accomadate new paradigms as illustrated in the diagram above.
+An interesting explanation is given as to how the simpler kernel languages are extended to accomadate new paradigms as illustrated in the diagram above.
 
 #### Teaching Experience, Pedagogy, Further Reading
 
@@ -53,4 +51,10 @@ Programming should be taught as
 
 * "For the purposes of this paper, let us consider a broad definition of computer programming as bridging the gap between specification and running program."
 * "Teaching programming in terms of a single paradigm or language has a detrimental effect on programmer competence and thus on program quality."
+
+Another common way to learn how to program is to be given a survey of various programming languages over the course of a Semester or two. According to the authors, this practice:
+
+> "...multiplies the intellectual effort of the student and instructor (since each language has its own syntax and semantics) but does not show the deep connections between the paradigms."
+
+The kernel language approach is presented as being in in line with Ableson and Sussman's use of underlying concepts of programming to teach, but kernel languages both abstract these concepts from a specific programming language and allow programmers to learn their language of choice more deeply.
 
