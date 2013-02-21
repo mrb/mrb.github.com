@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Learning How To Learn Programming"
-published: false
+published: true
 ---
 # 
 
@@ -35,9 +35,17 @@ Because it seems apparent that teaching each separate concept through a represen
 
 > "...multiplies the intellectual effort of the student and instructor (since each language has its own syntax and semantics) but does not show the deep connections between the paradigms."
 
-So the authors want to communicate through concepts, to boil down the essence of the _interface_ between the programmer and the raw concepts involved in interpreting and computing results from programs.
+So the authors want to communicate through concepts, to highlight the _interface_ between the programmer and the raw concepts involved in interpreting and computing results from programs.
+
+For your edification, as there is not an example presented in the paper, ere's the kernel language for relational programming, as presented in the _CTM_ book.
 
 <center><img src="http://michaelrbernste.in/images/relational.png"></center>
+
+The essence of the approach is:
+
+* Encode "programmer significant concepts" such as conditional statements, sequential execution, concurrency in a kernel language which contains the correct combination of features for a given programming paradigm
+* Extend this kernel language with _syntactic sugar_ and _functional abstraction_ in order to make it more expressive and powerful
+* Translate the kernel language into a _practical programming language_
 
 The following diagram covers the "steps in the kernel language approach," and describes how the approach can be used to describe programming paradigms from the simplest to the most complex:
 
@@ -57,13 +65,10 @@ Programming should be taught as
 2. Algorithms and data structures.
 3. Program design and software engineering.
 
+_CMT_ Covers mostly 1
 
-#### Notes and Quotes
+#### How This Applies to Professional Programmers
 
+* "Teaching programming in terms of a single paradigm or language has a detrimental effect on programmer competence and thus on program quality." - Rubyists don't even attempt threads, Java programmers think they're very difficult and expensive.
 
-* "For the purposes of this paper, let us consider a broad definition of computer programming as bridging the gap between specification and running program."
-* "Teaching programming in terms of a single paradigm or language has a detrimental effect on programmer competence and thus on program quality."
-
-
-The kernel language approach is presented as being in in line with Ableson and Sussman's use of underlying concepts of programming to teach, but kernel languages both abstract these concepts from a specific programming language and allow programmers to learn their language of choice more deeply.
-
+* "many of our students who were already proficient Java programmers have told us that they first understood what Java objects really were after following our course."
