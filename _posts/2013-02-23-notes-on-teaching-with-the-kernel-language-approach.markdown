@@ -1,27 +1,29 @@
 ---
 layout: post
 title: "Learning How To Learn Programming"
-published: true
+published: false
 ---
 # 
 
 ### Learning How To Learn Programming: Notes on _Teaching Programming with the Kernel Language Approach_
 
-_These are some notes on Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the pedagogy employed in the pair's landmark work __Concepts, Techniques, and Models of Computer Programming__. I will walk through some of the key concepts of the paper, and hypothesize that the same techniques that the authors advocate for classroom use are applicable in professional settings._
+_These are some notes on Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the pedagogy employed in the pair's landmark work <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a>. I will walk through some of the key concepts of the paper, and hypothesize that the same techniques that the authors advocate for classroom use are applicable in professional settings, while asking an important question about the impact that commercial software development has on professional programmers understanding of Computer Science._
 
 #### Bridging The Gap
 
 What techniques to use to bridge the gap between the pure ideas of computer science and the realities of practical programming is impacted by the venue - the workplace, the classroom and the laboratory all have different needs. Van Roy and Haridi present "a new way to teach programming" that exposes and challenges the basic assumptions of typical classroom computer science education, with the goal of empowering the student with a strong grasp of underlying principles balanced by some experience with practical application.
 
-The classroom is the first place many people get exposed to computer science and programming but many professional programmers are self-taught, and regardless of their pedigree, computer science education is a scarce resource. Ultimately I'm interested in how the concepts that Van Roy and Haridi champion can be applied to professional programming. How can we harness the power of kernel language concepts and shine the light on the _deus ex machina_ of "how do computers work?"
+The classroom is the first place many people get exposed to computer science and programming but many professional programmers are self-taught, and regardless of their pedigree, classroom computer science education is a scarce resource. Ultimately I'm interested in how the concepts that Van Roy and Haridi champion can be applied to professional programming. How can we harness the power of kernel language concepts and shine the light on the _deus ex machina_ of "how computers work"
 
 > "We present the kernel language approach, a new way to teach programming that situates most of the widely-known programming paradigms (including imperative, object-oriented, concurrent, logic, and functional) in a uniform setting that shows their deep relationships and how to use them together."
 
 > "Widely-different practical languages...are explained by straightforward translations into closely-related kernel languages, simple languages that consist of small numbers of programmer-significant concepts."
 
-These two quotes sum up the _what_ and the _how_ of the kernel language approach. At this point it is easy to indulge the "practical" part of your brain that says that there's no point in studying a language that you can't use in production. I often have to remind myself that I didn't learn to program in a language that I ended up using in any professional capacity, and that many around me learned with an entirely different toolchain, an entirely different mindset, an entirely different venue.
+These two quotes sum up the _what_ and the _how_ of the kernel language approach. In terms of the kernel language itself, it is in fact its own programming language, a sort of "runnable pseudocode" that is executable in the <a href="http://www.mozart-oz.org/">Mozart/Oz platform</a>.
 
-#### The Kernel Language Approach
+At this point it is easy to indulge the "practical" part of your brain that says that there's no point in studying a language that you can't use in production. I often have to remind myself that I didn't learn to program in a language that I ended up using in any professional capacity, and that many around me learned with an entirely different toolchain, an entirely different mindset, an entirely different venue.
+
+#### Programming, As It Was Taught
 
 According to the text, programming is typically taught in one of three different ways:
 
@@ -29,41 +31,43 @@ __As a Craft__ - You learn one language, deeply. Its paradigms become the lens t
 
 __As a Branch of Mathematics__ - Your practical knowledge is superseded by a deeper understanding of the theoretical underpinnings of programming, typically limited to one language and paradigm. The authors criticize this approach as narrow, citing semi-successful attempts by such luminaries as Dijkstra, but themselves aim to cover a broader range of concepts.
 
-__In Terms of Concepts__ - The style that the authors feel their work is the most in line with, and one that they attribute to _SICP_ (lovingly referred to as "Abelson et. al"). Criticisms are leveled at the single language approach, lack of formal semantics, and missing fundamental concepts of their predecessors in this category, however.
+__In Terms of Concepts__ - The style that the authors feel their work is the most in line with, and one that they attribute to _SICP_ (lovingly referred to as "Abelson et al."). Criticisms are leveled at the single language approach, lack of formal semantics, and missing fundamental concepts of their predecessors in this category, however.
 
 Considering the pitfalls of the above approaches, the central question of the text becomes:
 
 > "How can we teach programming as a unified discipline?"
 
-Because it seems apparent that teaching each separate concept through a representative language(some each of Haskell, Java, Erlang, etc.):
+Because it seems apparent that teaching each separate concept through a representative language (some each of Haskell, Java, Erlang, etc.):
 
 > "...multiplies the intellectual effort of the student and instructor (since each language has its own syntax and semantics) but does not show the deep connections between the paradigms."
 
-So the authors want to communicate through concepts, to highlight the _interface_ between the programmer and the raw concepts involved in interpreting and computing results from programs. In other words:
+#### What Is The Kernel Language Approach?
+
+After outlining the methods that they have observed, the authors make it clear that they want to communicate through concepts, to highlight the _interface_ between the programmer and the raw concepts involved in interpreting and computing results from programs. In other words:
 
 > "In the kernel language approach, programming paradigms and their requisite languages are emergent phenomena"
 
 This is a very powerful concept. It highlights the interconnectedness of programming languages by placing them on something like a continuum. Instead of using a practical programming language to learn concepts, you use concepts to learn programming languages, with a reasonable intermediate representation to boot.
 
+The essence of the approach is:
+
+* Encode "programmer significant concepts" such as conditional statements, sequential execution, and concurrency in a kernel language which contains the correct combination of features for a given programming paradigm
+* Extend this kernel language with _syntactic sugar_ (more convenient interfaces to existing syntax) and _functional abstractions_ (new additions to the language, new syntax) in order to make it more expressive and powerful
+* Translate localized examples, algorithms, etc. written in the practical programming language to kernel language, and vice versa
+
 This diagram shows the steps for extending the initial kernel language to become more expressive by adding functional abstractions and syntactic sugar:
 
 <center><img src="http://michaelrbernste.in/images/kernel_teaching_diagram.png"></center>
 
-The simplest core of the language is a functional. Various types of state are added, cautiously, as are concurrency, object systems, and more. The authors are very clear, especially with respect to state and concurrency, that these powerful concepts have to be added and treated seriously. In my opinion the semantics they lay out for each successively more complex language are a very clear, insightful representation of the essence of what these languages can express. The progression from one kernel language to another is simple and easy to follow.
+The simplest core of the language is functional. Various types of state are added, cautiously, as are concurrency, object systems, and more. The authors are very clear, especially with respect to state and concurrency, that these powerful concepts have to be added and treated seriously. In my opinion the semantics they lay out for each successively more complex language are very clear, insightful representations of the essence of what these languages can express. The progression from one kernel language to another is simple and easy to follow.
 
-One of the more interesting sections of the paper is where the authors outline the approach known as the "Creative Extension Principle" which they use to systematize the means by which kernel languages are extended.
+One of the more interesting sections of the paper is where the authors outline the approach known as the "Creative Extension Principle" that they use to systematize the means by which kernel languages are extended. They explain that they consider the simplicity of the semantics and the potential complexity of the resulting programs when determining when and how to add features to the kernel languages. This "layered" approach is very continuous and allows for a lot of different combinations of concepts.
 
-I thought I would include an example kernel language, in this case the language for relational programming, as presented in the _CTM_ book. It's not necessary to explain any of it here, but if you're just experiencing these ideas for the first time, it's nice to be able to see some context.
+I thought I would include an example kernel language, in this case the language for relational programming, as presented in the _CTM_ book. It's not necessary to explain any of it here, and they don't include it in the paper, but if you're just experiencing these ideas for the first time, it's nice to be able to see some context.
 
 <center><img src="http://michaelrbernste.in/images/relational.png"></center>
 
 You can get a sense of the limited number of forms that the language has, of its capabilities syntax wise, and a basic sense of the semantics.
-
-The essence of the approach is:
-
-* Encode "programmer significant concepts" such as conditional statements, sequential execution, and concurrency in a kernel language which contains the correct combination of features for a given programming paradigm
-* Extend this kernel language with _syntactic sugar_ and _functional abstraction_ in order to make it more expressive and powerful
-* Translate localized examples, algorithms, etc. written in the practical programming language to kernel language, and vice versa
 
 ## 
 
@@ -79,6 +83,6 @@ There is often an artificial line drawn between the professional and the academi
 
 #### Conclusions
 
-Many professional programmers jump straight into the most complex form of programming without ever having even been exposed to the idea of the continuum that the kernel language approach encompasses.
+Many professional programmers jump straight into the most complex form of programming without exposure to the concepts the kernel language approach encompasses. This causes a tremendous amount of churn and cognitive dissonance that doesn't have to plague developers for as long as it does. My personally very slow, arduous journey towards making the connections between the various programming languages and paradigms I've experienced is a testament to the power of the potential of the kernel language approach. 
 
-There is an interesting amount of exchange between academia and professional programmers that hasn't been seen for quite some time. I myself have no stake or direct participation in academia - I simply acknowledge that we still have quite a bit to learn about how we understand and teach programming. Ultimately, its all about the quality of our communication.
+As a profession programming is still quite young, 
