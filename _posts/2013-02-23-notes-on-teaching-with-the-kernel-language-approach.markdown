@@ -7,7 +7,7 @@ published: true
 
 ### Learning How To Learn Programming: Notes on _Teaching Programming with the Kernel Language Approach_
 
-_These are some notes on Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the pedagogy employed in the pair's landmark work <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a>. I will walk through some of the key concepts of the paper, and hypothesize that the same techniques that the authors advocate for classroom use are applicable in professional settings, while asking an important question about the impact that commercial software development has on professional programmers understanding of Computer Science._
+_These are some notes on Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the pedagogy employed in the pair's landmark work <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a>. This ambitious book, known as _CTM_, was published in 2004 by MIT Press, 30 years after another book, The Structure and Intepretation of Computer Programs, was written by another pair of authors attempting to change the way people think and learn about Computer Science. I will walk through some of the key concepts of the paper, and hypothesize that the same techniques that the authors advocate for classroom use are applicable in professional settings, while asking an important question about the impact that commercial software development has on professional programmers understanding of Computer Science._
 
 #### Bridging The Gap
 
@@ -41,6 +41,14 @@ Because it seems apparent that teaching each separate concept through a represen
 
 > "...multiplies the intellectual effort of the student and instructor (since each language has its own syntax and semantics) but does not show the deep connections between the paradigms."
 
+My own personal computer science education history consists of:
+
+* Attempting to learn concepts through programming languages instead of learning programming languages through concepts
+* Attempting to learn paradigms the same "outside in" way
+* A very rough understanding that concepts are inter-related through paradigms and programming languages
+
+After many many years of the above, reading through the kernel language approach material in _CTM_ made the syntax and semantics connections clearer, and also improved my understanding of the actual mechanics of the abstract machines that run them.
+
 #### What Is The Kernel Language Approach?
 
 After outlining the methods that they have observed, the authors make it clear that they want to communicate through concepts, to highlight the _interface_ between the programmer and the raw concepts involved in interpreting and computing results from programs. In other words:
@@ -69,7 +77,7 @@ I thought I would include an example kernel language, in this case the language 
 
 Teaching each of the concepts represented in the flow diagram, and showing how simple steps in combination can be used to actually "create" the syntax and semantics of new languages like the one above is the core of the paper's message.
 
-## 
+Because you can see very clearly how the interactions between the available operations work in a more correct, pure environment, you can apply that understanding when you write code in a practical programming language. For example, Van Roy and Haridi cite experience with students who knew how to program in Java with objects and state, but gained an actual understanding for how objects operate by using the kernel language approach.
 
 #### From the Classroom to the Workplace
 
