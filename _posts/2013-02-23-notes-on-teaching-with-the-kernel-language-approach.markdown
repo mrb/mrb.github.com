@@ -29,9 +29,9 @@ According to the text, programming is typically taught in one of three different
 
 __As a Craft__ - You learn one language, deeply. Its paradigms become the lens through which you learn everything practical and theoretical about Computer Science. Your knowledge and experience veer more toward the practical than the theoretical. You end up, for example, being an "Object Oriented Java Developer" or a "Functional Haskell Developer." The authors criticize this method by citing an example of how the defects of a specific language or paradigm may excessively shape the thinking and practice of a student, e.g. believing that "Concurrency is hard" because "Concurrency in Java is hard." This is how most professional programmers that I have met learned the language that they use professionally, and consequently how they have learned many concepts of Computer Science.
 
-__As a Branch of Mathematics__ - Your practical knowledge is superseded by a deeper understanding of the theoretical underpinnings of programming, typically limited to one language and paradigm. The authors criticize this approach as narrow, citing semi-successful attempts by such luminaries as Dijkstra, but themselves aim to cover a broader range of concepts.
+__As a Branch of Mathematics__ - Your practical knowledge is superseded by a deeper understanding of the theoretical underpinnings of programming, typically limited to one language and paradigm. You are restricted in terms of practical application by the theoretical approach. The authors criticize this approach as narrow, citing semi-successful attempts by such luminaries as Dijkstra, but themselves aim to cover a broader range of concepts.
 
-__In Terms of Concepts__ - The style that the authors feel their work is the most in line with, and one that they attribute to _The Structure and Intrepretation of Computer Programs_ (lovingly referred to as "Abelson et al."). Criticisms are leveled at the single language approach, lack of formal semantics, and missing fundamental concepts of their predecessors in this category, however.
+__In Terms of Concepts__ - Your knowledge is concept first, typically taught with a programming language that, like <a href="http://en.wikipedia.org/wiki/Scheme_(programming_language)">Scheme</a>, has "no syntax" and is as transparent as possible. Concepts such as logic, recursion, algorithms, etc. are covered. This is the style that the authors feel their work is the most in line with, and one that they attribute to _The Structure and Intrepretation of Computer Programs_ (lovingly referred to as "Abelson et al."). Criticisms are leveled at the single language approach, lack of formal semantics, and missing fundamental concepts of their predecessors in this category, however.
 
 Considering the pitfalls of the above approaches, the central question of the text becomes:
 
@@ -59,9 +59,9 @@ This is a very powerful idea. It highlights the interconnectedness of programmin
 
 The essence of the approach is:
 
-* Encode "programmer significant concepts" such as conditional statements, sequential execution, and concurrency in a kernel language which contains the correct combination of features for a given programming paradigm
-* Extend this kernel language with _syntactic sugar_ (more convenient interfaces to existing syntax) and _functional abstractions_ (new additions to the language, new syntax) in order to make it more expressive and powerful
-* Translate localized examples, algorithms, etc. written in the practical programming language to kernel language, and vice versa (great examples of translations of small pieces of Erlang code are shown in _CTM_)
+1. Encode "programmer significant concepts" such as conditional statements, sequential execution, and concurrency in a kernel language which contains the correct combination of features for a given programming paradigm
+2. Extend this kernel language with _syntactic sugar_ (more convenient interfaces to existing syntax) and _functional abstractions_ (new additions to the language, new syntax) in order to make it more expressive and powerful
+3. Translate localized examples, algorithms, etc. written in the practical programming language to kernel language, and vice versa (great examples of translations of small pieces of Erlang code are shown in _CTM_)
 
 This diagram shows the steps for extending the initial kernel language to become more expressive by adding functional abstractions and syntactic sugar:
 
