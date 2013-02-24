@@ -7,7 +7,7 @@ published: true
 
 ### Learning How To Learn Programming: Notes on _Teaching Programming with the Kernel Language Approach_
 
-_These are some notes on Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the pedagogy employed in the pair's landmark work <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a>. This ambitious book, known as _CTM_, was published in 2004 by MIT Press 30 years after they published The Structure and Intepretation of Computer Programs, a book written by another pair of authors attempting to change the way people think and learn about Computer Science. I will walk through some of the key concepts of the paper, and hypothesize that the same techniques that the authors advocate for classroom use are applicable in professional settings, while asking an important question about the impact that commercial software development has on professional programmers understanding of Computer Science._
+_These are some notes on Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/people/PVR/fdpefinalweb.pdf">Teaching Programming with the Kernel Language Approach" (PDF)</a> outlining the pedagogy employed in the pair's landmark work <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a>. This ambitious book, known as _CTM_, was published in 2004 by MIT Press 30 years after they published <a href="http://mitpress.mit.edu/sicp/">The Structure and Intepretation of Computer Programs</a>, a book written by another pair of authors attempting to change the way people think and learn about Computer Science. I will walk through some of the key concepts of the paper, and hypothesize that the same techniques that the authors advocate for classroom use are applicable in professional settings, while asking an important question about the impact that commercial software development has on professional programmers understanding of Computer Science._
 
 #### Bridging The Gap
 
@@ -31,7 +31,7 @@ __As a Craft__ - You learn one language, deeply. Its paradigms become the lens t
 
 __As a Branch of Mathematics__ - Your practical knowledge is superseded by a deeper understanding of the theoretical underpinnings of programming, typically limited to one language and paradigm. The authors criticize this approach as narrow, citing semi-successful attempts by such luminaries as Dijkstra, but themselves aim to cover a broader range of concepts.
 
-__In Terms of Concepts__ - The style that the authors feel their work is the most in line with, and one that they attribute to <a href="http://mitpress.mit.edu/sicp/">_The Structure and Intrepretation of Computer Programs_</a> (lovingly referred to as "Abelson et al."). Criticisms are leveled at the single language approach, lack of formal semantics, and missing fundamental concepts of their predecessors in this category, however.
+__In Terms of Concepts__ - The style that the authors feel their work is the most in line with, and one that they attribute to _The Structure and Intrepretation of Computer Programs_ (lovingly referred to as "Abelson et al."). Criticisms are leveled at the single language approach, lack of formal semantics, and missing fundamental concepts of their predecessors in this category, however.
 
 Considering the pitfalls of the above approaches, the central question of the text becomes:
 
