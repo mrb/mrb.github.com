@@ -2,8 +2,10 @@
 layout: default
 title: home
 ---
-<h2>Posts:</h2>
-<ul>
+<ul class = "posts">
+<br/>
+This is a collection of writing by a professional programmer living in Brooklyn, New York, with his family. It's mostly about technology.<br/><br/>
+
 {% for post in site.posts %}
   {% if post.published != false %}
     <li>

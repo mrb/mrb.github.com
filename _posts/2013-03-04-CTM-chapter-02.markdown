@@ -1,0 +1,137 @@
+---
+layout: post
+title: "The Declarative Computation Model: Notes on CTM Chapter 02"
+published: false
+---
+# 
+
+*This post is part of a series. Check the <a href="/">blog index</a> for the rest.*
+
+### The Declarative Computation Model: Notes on _CTM_ Chapter 02
+
+This begins "Section 1: General Computation Models." It contains a breakdown of the concept of a Programming Language, how it relates to the computer that it runs on, and how it relates to the real world. The thesis of the book includes the idea of the Kernel Language, which is an attempt to create a compact, reasonable set of operations by which a programming language can be represented. This Kernel Language (hereafter KL) can be translated to a Programming Language, which the developer actually uses. This translation can take place by means of Functional Abstraction or Syntactic Sugar. The text is clear that the idea behind KLs is to be able to explore multiple programming paradigms, and we start with a Declarative KL that can represent the semantics of Declarative and Functional PLs.
+
+#### How To Define A Grammar
+
+One of the nicer parts of this chapter is the treatment of _Extended Backus-Naur Form_ which is used throughout the book to define grammars. It is a very commonly used form, and has a concise explanation:
+
+> "The EBNF notation distinguishes terminal symbols and nonterminal symbols. A terminal symbol is simply a token. A nonterminal symbol represents a sequence of tokens. The nonterminal is defined by a grammar rule, which shows how to expand it into tokens."
+
+Here is an example from the book (rendered here using the awesome <a href="http://www.mathjax.org">MathJax</a>) of defining the grammar for a $digit$:
+
+$$\<digit>::=0|1|2|3|4|5|6|7|8|9$$
+
+It says that a digit, which is a nonterminal (notated with $<$ and $>$), represents one of the ten tokens separated by $|$, (or) symbols. To illustrate how simple rules can combine to form more complex ones, a rule for $int$ is shown, which relies on the previous definition of $digit$:
+
+$$\<int\>::=\<digit\>\\{\<digit\>\\}$$
+
+An $int$ is one $digit$, followed by one or more $digit$. The { and } mean 'anything contained within will occur zero or more times.' If you try some test cases, you will see that these are sound definitions.
+
+You can use a simple procedure to read the grammars that appear throughout the book. Start with any nonterminal symbol ($\<int\>$ for example), and reading the rule from left to right, you will see a sequence of tokens that follow these rules:
+
+* Each terminal symbol encountered is added to the sequence.
+* For each nonterminal symbol, read its grammar rule and replace the nonterminal with the sequence of tokens that it expands into
+* Each time there is a choice (with $|$), pick any of the alternatives
+
+Context, syntax, and ambiguity.
+
+#### Language Semantics and the Kernel Language Approach
+
+> "The semantics of a language defines what a program does when it executes."
+
+#### The Mechanics of the Declarative Language
+
+* Declarative Variables
+* Value Store
+* Value Creation and Value Identifiers
+* Partial Values
+* Dataflow Variables
+
+
+#### The Declarative Kernel Language
+
+* Syntax
+* Values and Types
+* Basic Types
+* Records and Procedures
+* Basic Operations
+ 
+
+#### Kernel Language Semantics
+
+* Simple Execution
+* Procedures
+* Static and Dynamic Scope
+* Procedural Abstraction
+
+#### The Abstract Machine
+
+* Definitions
+* Program Execution
+
+The section on program execution demonstrates how the following code:
+
+{% highlight bash %}
+local X in
+  X = 1
+  local X in #s1 begin
+    X = 2
+    { Browse X }
+  end #s1 end
+  { Browse X } # s2
+end
+{% endhighlight %}
+
+is executed by the abstract machine. The exercise is to read the above code, reason about it, and predict what the execution will look like. The `Browse` function displays the value passted to it. As we've already seen a discussion of scope, it should be clear that the interesting aspects of how this program execute relate to the semantics of the kernel language.
+
+$$(E, \sigma)(1)$$
+$$([(\lt s \gt, \emptyset)], \emptyset)(2)$$
+$$([(\lt s \gt_1  \lt s \gt_2,\\{X \rightarrow x\\})], \\{x = 1\\})(3)$$
+$$([(\lt s \gt_1, \\{X \rightarrow x\\}),  (\lt s \gt_2,\\{X \rightarrow x\\})], \\{x = 1\\})(4)$$
+$$([(X=2, \\{Browse \space X\\}, \\{X \rightarrow x'\\}),  (\lt s \gt_2,\\{X \rightarrow x\\})], \\{x', x = 1\\})(5)$$
+$$([(\\{Browse \space X\\}, \\{X \rightarrow x'\\}),  (\\{Browse \space X\\}, \\{X \rightarrow x\\})], \\{x' = 2, x = 1\\})(6)$$
+
+$(1)$ The abstract machine consists of an environment $E$ and a value store $\sigma$.
+
+$(2)$ The initalized form of our abstract machine. $E$ has been substituted by $\lt s \gt$, a statement which represents the outermost $local$ statement, and $\emptyset$, meaning there are not yet any mappings present.
+
+$(3)$ The outermost $local$ statement and $X = 1$ are executed, the identifier $X$ refers to the store variable $x$, and one binding ($x=1$) is added to the value store.
+
+$(4)$ After executing $\lt s \gt_1$ and $\lt s \gt_2$, we see that each end up with their own environments. We will execute each statement next.
+
+$(5)$ Executing $\lt s \gt_1$ binds a new variable $x'$ and calculates a new environment. This has a semantic specification as well - given an initial $E$ of $\\{X \rightarrow x\\}$, adding $\\{X \rightarrow x'\\}$ to it will yield $\\{X \rightarrow x'\\}$. The second mapping of $X$ overrides the first.
+
+$(6)$
+
+
+#### Memory Management
+
+* Memory Life Cycle
+* Garbage Collection
+
+#### From Kernel Language to Practical Language
+
+* Syntax
+* Expressions
+* Functions
+* Exceptions
+
+#### Functional Languages and Unification
+
+#### Unabridged Notes
+
+- Programming encompasses three things:
+- A computation model, which is a formal system defines a language and how sentences of the language are executed by an abstract machine
+- A set of programming techniques and design principles used to write programs in thel aguage of the comptuational model
+- A set of reasoning techniques to let you reason about programs
+- The declarative programming model, defined as "evaluating functions over partial data structures," is the first computational model that we'll see a kernel language for.
+- It is stateless as opposed to stateful or imperative
+- Declarative is fundamental and includes the core ideas of functional and declarative programming
+- What is a practical programming language? Much simpler than natural languages, but they can still have a very rich syntax
+- "A PPL is like the toolbox of an experienced mechanic"
+- It has a syntax (or "grammar") and a semantics (or "meaning")
+- "The syntax of a lnaguege defines what are the legal programs that can be successfully executed"
+- A grammer is "a set of rules that defines how to make sentences out of words"
+- statement -> tokens | tokens -> chars
+- "A program that accepts a sequence of characters and returns a sequence of tokens is called a lexical analyzer. A program that aaccepts a sequence of tokens and returns a parse tree is called a parser"
+- Extended Backus-Naur Form is introduced as a notation for defining grammars
