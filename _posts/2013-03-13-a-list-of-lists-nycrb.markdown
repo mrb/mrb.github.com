@@ -107,7 +107,7 @@ GitHub's volume of code is growing at an incredible rate, and keeping up is impo
 
 Pattern Matching is a functional programming syntax construct that allows for complex assignment and conditional semantics to be expressed in a compact way.\* It's not a native feature of Ruby like it is for Erlang, Haskell, etc., and this library has an interesting take on introducing it to the language.
 
-_\*Note: Pattern Matching is complex. This sentence is my shot at explaining it briefly._
+_\*Note: Pattern Matching is complex. This sentence is my shot at explaining it briefly. Wikipedia says it's "the act of checking a perceived sequence of tokens for the presence of the constituents of some pattern."_
 
 <a href="https://github.com/k-tsj/pattern-match">Click here</a> to check out the repo.
 
