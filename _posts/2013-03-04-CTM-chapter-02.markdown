@@ -11,7 +11,9 @@ published: false
 
 > "In our view, languages that scale to a significant level of complexity are successful in part because they model some essential aspects of how to construct complex programs. In this sense, these languages are not just arbitrary constructions of the human mind. We would therefore like to understand them in a scientific way, _i.e._, by explaining their behavior in terms of a simple underlying model. This is the deep motivation behind the kernel language approach." - _Section 2.1.2_
 
-This chapter begins "Section 1: General Computation Models." It contains a breakdown of the concept of a Programming Language, how it relates to the computer that it runs on, and how it relates to the real world. The thesis of the book includes the idea of the Kernel Language, which is an attempt to create a compact, reasonable set of operations by which a programming language can be represented. This kernel language can be _translated_ to a practical programming language employed by the developer. This translation can take place by means of functional abstraction or syntactic sugar. The text is clear that the idea behind kernel languages is to be able to explore multiple programming paradigms, and we start with a declarative kernel language that can represent the semantics of declarative and functional programming languages.
+This chapter, the first of the chapters in "Section 1: General Computation Models," is an introduction to programming languages from the ground up - how the characters that compose our input are transformed and executed. Lexical analysis, parsing, grammars, semantics, abstract machines, garbage collection, and unification are all discussed, amongst other concepts. The kernel language approach is _demonstrated_, and the subject is the declarative computational model, a simple, compact language defined as "evaluating functions over partial data structures."
+
+
 
 #### How To Define A Grammar
 
@@ -97,7 +99,7 @@ _I wrote an article detailing more about the pedagogy of the book as it relates 
 
 The section on program execution demonstrates how the following code is executed by the abstract machine:
 
-{% highlight bash %}
+{% highlight ruby %}
 local X in #<s> begin
   X = 1
   local X in #<s>1 begin
