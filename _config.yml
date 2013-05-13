@@ -1,3 +1,5 @@
 markdown: rdiscount
 pygments: true
-
+name: michaelrbernste.in
+description: Michael R. Bernstein's Personal Blog
+url: http://michaelrbernste.in
