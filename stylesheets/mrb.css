@@ -117,8 +117,8 @@ ul.posts span {
 }
 
 #post pre {
-  border: 1px dashed #ccf;
-  background-color: #ffe;
+  border: 1px dashed #ccc;
+  background-color: #fff;
   padding: 0 .4em;
   margin-top: .5em;
   margin-bottom: .5em;
@@ -131,7 +131,7 @@ ul.posts span {
 
 #post code {
   border: 1px solid #ddd;
-  background-color: #ffe;
+  background-color: #fff;
   font-size: 80%;
   padding: 0 .2em;
 }

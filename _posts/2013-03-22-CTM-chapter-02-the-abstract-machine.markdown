@@ -9,15 +9,21 @@ published: false
 
 #### The Abstract Machine
 
-The declarative kernel language that this chapter covers is very simple. There are few moving parts, and programs can be read and understood in a linear, predictable way. This predictability comes at the cost of reduced expressiveness, but the idea is not to produce a perfect, industrial programming language. The point is to start from the basics, understand their formal foundations, and then progressively expand the expressive capabilities (and therefore thecomplexity of the underlying mechanics) of your kernel language.
+The declarative kernel language that this chapter covers is very simple. There are few moving parts, and programs can be read and understood in a linear, predictable way. This predictability comes at the cost of reduced expressiveness, but the idea is not to produce a perfect, industrial programming language. The point is to start from the basics, understand their formal foundations, and then progressively expand the expressive capabilities (and therefore the complexity of the underlying semantics) of your kernel language.
 
 > "We will define the kernel semantics as an operational semantics, i.e., it defines the meaning of the kernel language through its execution on an abstract machine."
 
-* A Single Assignment Store
-* An Environment
-* Semantic Statement
-* Execution State
-* Computation
+In other words, the abstract machine is the device, or the main metaphor, that is used to explain how the language works. An abstract machine executes the instructions that we give it in a predictable, repeatable way, and gives _formal credence_ to our _programmer's intuition_ for how some basic programs work.
+
+The abstract machine has a few components that need defining before we can examine how a relatively simple bit of code is executed.
+
+**A single assignment store ($\sigma$)** is a set of variables. Variables can be unbound (declared but not assigned a value) or bound (declared and assigned a value). Bound variables can be assigned the value of a number, a data structure, or another variable,
+
+**An environment ($E$)** is a mapping from variables to members of the single assingment store.
+
+**Semantic Statement**
+**Execution State**
+**Computation**
 
 * Definitions
 * Program Execution
