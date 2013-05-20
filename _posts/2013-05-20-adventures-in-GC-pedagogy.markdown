@@ -114,4 +114,4 @@ Knowing the basic concepts behind each of the major GC algorithms is not the sam
 
 It is relatively simple to get up and running with this system. <a href="http://racket-lang.org/download/">Download Racket</a>, follow the instructions on <a href="http://faculty.cs.byu.edu/~jay/courses/2012/fall/330/course/gc.html">this course page</a>, begin implementing various GC algorithms, and see your favorites in action. If you don't learn something new, at the very least you'll appreciate the implementation of the GC you rely on daily.
 
-<i><b>Note:</b> an earlier version of this post linked directly to the PDF. A correction was made to link to the information page at the request of one of the authors, Shriram Krishnamurthi.</i>
+<i><b>Note:</b> An earlier version of this post linked directly to the PDF. A correction was made to link to the information page at the request of one of the authors, Shriram Krishnamurthi.</i>
