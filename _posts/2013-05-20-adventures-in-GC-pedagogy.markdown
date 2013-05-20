@@ -1,16 +1,26 @@
 ---
 layout: post
-title: Adventures in Garbage Collection Pedagogy
-published: false
+title: Adventures in Garbage Collection Pedagogy and an Introduction to Racket
+published: true
 ---
 # 
-#### Adventures in Garbage Collection Pedagogy
+#### Adventures in Garbage Collection Pedagogy and an Introduction to Racket
 
-As I prepare for a <a href="http://goruco.com/speakers/2013/bernstein-mike/">conference talk on Garbage Collection</a> (GC), I continue to scour the internet for information on how to communicate the challenging ideas GC encompasses. GC is taught at the Undergraduate and Graduate levels in varying degrees of granularity, for a wide range of purposes. Some programs merely place GC in the hierarchy of important problems and work areas in Computer Science, ackowledging that it is relied on, but not necessary to thoroughly understand. Other programs attempt to teach students how to implenet GC in the context of Programming Language or Virtual Machine design, accepting the burden and relying on a host of prior knowledge from the student for the material to be comprehensible.
+While preparing for a <a href="http://goruco.com/speakers/2013/bernstein-mike/">conference talk on Garbage Collection algorithms, implementations, and history</a>, I have made a habit of scouring the internet for information on how to communicate the challenging ideas that Garbage Collection (GC) encompasses. During one of these frenzies I came across a fascinating paper, <a href="http://faculty.cs.byu.edu/~jay/static/cooper-sigcse2013.pdf">*Teaching Garbage Collection without Implementing Compilers or Interpreters*</a>, which attempts to provide a framework to teach Computer Science students the finer points of GC through the *constructivist* means of *having them actually implement the algorithms*. This framework, which is necessary because, according to the authors:
 
-A fascinating paper about a technique employed across a group of institutions, <a href="http://faculty.cs.byu.edu/~jay/static/cooper-sigcse2013.pdf">*Teaching Garbage Collection without Implementing Compilers or Interpreters*</a> proposes an interesting way to get at the heart of the issues that GC represents, allowing students to focus on the implementation details of various GC algorithms and their impact on runtimes without having to endure the pain of "curricular dependencies" (parsing, lexing, program transformation, etc.) normally associated with Virtual Machine construction.
+> "Many students appear to have a poor grasp of garbage collection."
 
-<a href="http://blog.brownplt.org/2013/02/19/teaching-gc.html">This post on the Brown University PLT Blog</a> outlines the technique, which uses the <a href="http://racket-lang.org">Dr. Racket IDE and Racket programming language</a> to teach Garbage Collection the trade-offs and implementation details of GC algorithms. The central concept behind this pedagogy is that students should *focus on the implementation details* of the collector and mutator routines in their runtimes, because...they are learning about Garbage Collection. The authors repeatedly refer to "curricular dependencies" as a deterrent to being able to teach GC thoroughly and deeply, and they cite evidence that their approach leads to students who understand memory management and GC and are excited to use it in practice. The authors make <a href="http://faculty.cs.byu.edu/~jay/courses/2012/fall/330/course/gc.html">some of their course work available</a>, and their approach and implementation is very compelling.
+While it is interesting to me how students learn, I am much more interested in how professionals learn. It's no surprise that this concept isn't discussed much in this paper, as it is clearly beyond its scope, but it is posited that:
+
+> "Beyond the pure pedagogic value, this (approach) could have a salutary impact on the software students write in their careers."
+
+Having tried to <a href="http://michaelrbernste.in/2013/02/23/notes-on-teaching-with-the-kernel-language-approach.html">draw connections between academic and professional practice before</a> with some success, I'm considering taking something very similar to the approach outlined in this paper in the talk I'm preparing, in order to illustrate the concepts at the core of Garbage Collection and leave a lasting impression.
+
+According to the paper, GC is taught at the Undergraduate and Graduate levels in varying degrees of granularity, for a wide range of purposes. Some programs merely place GC in the hierarchy of important problems and work areas in Computer Science, acknowledging that it is relied on, but not necessary to thoroughly understand. Other programs attempt to teach students how to implement GC in the context of Programming Language or Virtual Machine design, accepting the burden and relying on a host of prior knowledge from the student for the material to be comprehensible.
+
+The authors propose an interesting way to get at the heart of the issues that GC represents, allowing students to focus on the implementation details of various GC algorithms and their impact on runtimes without having to endure the pain of "curricular dependencies" (parsing, lexing, program transformation, etc.) normally associated with Virtual Machine construction.
+
+<a href="http://blog.brownplt.org/2013/02/19/teaching-gc.html">This post on the Brown University PLT Blog</a> outlines the technique, which uses the <a href="http://racket-lang.org">Dr. Racket IDE and Racket programming language</a> to teach Garbage Collection, including the practical trade-offs and details of GC algorithms. The central concept behind this pedagogy is that students should *focus on the implementation details* of the collector and mutator routines in their runtimes, because...they are learning about Garbage Collection. The authors repeatedly refer to "curricular dependencies" as a deterrent to being able to teach GC thoroughly and deeply, and they cite evidence that their approach leads to students who understand memory management and GC and are excited to use it in practice. The authors make <a href="http://faculty.cs.byu.edu/~jay/courses/2012/fall/330/course/gc.html">some of their course work available</a>, and their approach and implementation is very compelling.
 
 The flexibility and feature-set of Racket makes it possible for students to implement a collector in *ten functions* in order to be able to interface with a mutator that is provided by the framework.
 
@@ -40,22 +50,18 @@ Here's a breakdown of how the framework functions in practice:
 2. Students write limited Racket programs which are translated by the runtime and executed by a *mutator* which interacts with the system memory through the *student implemented collector.*
 3. The provided heap is visualized, giving students access to an interactive map which includes the ability to follow pointer references and see the memory layouts students have implemented in a realized form.
 
-Racket is an excellent choice for this kind of experiment. The authors of the framework have worked dilligently to provide a smooth experience for students, one of the most compelling of which is how they provide automatic <a href="en.wikipedia.org/wiki/A-normal_form">A-normal form</a> program transformation through the use of <a href="http://docs.racket-lang.org/reference/contmarks.html">continuation marks</a> and other language features to "re-route" memory allocations to the student designed *collector*.
-
-
+Racket is an excellent choice for this kind of experiment and the authors of the framework have worked diligently to provide a smooth experience for students, leveraging some awesome features along the way. One of the most compelling implementation details of the framework is how they provide automatic <a href="en.wikipedia.org/wiki/A-normal_form">A-normal form</a> program transformation through the use of <a href="http://docs.racket-lang.org/reference/contmarks.html">continuation marks</a> and other language features to "re-route" memory allocations to the student designed *collector*. I have provided an example of this below. <a href="http://docs.racket-lang.org/reference/contracts.html">Contracts</a> are also employed to ensure that all of the appropriate functions have been implemented.
 
 {% highlight clojure %}
+;; This small program
 #lang plai/mutator
 (allocator-setup "mrbcollector.rkt" 128)
-
 (define (incr-list lst)
  (if (empty? lst) empty
  (cons (+ 1 (first lst)) (incr-list (rest lst)))))
-
 (incr-list '(1 2 3 4 5))
-{% endhighlight %}
 
-{% highlight clojure %}
+;; Expands (partially, at least) to the below
 (module mutator plai/mutator
   (#%module-begin
    (begin
@@ -81,4 +87,15 @@ Racket is an excellent choice for this kind of experiment. The authors of the fr
    (mutator-top-interaction incr-list '(1 2 3 4 5))))
 {% endhighlight %}
 
-<img src="http://michaelrbernste.in/heap_layout_racket.png">
+<center><i>An example of how Racket macro expansions are used to insert and reroute allocations to student written collectors</i></center>
+
+# 
+
+<img src="http://michaelrbernste.in/images/heap_layout_racket.png">
+<center><i>After executing the above program, the heap layout above is displayed</i></center>
+
+The paper reports a great deal of success with this approach, which leads me to wonder - can I turn it around a bit to help make various schemes clearer to professional developers in a conference setting? There is clearly great power in the simplicity in writing a very small lisp program and seeing your custom memory layout visualized, but will it translate when it is someone else's? Is the power in this approach in the *constructivism* that the authors worked so hard to achieve, or is the interface they provide an equally powerful tool?
+
+Knowing the basic concepts behind each of the major GC algorithms is not the same as implementing them or even pondering their implementation. Developers who rely on Garbage Collected programming languages, including Java, Ruby, and JavaScript to name a few, have a lot to gain by understanding the behaviors relative to the workloads they impose on the system.
+
+It is very simple to get up and running with this system. <a href="http://racket-lang.org/download/">Download Racket</a>, follow the instructions on <a href="http://faculty.cs.byu.edu/~jay/courses/2012/fall/330/course/gc.html">this course page</a>, and begin implementing various GC algorithms.
