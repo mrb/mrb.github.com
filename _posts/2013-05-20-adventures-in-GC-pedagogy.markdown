@@ -112,6 +112,8 @@ The paper reports a great deal of success with this approach, which leads me to 
 
 Knowing the basic concepts behind each of the major GC algorithms is not the same as implementing them or even pondering their implementation. Developers who rely on Garbage Collected programming languages, including Java, Ruby, and JavaScript to name a few, have a lot to gain by understanding the behaviors relative to the workloads they impose on their systems. It is one thing to know that head space is needed in a heap of a certain layout under certain workloads, and quite another to see it visualized and be able to interact with it.
 
-It is relatively simple to get up and running with this system. <a href="http://racket-lang.org/download/">Download Racket</a>, follow the instructions on <a href="http://faculty.cs.byu.edu/~jay/courses/2012/fall/330/course/gc.html">this course page</a>, begin implementing various GC algorithms, and see your favorites in action. If you don't learn something new, at the very least you'll appreciate the implementation of the GC you rely on daily.
+It is relatively simple to get up and running with this system. <a href="http://racket-lang.org/download/">Download Racket</a>, follow the instructions on <a href="http://faculty.cs.byu.edu/~jay/courses/2012/fall/330/course/gc.html">this course page</a>, begin implementing various GC algorithms, and see your favorites in action (an example Mark and Sweep collector <a href="https://github.com/plt/racket/blob/master/collects/tests/plai/gc/good-collectors/good-collector.rkt">can be found here</a>). If you don't learn something new, at the very least you'll appreciate the implementation of the GC you rely on daily.
 
-<i><b>Note:</b> An earlier version of this post linked directly to the PDF. A correction was made to link to the information page at the request of one of the authors, Shriram Krishnamurthi.</i>
+<i>Thank you to the authors of the original paper for their encouragement and links to further resources.</i>
+
+<i><b>Note:</b> An earlier version of this post linked directly to the PDF. A correction was made to link to the information page at the request of the authors.</i>
