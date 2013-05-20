@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Adventures in Garbage Collection Pedagogy and an Introduction to Racket
-published: false
+published: true
 ---
 # 
 #### Adventures in Garbage Collection Pedagogy and an Introduction to Racket
@@ -96,6 +96,19 @@ Racket is an excellent choice for this kind of experiment and the authors of the
 <center><i>After executing the above program, the heap layout above is displayed</i></center>
 
 The paper reports a great deal of success with this approach, which leads me to wonder - can I turn it around a bit to help make various schemes clearer to professional developers in a conference setting? There is clearly great power in the simplicity in writing a very small lisp program and seeing your custom memory layout visualized, but will it translate when it is someone else's? Is the power in this approach in the *constructivism* that the authors worked so hard to achieve, or is the interface they provide an equally powerful tool?
+
+{% highlight clojure %}
+;; type | value | inuse | x
+(define cell-size 4)
+
+(define (gc:alloc-flat p)
+ (begin
+   (when (> (+ heap-ptr cell-size) (heap-size))
+     (map (lambda (s) 
+            (print (read-root s))) (get-root-set))
+     (error "out of memory"))
+{% endhighlight %}
+<center><i>In progress work on implementing a mark and sweep collector in #lang plai/collector</i></center>
 
 Knowing the basic concepts behind each of the major GC algorithms is not the same as implementing them or even pondering their implementation. Developers who rely on Garbage Collected programming languages, including Java, Ruby, and JavaScript to name a few, have a lot to gain by understanding the behaviors relative to the workloads they impose on their systems. It is one thing to know that head space is needed in a heap of a certain layout under certain workloads, and quite another to see it visualized and be able to interact with it.
 
