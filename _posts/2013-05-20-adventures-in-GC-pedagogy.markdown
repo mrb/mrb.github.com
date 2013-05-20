@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Adventures in Garbage Collection Pedagogy and an Introduction to Racket
-published: true
+published: false
 ---
 # 
 #### Adventures in Garbage Collection Pedagogy and an Introduction to Racket
