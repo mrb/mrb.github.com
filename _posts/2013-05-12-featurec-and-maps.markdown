@@ -29,7 +29,7 @@ I asked David where the name came from, as it seemed kind of strange. He respond
 
 Which takes us to yet another Stack Overflow question, this time asked by David himself. It is summed up by Chung-chieh Shan as "Does no Prolog support feature structures (attribute value matrices) as terms!?" The short of it is this: there is a dearth of material concerning Prolog or other logic programming environment's treatment of `records`, `dictionaries`, `hashes`, or whatever you prefer to call them.
 
-After some back and forth in the thread, some attention was drawn to the <a href="http://www.nactem.ac.uk/tsujii/lilfes/">LiLFeS</a> project and it's concept of <a href="http://www.nactem.ac.uk/tsujii/lilfes/manual/chap3.html">Feature Structures</a>. LiLFeS is extremely obscure, but it is definitely legitimized by its logo:
+After some back and forth in the thread, some attention was drawn to the <a href="http://www.nactem.ac.uk/tsujii/lilfes/">LiLFeS</a> project and its concept of <a href="http://www.nactem.ac.uk/tsujii/lilfes/manual/chap3.html">Feature Structures</a>. LiLFeS is extremely obscure, but it is definitely legitimized by its logo:
 
 <center><img src="http://www.nactem.ac.uk/lilfes/lilfes-ninomi.gif"></center>
 
