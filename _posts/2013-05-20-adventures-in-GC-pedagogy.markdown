@@ -46,7 +46,7 @@ The flexibility and feature-set of Racket makes it possible for students to impl
 
 Here's a breakdown of how the framework functions in practice:
 
-1. Students implement a Garbage Collection algorithm by implementing the functions above. These functions serve as a specification that abstracts GC so that each algorithm, or *collector*, can be implemented. Note that mark and sweep, compacting, and generational collectors are exploreed. Concurrent and real time systems are beyond the scope of this work.
+1. Students implement a Garbage Collection algorithm by implementing the functions above. These functions serve as a specification that abstracts GC so that each algorithm, or *collector*, can be implemented. Note that mark and sweep, compacting, and generational collectors are explored. Concurrent and real time systems are beyond the scope of this work.
 2. Students write limited Racket programs which are translated by the runtime and executed by a *mutator* which interacts with the system memory through the *student implemented collector.*
 3. The provided heap is visualized, giving students access to an interactive map which includes the ability to follow pointer references and see the memory layouts students have implemented in a realized form.
 
@@ -114,6 +114,6 @@ Knowing the basic concepts behind each of the major GC algorithms is not the sam
 
 It is relatively simple to get up and running with this system. <a href="http://racket-lang.org/download/">Download Racket</a>, follow the instructions on <a href="http://faculty.cs.byu.edu/~jay/courses/2012/fall/330/course/gc.html">this course page</a>, begin implementing various GC algorithms, and see your favorites in action (an example Mark and Sweep collector <a href="https://github.com/plt/racket/blob/master/collects/tests/plai/gc/good-collectors/good-collector.rkt">can be found here</a>). If you don't learn something new, at the very least you'll appreciate the implementation of the GC you rely on daily.
 
-<i>Thank you to the authors of the original paper for their encouragement and links to further resources.</i>
+<i>Thank you to the authors of the original paper for their encouragement and links to further resources, and to @jdmaturen for the correction.</i>
 
 <i><b>Note:</b> An earlier version of this post linked directly to the PDF. A correction was made to link to the information page at the request of the authors.</i>
