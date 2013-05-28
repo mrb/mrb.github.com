@@ -4,14 +4,160 @@ title: A Generation Ago, A Thoroughly Modern Sampling
 published: false
 ---
 # 
-#### A Generation Ago, A Thoroughly Modern Sampling
+### A Generation Ago, A Thoroughly Modern Sampling
 
-The Artificial Intelligence Laboratory at the Massachusetts Institute of Technology produced an astonishing quantity of material during its tenure. Chief amongst the remaining artifacts are the <a href="http://publications.csail.mit.edu/ai/pubs_browse.shtml">"A.I. Memos,"</a> a series of papers which coverr research topics engaged in by a variety of many of the most intense and imaginative minds in Computer Science history.
+The <a href="http://www.csail.mit.edu/timeline/timeline.php">Artificial Intelligence Laboratory at the Massachusetts Institute of Technology</a> is a keystone institution responsible for a sizeable share of what we know of as hacker culture, fusing deep Mathematics and Computer Science knowledge with a culture of progress, exploration, and documentation.
+
+An astonishing quantity of written material came from the Lab, including the <a href="http://publications.csail.mit.edu/ai/pubs_browse.shtml">*"A.I. Memos,"*</a> a series of papers which cover research topics engaged in by a variety of many of the most brilliant and imaginative minds in Computer Science history. I spent some time studying one of these memos recently, and found a lot of insights in the early connections between some broad ideas that remain valid in modern programming.
+
+#### A Little More About The Lab
+
+The origins of Lisp are in these memos, including many written by our field's pioneers like <a href="http://en.wikipedia.org/wiki/John_McCarthy_(computer_scientist)">John McCarthy</a>, who was communicating the accomplishments of the language via beautiful, roughly typeset pages with headings like this:
 
 <center><img src="http://michaelrbernste.in/images/aimemo.png"></center>
 
-"The first generational collector, by Lieberman and Hewitt" <a href="#bib1">[1]</a>
+McCarthy, Minsky, Sussman, Steele, and more all contributed fascinating, groundbreaking insights into their research or the research of their students,
+and things remained interesting throughout the long history of the organization. As they tried to build faster, more efficient, and more powerful machines, they continued to publish their findings, curiosities, and musings as memos.
+
+This post couldn't possibly serve as an overview of the breadth or depth of the work done in these memos, but recent research made it possible for me to *have to* read one of them, and though I knew what to expect to a certain extent (the paper is famous for a particularly innovative bit of thinking), I was taken aback by how much of the spirit of the series was encapsulated in this one often lauded but seldomnly discussed paper.
+
+#### A Tome From Two Great Minds
+
+*<a href="ftp://publications.ai.mit.edu/ai-publications/pdf/AIM-569a.pdf">"A Real Time Garbage Collector Based on the Lifetimes of Objects"</a>(pdf link)* by Henry Lieberman and Carl Hewitt introduced the concept of generational garbage collection, the algorithm that is used is what is widely considered the fastest and most modern virtual machine for running multi-purpose, object-oriented code, the Java Virtual Machine (JVM).<a href="#bib1">[1]</a> <a href="#bib2">[2]</a>
+
+A multi-sectioned, appendix-heavy monster, A.I. Memo No. 569a was published in October of 1981 with the Keywords:
+
+> "Real time garbage collection, reference counting, Lisp, object-oriented programming, virtual memory, parallel processing"
+
+and touts an algorithm with the following properties:
+
+> "Makes storage for short-lived objects cheaper than storage for long-lived objects; Operates in real time - object creation and access times are bounded; Increases locality of reference, for better virtual memory performance; Works well with multiple processors and a large address space."
+
+At this point it should not be novel for me that authors on the cutting edge of technology one year after my birth, a generation ago, should be concerned with more or less the same exact things that I am, but for some reason, it is. The origin of deep ideas beget generations of implementations, each of them nuanced and purposeful. Plus, I love the style and depth of this paper. I love the way the audience is treated, as knowledgeable and excited, which the authors clearly are.
+
+In studying and understanding the roots of generational GC, I kept coming back to the influence that Lisp had on the design of the algorithm, how the design considerations for modern-for-1981 computers would still be considered modern today in many respects, how Lieberman and Hewitt are interested in the GC's impact on code style, and how instrumenting and tuning the generational GC was invented right alongside the algorithm itself.
+
+#### There's Lisp In The Generational GC
+
+Hewitt and Liberman's main motive in working on a Gabrage Collection algorithm was to improve the performance and scalability of Artificial Intelligence programs. While the authors are primarily concerned with Lisp, as their proclivity for name-dropping other obscure programming languages proves (**AMORD**, **ETHER**, **KRL**, and **OMEGA** to name most of them), they had their sights set on the skies.
+
+Artificial Intelligence applications are characterized as long-running and processor intensive, and the authors recognize that existing algorithms for automatic memory management tend to penalize programmers for code that should be faster. A metaphor of "renting vs. buying" is invoked, where there shouldn't be the same amount of overhead paid for short-lived objects as for long-lived ones, and there should be many ways for the system to know if an object will be long lived.
+
+The algorithm is described as an extension of Baker's copying algorithm, which works like this:
+
+0. The heap is divided into two spaces, the *from space* and the *to space*
+1. Memory is allocated in the *from space*
+2. When the *from space* runs out of memory, the space is scanned in a *scanning* process and objects are *evacuated* to the *to space*
+3. A *flip* operation occurs, and the *from space* is now the *to space* and vice versa
+4. Objects with references to objects in the *from space* are updated in a *scavenging* process
+
+Hewitt and Lieberman's algorithm strives to make short lived object allocations cheaper, after the observation that most objects die young, and that it is expensive to scan objects on the heap which are known to be long-lived. Adding the consideration for the lifespan of objects is seen as the central contribution of this paper. It turns out that relying on the so-called "weak generational hypothesis" in and of itself is not enough, but the hyopthesis  served as a starting point for a direction that is still seen as fruitful today, over 30 years later.
+
+The generational algorithm starts by considering a Baker like algorithm which substitutes *many smaller regions* for the Baker semi-spaces. The same operations *scanning*, *evacuating*, and *scavenging* occur, but on a smaller scale, per region. The paper explains their primary function:
+
+> "We will use these fine divisions of the address space to vary the rate of garbage collection for each region, according to the age of that region. Recently created regions will contain high percentages of garbage, and will be garbage collected frequently. Older regions will contain relatitvely permanent data, and will be garbage collected very seldom."
+
+One of the challenging aspects of *copying* or *moving garbage collectors* is dealing with objects that hold references to other objects, particularly if older generation objects hold references to younger generation objects. This is an issue because we want to optimize for the fast creation and destruction of young objects, and if older objects hold references, we will have to make sure that they don't get out of sync. The authors propose an *"entry table,"* where references to young objects from the oler generations would be stored in an intermediary table that could be updated, without having to scan all of the older generation objects. This concept is the precedent to the modern concept of the *"remembered set* and *"write barrier"* techniques in modern generational garbage collectors and is a key "hook" or insight that the authors had.
+
+As clever and shockingly effective as the algorithm is, the salient part is that it was directly inspired by Lisp. The concept arose from software created on a completely different architecture and used and measured in radically different ways, but remains a driving force in practical application of garbage collection in today's virtual machines.
+
+The authors say:
+
+> "We intend to exploit some empirically observed properties of heap storage. Most pointers point *backward in time*, that is, objects tend to point to objects that were created earlier. This is because object creation operations like CONS can only create backward pointers, since the components of the object must exist before the object itself is created.
+
+#### Garbage Collector Tuning: Instrumentation and Heuristics
+
+The simple fact that the age of objects are taken into account helps the authors feel confident that their algorithm will be capable of providing efficient performance for a wide variety of programs. However they are concerned with measuring and demonstrating this efficiency, lamenting that "judging garbage collection algorithms is tricky." Not ones to shy away from a difficult problem, the authors provide a set of guidelines that we can use to measure aspects of our Lisp programs that could then be applied to garbage collection research. This is a really interesting list:
+
+0. How fast are objects created?
+1. How fast do objects become inaccessible?
+2. How often do pointers point to objects that are younger than themselves, versus pointing to older objects?
+3. How much locality is there in the program?
+
+After adding that "Certainly the trends are in the direction of programs with increased locality and toward programs that rely on object creation rather than modification," the authors lay out several ways in which we might be able to tune our running programs management of memory.
+
+> "Often a sophisticated user is in a position to know whether a particular object is likely to be relatively temporary or more permanent. The system should be able to take advantage of such knowledge to improve the performance of the program. It might be advantageous to supply the user with several different flavors of object creation operations, so that the system can choose the best allocation strategy appropriate for that kind of object. An operation could be supplied which creates objects directly in some older generation, rather than in the current generation. Of course, this decision will have no effect upon the semantics of the program; it will only affect the efficiency of garbage collection."
+
+One example, above, is given for how changing the programming language itself might make things easier. We are also offered examples of a fewer numbers that can be tweaked, like region size, in order to accomodate certain programs. Both of these concepts, which are echoed in modern day *compiler hinting* and *GC tuning* are very important to how people think about code and running programs to this day. It is thrilling to see the authors discuss these ideas as they apply to a variety of different paradigms, as everything is open, possible, and hackable.
+
+#### Multiple Processors and a "Large Address Space"
+
+1981 was clearly an intense time to be a researcher in Artificial Intelligence. It's interesting to try and imagine the disparity between the depth of the technology at the Lab and the speed of information transfer in the world at large. Clearly the authors of this paper had an imperative to consider what the next few computers might look like while developing algorithms that would suffice on existing ones, because the idea that the generational algorithm would function well for computers with multiple processors and a "large address space" comes up multiple times.
+
+> "Since processors are continually getting cheaper, multiprocessor machines will soon appear. The incentive for using multiple processor machines is especially important for Al applications. Our garbage collection scheme has been designed to be suitable for implementation on multiple processor machines."
+
+The authors describe a very interesting sounding system which *eschews shared memory* in favor of processes with their own heaps which get information passed to them via messages. They have considered the challenges in sharing changing object references and come up with some ideas for tables that can be maintained on the borders between processors to make updating these references simpler.
+
+I was struck by this because of the prevalence of message passing semantics and its role in modern programming languages and garbage collection technology. Languages like <a href="http://golang.org/">Go</a> rely on message passing to reduce shared memory, which relieves some pressure on the garbage collector. <a href="http://www.erlang.org/">Erlang</a> also uses message passing semantics and has per-lightweight-process GC Heaps, making system wide GC pauses very rare.
+
+It's always nice to see confirmation for concepts applied in modern software in the primordial swamp of early Computer Science, even though it should be obvious that that's where most of these ideas came from.
+
+#### Style Matters
+
+One of the 
+
+#### Lisp Code Appendix
+
+The fact that code appeared in this paper is one of the reasons that made me want to write about it. I have become very interested in it as I read the paper over and over again, so I decided to type it out to preserve it, in a non-image format, here. The first section is, according to the authors, clearer but less efficient, both due to the use of creating extra lists and functions for clarity and expressiveness. The functions are composable, which the authors also feel lends to their comprehensibility.
+
+{% highlight clojure %}
+(defun dot-product (left-vector right-vector)
+  (cond ((or (null left-vector) (null right-vector)) 0)
+        ((+ (* (car left-vector) (car right-vector))
+          (dot-product
+          (cdr left-vector)
+          (cdr right-vector))))))
+
+(defun transpose (matrix)
+  (cond ((null (car matrix)) nil)
+    ((cons (mapcar 'car matrix)
+    (transpose (mapcar 'cdr
+    matrix))))))
+
+(def matrix-multiply (left-matrix right-matrix)
+  (let ((columns (transpose right-matrix)))
+    (mapcar
+      '(lambda (row)
+               (mapcar
+               '(lambda (column)
+                        (dot-product row
+                         column))
+                columns))
+                        left-matrix)))
+{% endhighlight %}
+
+The second code sample is more efficient because it allocates fewer lists and functions, and performs fewer passes. For this reason, two operations are conflated, making this harder to read, and less reusable.
+
+{% highlight clojure %}
+(defun matrix-multiply-without-transposing
+(left-matrix right-matrix)
+  (mapcar
+  '(lambda (row
+           (let ((column-index 0)
+                (mapcar
+                '(lambda (column
+                         (prog1 (dot-product-column
+                          row
+                          right-matrix
+                          column-index)
+                          (seq column-index
+                          (+column-index 1))))
+                (car right-matrix))))
+  left-matrix)))))
+
+(defun dot-product-column
+(row matrix column-index)
+  (cond ((null row) 0)
+        ((+ (* (car row)
+               (nth column-index (car matrix)))
+            (dot-product-column
+              (cdr row)
+              (cdr matrix)
+              column-index)))))
+{% endhighlight %}
 
 #### Works Cited
 
-<a id="bib1">[1]</a> "Garbage collection: algorithms for automatic dynamic memory management" Richard Jones & Rafael Lins, p. 166
+<a id="bib1">[1]</a> *"A Real-Time Garbage Collector Based on the Lifetimes of Objects"* Henry Lieberman & Carl Hewitt, 1981
+
+<a id="bib2">[2]</a> *"Garbage collection: algorithms for automatic dynamic memory management"* Richard Jones & Rafael Lins, 1996. p. 166

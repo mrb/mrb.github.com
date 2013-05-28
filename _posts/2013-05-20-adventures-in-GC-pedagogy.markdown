@@ -4,7 +4,7 @@ title: Adventures in Garbage Collection Pedagogy and an Introduction to Racket
 published: true
 ---
 # 
-#### Adventures in Garbage Collection Pedagogy and an Introduction to Racket
+### Adventures in Garbage Collection Pedagogy and an Introduction to Racket
 
 While preparing for a <a href="http://goruco.com/speakers/2013/bernstein-mike/">conference talk on Garbage Collection algorithms, implementations, and history</a>, I have made a habit of scouring the internet for information on how to communicate the challenging ideas that Garbage Collection (GC) encompasses. During one of these frenzies I came across a fascinating paper, <a href="http://cs.brown.edu/~sk/Publications/Papers/Published/cgkmf-teach-gc/">*Teaching Garbage Collection without Implementing Compilers or Interpreters*</a>, which attempts to provide a framework to teach Computer Science students the finer points of GC through the *constructivist* means of *having them actually implement the algorithms*. This framework is necessary because according to the authors:
 
