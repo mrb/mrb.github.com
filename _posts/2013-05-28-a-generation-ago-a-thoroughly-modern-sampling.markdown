@@ -19,7 +19,7 @@ This post couldn't possibly serve as an overview of the breadth or depth of the 
 
 #### A Tome From Two Great Minds
 
-*<a href="ftp://publications.ai.mit.edu/ai-publications/pdf/AIM-569a.pdf">"A Real Time Garbage Collector Based on the Lifetimes of Objects"</a>(pdf link)* by Henry Lieberman and Carl Hewitt introduced the concept of generational garbage collection, the algorithm that is used is what is widely considered the fastest and most modern virtual machine for running multi-purpose, object-oriented code, the Java Virtual Machine (JVM).<a href="#bib1">[1]</a> <a href="#bib2">[2]</a>
+*<a href="ftp://publications.ai.mit.edu/ai-publications/pdf/AIM-569a.pdf">"A Real Time Garbage Collector Based on the Lifetimes of Objects"</a>(pdf link)* by Henry Lieberman and Carl Hewitt introduced the concept of generational garbage collection, the algorithm that is used in what is widely considered the fastest and most modern virtual machine for running multi-purpose, object-oriented code, the Java Virtual Machine (JVM).<a href="#bib1">[1]</a> <a href="#bib2">[2]</a>
 
 A multi-sectioned, appendix-heavy monster, A.I. Memo No. 569a was published in October of 1981 with the Keywords:
 
