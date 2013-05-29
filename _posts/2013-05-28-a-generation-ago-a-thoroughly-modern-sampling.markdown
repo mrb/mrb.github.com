@@ -1,16 +1,12 @@
 ---
 layout: post
 title: A Generation Ago, A Thoroughly Modern Sampling
-published: false
+published: true
 ---
 # 
 ### A Generation Ago, A Thoroughly Modern Sampling
 
-The <a href="http://www.csail.mit.edu/timeline/timeline.php">Artificial Intelligence Laboratory at the Massachusetts Institute of Technology</a> is a keystone institution responsible for a sizable share of what we know of as hacker culture, fusing deep Mathematics and Computer Science knowledge with a culture of progress, exploration, and documentation.
-
-An astonishing quantity of written material came from the Lab, including the <a href="http://publications.csail.mit.edu/ai/pubs_browse.shtml">*"A.I. Memos,"*</a> a series of papers which cover research topics engaged in by a variety of many of the most brilliant and imaginative minds in Computer Science history. I spent some time studying one of these memos recently, and found a lot of insights in the early connections between some broad ideas that remain valid in modern programming.
-
-#### A Little More About The Lab
+The <a href="http://www.csail.mit.edu/timeline/timeline.php">Artificial Intelligence Laboratory at the Massachusetts Institute of Technology</a> was a keystone institution responsible for a sizable share of what we now think of as hacker culture, fusing deep Mathematics and Computer Science knowledge with a culture of progress, exploration, and documentation. An astonishing quantity of written material came from the Lab, including the <a href="http://publications.csail.mit.edu/ai/pubs_browse.shtml">*"A.I. Memos,"*</a> a series of papers which cover research topics engaged in by a variety of many of the most brilliant and imaginative minds in Computer Science history.
 
 The origins of Lisp are in these memos, including many written by our field's pioneers like <a href="http://en.wikipedia.org/wiki/John_McCarthy_(computer_scientist)">John McCarthy</a>, who was communicating the accomplishments of the language via beautiful, roughly typeset pages with headings like this:
 
@@ -19,7 +15,7 @@ The origins of Lisp are in these memos, including many written by our field's pi
 McCarthy, Minsky, Sussman, Steele, and more all contributed fascinating, groundbreaking insights into their research or the research of their students,
 and things remained interesting throughout the long history of the organization. As they tried to build faster, more efficient, and more powerful machines, they continued to publish their findings, curiosities, and musings as memos.
 
-This post couldn't possibly serve as an overview of the breadth or depth of the work done in these memos, but recent research made it possible for me to *have to* read one of them, and though I knew what to expect to a certain extent (the paper is famous for a particularly innovative bit of thinking), I was taken aback by how much of the spirit of the series was encapsulated in this one often lauded but seldom discussed paper.
+This post couldn't possibly serve as an overview of the breadth or depth of the work done in these memos, but recent research made it possible for me to *have to* read one of them while studying Generational Garbage Collection, and I found a lot of insights and surprises beyond the known bit of innovation I was seeking. I was surprised my many other things, including the influence that Lisp had on the design of the algorithm, the design considerations for modern-for-1981 computers, how instrumenting and tuning the generational GC was invented right alongside the algorithm itself, and how Lieberman and Hewitt are interested in memory management's impact on code style.
 
 #### A Tome From Two Great Minds
 
@@ -35,15 +31,13 @@ and touts an algorithm with the following properties:
 
 At this point it should not be novel for me that authors on the cutting edge of technology one year after my birth, a generation ago, should be concerned with more or less the same exact things that I am, but for some reason, it is. The origin of deep ideas beget generations of implementations, each of them nuanced and purposeful. Plus, I love the style and depth of this paper. I love the way the audience is treated, as knowledgeable and excited, which the authors clearly are.
 
-In studying and understanding the roots of generational GC, I kept coming back to the influence that Lisp had on the design of the algorithm, how the design considerations for modern-for-1981 computers would still be considered modern today in many respects, how Lieberman and Hewitt are interested in the GC's impact on code style, and how instrumenting and tuning the generational GC was invented right alongside the algorithm itself.
-
 #### There's Lisp In The Generational GC
 
 Hewitt and Lieberman's main motive in working on a Garbage Collection algorithm was to improve the performance and scalability of Artificial Intelligence programs. While the authors are primarily concerned with Lisp, as their proclivity for name-dropping other obscure programming languages (**AMORD**, **ETHER**, **KRL**, and **OMEGA** to name most of them) proves, they also had their sights set on other pastures.
 
 Artificial Intelligence applications are characterized as long-running and processor intensive, and the authors recognize that existing algorithms for automatic memory management tend to penalize programmers for code that should be faster. A metaphor of "renting vs. buying" is invoked, where there shouldn't be the same amount of overhead paid for short-lived objects as for long-lived ones, and there should be many ways for the system to know if an object will be long lived.
 
-The algorithm is described as an extension of Baker's copying algorithm, which works like this:
+The algorithm is described as an extension of Baker's copying algorithm, which works roughly like this:
 
 0. The heap is divided into two spaces, the *from space* and the *to space*
 1. Memory is allocated in the *from space*
@@ -78,7 +72,7 @@ After adding that "Certainly the trends are in the direction of programs with in
 
 > "Often a sophisticated user is in a position to know whether a particular object is likely to be relatively temporary or more permanent. The system should be able to take advantage of such knowledge to improve the performance of the program. It might be advantageous to supply the user with several different flavors of object creation operations, so that the system can choose the best allocation strategy appropriate for that kind of object."
 
-One example, above, is given for how changing the programming language itself might make things easier. We are also offered examples of a fewer numbers that can be tweaked, like region size, in order to accommodate certain programs. Both of these concepts, which are echoed in modern day *compiler hinting* and *GC tuning* are very important to how people think about code and running programs to this day. It is thrilling to see the authors discuss these ideas as they apply to a variety of different paradigms, as everything is open, possible, and hackable.
+One example, above, is given for how changing the programming language itself might make things easier. We are also offered examples of a few numbers that can be tweaked, like region size, in order to accommodate certain programs. Both of these concepts, which are echoed in modern day *compiler hinting* and *GC tuning* are very important to how people think about code and running programs to this day. It is amazing to see that they were introduced alongside the algorithm itself, and thrilling to see the authors discuss these ideas as they apply to a variety of different paradigms, as everything is open, possible, and hackable.
 
 #### Multiple Processors and a "Large Address Space"
 
@@ -104,7 +98,7 @@ The design of a programming language and the design of the memory management sys
 
 #### Generational GC A Generation Later
 
-Modern tunable Garbage Collectors have clear roots in the work Hewitt and Lieberman as presented in this paper. Developers who rely on programming languages with automatically managed memory can learn valuable lessons about the tradeoffs present in their tools by understanding where the ideas they rely on came from, but more than a touchstone for a modern technology workhorse, this paper represents an archeological sampling of a wide swatch of deep thought in applied Computer Science that encourages, surprises, and enlightens.
+Modern tunable Garbage Collectors have clear roots in the work Hewitt and Lieberman as presented in this paper. Developers who rely on programming languages with automatically managed memory can learn valuable lessons about the tradeoffs present in their tools by understanding where the ideas they rely on came from, but more than a touchstone for a modern technology workhorse, this paper represents an archeological sampling of a wide swath of deep thought in applied Computer Science that encourages, surprises, and enlightens.
 
 The AI Memos are an extremely fertile ground for modern research. While it's true that what this group of pioneers thought was impossible then may be possible now, it's even clearer that some things we think are impossible now have been possible all along.
 
