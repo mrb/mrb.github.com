@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A Generation Ago, A Thoroughly Modern Sampling
-published: true
+published: false
 ---
 # 
 ### A Generation Ago, A Thoroughly Modern Sampling
