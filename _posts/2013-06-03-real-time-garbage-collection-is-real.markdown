@@ -36,7 +36,7 @@ The top band shows two long GC pauses which reflect normal behavior of *Stop the
 
 > "...as real-time systems are now understood, none of the previous algorithms live up to the promise of supporting true real-time behavior."
 
-The bottom band above shows ideal behavior for RTGC. Pauses are short and regularly spaced out. This particular pattern comes from a very interesting approach to RTGC, known as *The Metronome.*<a href="#bib1">[1]</a> The algorithm is interesting for a number of reasons, but I found one detail particularly striking, as a tweak to the algorithm is made in an area not often explored in GC. The authors suggest that a different means of *scheduling* the collector execution is key to guaranteeing sufficient mutator utilization.
+The bottom band above shows ideal behavior for RTGC. Pauses are short and regularly spaced out - in a word, predictable. I was drawn to this means of visualizing GC behavior by the authors of a very interesting approach to RTGC, known as *The Metronome.*<a href="#bib1">[1]</a> <a href="#bib3">[3]</a> The algorithm is interesting for a number of reasons, but I found one detail particularly striking, as a tweak to the algorithm is made in an area not often explored in GC. The authors suggest that a different means of *scheduling* the collector execution is key to guaranteeing sufficient mutator utilization.
 
 #### Scheduling Real-Time Garbage Collection
 
