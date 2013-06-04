@@ -58,7 +58,7 @@ That's just how the Metronome functions when it is run with the time-based sched
 
 #### A Trade-Off and a Send-Off
 
-Just to remind you that I'm not lying, Real-Time Garbage Collection is real, and this is not magical, there are trade-offs. In order to be able to provide a consistently scheduled amount of memory, we have to ease off on our requirements for space bounds - our running programs may exceed the amount of space we want it to take (but not the amount of space that we estimate it could possibly take, of course).
+Just to remind you that I'm not lying, Real-Time Garbage Collection is real, and this is not magical, there are trade-offs. In order to be able to provide a consistently scheduled amount of memory, we have to ease off on our requirements for space bounds - our running programs may exceed the amount of space we want them to take (but not the amount of space that we estimate they could possibly take).
 
 While reading the literature about RTGC, I was struck again and again by how the basic principles that non real-time software developers operate by are invalid in a world of such strict guarantees. In order to consider deploying real-time code, an enormous amount of testing, measurement, prediction, proof, etc. has to occur. The Garbage Collector can operate with the knowledge that it can expect a consistent amount of work, within a reasonable degree. Jones points out that work-based scheduling can guarantee our requirements as long as the amount of work done can be properly estimated. Time-based scheduling can provide stronger time guarantees but will have to use more space during times of heavy use if the system is not expecting it. Trade-offs. Always trade-offs.
 
