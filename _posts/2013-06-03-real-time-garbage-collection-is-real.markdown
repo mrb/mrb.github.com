@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Real-Time Garbage Collection Is Real
-published: false
+published: true
 ---
 # 
 ### Real-Time Garbage Collection Is Real
@@ -36,7 +36,7 @@ The top band shows two long GC pauses which reflect normal behavior of *Stop the
 
 > "...as real-time systems are now understood, none of the previous algorithms live up to the promise of supporting true real-time behavior."
 
-The bottom band above shows ideal behavior for RTGC. Pauses are short and regularly spaced out. This particular pattern comes from a very interesting approach to RTGC, known as *The Metronome.*<a href="#bib1">[1]</a> The algorithm is interesting for a number of reasons, but I found one detail particularly striking, as a tweak to the algorithm is made in an area not often explored in GC. The authors suggest that a different means of *scheduling* the collector execution is key to guaranteeing a lower bounds on mutator utilization.
+The bottom band above shows ideal behavior for RTGC. Pauses are short and regularly spaced out. This particular pattern comes from a very interesting approach to RTGC, known as *The Metronome.*<a href="#bib1">[1]</a> The algorithm is interesting for a number of reasons, but I found one detail particularly striking, as a tweak to the algorithm is made in an area not often explored in GC. The authors suggest that a different means of *scheduling* the collector execution is key to guaranteeing sufficient mutator utilization.
 
 #### Scheduling Real-Time Garbage Collection
 
@@ -50,7 +50,7 @@ The *Metronome* authors made some headway in the area of RTGC scheduling. As the
 
 > "We show both analytically and experimentally that time-based scheduling is superior, particularly at the short intervals that are typically of interest in real-time systems. Work-based algorithms may achieve short individual pause times, but are unable to achieve consistent utilization." <a href="#bib2">[2]</a>
 
-I found this to be fascinating - it's true that work and slack based scheduling approaches can provide predictably short pause times, but they do not have the ability to make the decision to also to guarantee an acceptable amount of mutator utilization. Jones brings up another very interesting paper, *A hard look at hard real-time garbage collection* where the author concurs:
+I found this to be fascinating - it's true that work and slack based scheduling approaches can provide predictably short pause times, but they do not have the ability to make the decision to also guarantee an acceptable amount of mutator utilization. Jones brings up another very interesting paper, *A hard look at hard real-time garbage collection* where the author concurs:
 
 > "I see a growing consensus that time-based methods, in which the garbage collector is treated as a separate task in the real-time scheduling problem, allow more realistic timing analysis of the real-time code, by decreasing GC “taxes” on mutator operations." <a href="#bib4">[4]</a>
 
@@ -58,7 +58,7 @@ That's just how the Metronome functions when it is run with the time-based sched
 
 #### A Trade-Off and a Send-Off
 
-Just to remind you that I'm not lying, Real-Time Garbage Collection is real, and this is not magical, there are trade-offs. In order to be able to provide a consistently scheduled amount of memory, we have to ease off on our requirements for space bounds - our running programs may exceed the amount of space we want them to take (but not the amount of space that we estimate they could possibly take).
+Just to remind you that I'm not lying, Real-Time Garbage Collection is real, and this is not magical: **there are trade-offs to be made**. In order to be able to provide a consistently scheduled amount of memory, we have to ease off on our requirements for space bounds - our running programs may exceed the amount of space we want them to take (but not the amount of space that we estimate they could possibly take).
 
 While reading the literature about RTGC, I was struck again and again by how the basic principles that non real-time software developers operate by are invalid in a world of such strict guarantees. In order to consider deploying real-time code, an enormous amount of testing, measurement, prediction, proof, etc. has to occur. The Garbage Collector can operate with the knowledge that it can expect a consistent amount of work, within a reasonable degree. Jones points out that work-based scheduling can guarantee our requirements as long as the amount of work done can be properly estimated. Time-based scheduling can provide stronger time guarantees but will have to use more space during times of heavy use if the system is not expecting it. Trade-offs. Always trade-offs.
 
