@@ -12,10 +12,10 @@ This post is a brief introduction to the concepts of RTGC with a focus on how th
 
 #### What is Real-Time?
 
-Since Garbage Collected languages have conquered the enterprise and are thoroughly mainstream, their benefits are desired in real-time scenarios and can be found everywhere from dedicated server applications to embedded devices.<a href="#bib6">[6]</a> In order to be able to discuss some interesting aspects of implementing RTGC, it would be helpful to have some definitions. Here are a few key terms:
+Since Garbage Collected languages have conquered the enterprise and are thoroughly mainstream, their benefits are desired in real-time scenarios. These days, Real-Time Garbage Collected software can be found running everywhere from dedicated server applications to embedded devices.<a href="#bib6">[6]</a> In order to be able to discuss some interesting aspects of implementing RTGC, it would be helpful to have some definitions. Here are a few key terms:
 
 * **Garbage Collection** (GC) is a form of *Automatic Memory Management* which gives a program the appearance of infinite memory by reclaiming allocated objects which are no longer in use. The implementation details of GC include how memory is allocated, stored and referred to during program execution, and eventually reclaimed and freed.
-* A **real-time system** is "a hardware or software system that is subject to deadlines from event to system response." Some *soft* real-time systems such as video displays can tolerate the occasional failure; a dropped frame isn't the end of the world. There are also *hard* real-time systems such as those running internal combustion engines, which rightly consider even one missed deadline a total system failure: missing a deadline can mean damanging an engine.
+* A **real-time system** is "a hardware or software system that is subject to deadlines from event to system response." Some *soft* real-time systems such as video displays can tolerate the occasional failure; a dropped frame isn't the end of the world. There are also *hard* real-time systems such as those running internal combustion engines, which rightly consider even one missed deadline a total system failure: missing a deadline can mean damaging an engine.
 * The **mutator** is the part of a running program which executes application code, so called because "from the collector's point of view it simply mutates the graph of objects"
 * The **collector** is the part of the running program which handles the duties of GC
 * **Mutator utilization** is the "fraction of CPU time used by the mutator, as opposed to by the collector"
@@ -61,6 +61,8 @@ That's just how the Metronome functions when it is run with the time-based sched
 Just to remind you that I'm not lying, Real-Time Garbage Collection is real, and this is not magical, there are trade-offs. In order to be able to provide a consistently scheduled amount of memory, we have to ease off on our requirements for space bounds - our running programs may exceed the amount of space we want it to take (but not the amount of space that we estimate it could possibly take, of course).
 
 While reading the literature about RTGC, I was struck again and again by how the basic principles that non real-time software developers operate by are invalid in a world of such strict guarantees. In order to consider deploying real-time code, an enormous amount of testing, measurement, prediction, proof, etc. has to occur. The Garbage Collector can operate with the knowledge that it can expect a consistent amount of work, within a reasonable degree. Jones points out that work-based scheduling can guarantee our requirements as long as the amount of work done can be properly estimated. Time-based scheduling can provide stronger time guarantees but will have to use more space during times of heavy use if the system is not expecting it. Trade-offs. Always trade-offs.
+
+*Thanks to James Golick for his proofreading and Computology expertise.*
 
 #### Works Cited
 
