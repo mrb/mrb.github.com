@@ -141,9 +141,10 @@ ul.posts span {
 }
 
 blockquote{
+  margin-left: 2em;
   font-style:italic;
   line-height: 180%;
-  font-size: 110%;
+  font-size: 95%;
 }
 
 /* Fonts */
