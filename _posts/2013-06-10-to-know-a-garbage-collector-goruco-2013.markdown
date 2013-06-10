@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "To Know A Garbage Collector: GoRuCo 2013"
-published: false
+published: true
 ---
 # 
 ### To Know A Garbage Collector: GoRuCo 2013
@@ -18,7 +18,7 @@ After introducing myself and making some corny jokes, I spoke a bit about three 
 
 > "The undecidability of liveness is a corollary of the halting problem"
 
-I couldn't possibly do the depth of this quote any justice here but it put the problem in perspective and made me realize that GC is truly one of the quintessential Computer Science problems.
+I couldn't possibly do the depth of this quote any justice here but it put the discipline in perspective and made me realize that GC is truly one of the quintessential Computer Science problems.
 
 **Cooper et al.'s *Teaching Garbage Collection without Implementing Compilers or Interpreters*** - I wrote about this paper <a href="http://michaelrbernste.in/2013/05/20/adventures-in-GC-pedagogy.html">in a blog post</a>, so I won't say more than that I specifically mentioned how the framework described in this paper allowed me to see GC algorithms in a concise and clear way that wasn't possible elsewhere.
 
