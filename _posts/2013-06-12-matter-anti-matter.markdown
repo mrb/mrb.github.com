@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Matter, Anti-Matter, and the Unified Theory of Garbage Collection"
-published: false
+published: true
 ---
 # 
 ### Matter, Anti-Matter, and the Unified Theory of Garbage Collection
@@ -17,7 +17,7 @@ Reference counting and tracing are often viewed as fundamentally different, inco
 I'm very interested in this deep insight and thought it would be fun to share the technique that they use to demonstrate their point. While the heart of the paper is actually based on a mathematical formalization known as a *fix-point formulation,* the basic intuition is easily expressed. It is more or less as follows:
 
 1. Explain the basics of naive implementations of tracing and reference counting
-2. Introduce small, very commonly applied optimizations to each algorithm which do not impact their complexity
+2. Introduce small, commonly applied optimizations to each algorithm which do not impact their complexity
 3. Illustrate how these optimizations "pull" each paradigm toward a common center-point
 4. Examine *real-world* GCs and illustrate that they are in fact, hybrid counter-tracers
 
@@ -82,7 +82,7 @@ def mark_from_roots
     if ref && !ref.is_marked?
       ref.set_marked
       worklist << ref
-      # performs mark on the descendents of this ref
+      # performs mark on the descendants of this ref
       recursive_mark(ref.children, worklist)
     end
   end
@@ -104,7 +104,7 @@ end
 # 
 #### The Tweaks
 
-There are situations in which the way that naive reference counting algorithms allocate and free memory are desirable, but for the most part, it is desirable to offload some of the tax on the *mutator*, or main thread of program execution. While not a recommended optimization, in order to push the two paradigms toward each other, the authors suggest a simple tweak to the reference counting algorithm: buffer decrement operations. Under this algorithm, when space is needed during an allocation, decrement operations which have been buffered in a *work-list* are recursively iterated over. Objects with a zero reference count are collected and objects which reference them are handled appropriately. This work-list contains *anti-matter.*
+There are situations in which the way that naive reference counting algorithms allocate and free memory are desirable, but for the most part, it is necessary to offload some of the tax on the *mutator*, or main thread of program execution. While not a recommended optimization, in order to push the two paradigms toward each other, the authors suggest a simple tweak to the reference counting algorithm: buffer decrement operations. Under this algorithm, when space is needed during an allocation, decrement operations which have been buffered in a *work-list* are recursively iterated over. Objects with a zero reference count are collected and objects which reference them are handled appropriately. This work-list contains *anti-matter.*
 
 {% highlight ruby %}
 def new
@@ -200,7 +200,7 @@ And indeed I applaud their use of an exclamation point. This is truly an amazing
 
 > "...all high-performance garbage collectors are in fact hybrids of tracing and reference counting techniques."
 
-Generational GC, <a href="http://michaelrbernste.in/2013/05/28/a-generation-ago-a-thoroughly-modern-sampling.html">which I have written about elsewhere</a>, is ane excellent example of a class of GC algorithms which are hybrids. Generational GC is based on the hypothesis that most objects "die young," so objects which have survived multiple generations should not be swept before objects which have not. These "generations" are maintained by dividing the heap into a *young* and *mature* space which are each collected at their own rate. There are issues with GCing objects when older generation objects refer to younger generation objects, but not vice versa. In order to avoid safety issues, generational GCs maintain a *remembered set* of objects in the young generation which are pointed to by objects in the mature space. From the paper:
+Generational GC, <a href="http://michaelrbernste.in/2013/05/28/a-generation-ago-a-thoroughly-modern-sampling.html">which I have written about elsewhere</a>, is an excellent example of a class of GC algorithms which are hybrids. Generational GC is based on the hypothesis that most objects "die young," so objects which have survived multiple generations should not be swept before objects which have not. These "generations" are maintained by dividing the heap into a *young* and *mature* space which are each collected at their own rate. There are issues with GCing objects when older generation objects refer to younger generation objects, but not vice versa. In order to avoid these safety issues, generational GCs maintain a *remembered set* of objects in the young generation which are pointed to by objects in the mature space. From the paper:
 
 > "The remembered set is maintained by a write barrier which is executed at every heap pointer update. The write barrier checks whether the pointer crosses from mature space to the nursery, and if so adds it to the remembered set. By now, the analogy with previous collectors should be somewhat obvious: the write barrier is the assign function, which we have observed is correlated to the reference counting portion of a collector."
 
@@ -216,7 +216,7 @@ After demonstrating these similarities, the authors also posit that the design o
 
 This shows that the GCs which are successful in real-world application, thus exhibiting either a great degree of flexibility through tunable parameters or specialization in a field like Real-Time GC, are those which are chosen based on a fine-grained understanding of their operational characteristics.
 
-On a parting note, I am reminded by this paper of the tensions between other "systems," such as Object-Oriented and Functional Programming. While I know it is a bit of a stretch, there are many texts which, using a Lisp implementation for example, stretch a purely functional system until it appears Object Oriented, or torture the Object Oriented principles until they appear functional. A distant, vague connection, perhaps, but that's enough for me.
+On a parting note, the comparison of two long-standing approaches to a common challenging problem reminded me of the tensions between the successes and failures of Object-Oriented and Functional Programming. Though not "algorithmic duals" by Bacon et al.'s definition, there are many texts which, using a Lisp implementation for example, stretch a functional system until it appears Object Oriented, or torture the Object Oriented principles until they appear functional. More than a similarity in expositional style, however, these two pairs of systems share parity in other interesting ways. A distant, vague connection, perhaps, but that's enough for me.
 
 #### Works Cited
 
