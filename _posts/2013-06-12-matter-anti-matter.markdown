@@ -57,7 +57,7 @@ def delete_reference(ref)
 end
 {% endhighlight %}
 
-The naive mark and sweep implementation is even simpler than reference counting in the respect that no write barrier is involved. When objects are allocated, if no memory is available, the GC is invoked. Starting from a set of objects (the *matter* in Bacon et al.'s formulation) known as the *roots*, the entire reachable heap is scanned, and objects which are referenced are *marked* as alive. The full heap is then scanned and objects which aren't marked are presumed dead, and collected. Here's Ruby pseudocode for a naive mark and sweep, again translated from Jones.
+The naive mark and sweep implementation is even simpler than reference counting in the respect that no write barrier is involved. When object allocation is requested, if no memory is available, the GC is invoked. Starting from a set of objects (the *matter* in Bacon et al.'s formulation) known as the *roots*, the entire reachable heap is scanned, and objects which are referenced are *marked* as alive. The full heap is then scanned and objects which aren't marked are presumed dead, and collected. Here's Ruby pseudocode for a naive mark and sweep, again translated from Jones.
 
 {% highlight ruby %}
 # The program interface to the heap
@@ -104,7 +104,7 @@ end
 # 
 #### The Tweaks
 
-There are situations in which the way that naive reference counting algorithms allocate and free memory are desirable, but for the most part, it is necessary to offload some of the tax on the *mutator*, or main thread of program execution. While not a recommended optimization, in order to push the two paradigms toward each other, the authors suggest a simple tweak to the reference counting algorithm: buffer decrement operations. Under this algorithm, when space is needed during an allocation, decrement operations which have been buffered in a *work-list* are recursively iterated over. Objects with a zero reference count are collected and objects which reference them are handled appropriately. This work-list contains *anti-matter.*
+There are situations in which the way that naive reference counting algorithms allocate and free memory are desirable, but for the most part, it is necessary to offload some of the tax on the *mutator*, or main thread of program execution. While not a recommended optimization, in order to push the two paradigms toward each other, the authors suggest a simple tweak to the reference counting algorithm: buffer decrement operations. Under this algorithm, when space is needed during an allocation, decrement operations which have been buffered in a *work-list* are recursively iterated over. Objects with a zero reference count are collected and objects which reference them are handled appropriately. This work-list contains *anti-matter.* I have translated both the tracing and reference counting modified algorithms to Ruby for comparison with the naive implementations above.
 
 {% highlight ruby %}
 def new
@@ -151,7 +151,7 @@ def assign(a, p)
 end
 {% endhighlight %}
 
-The mark and sweep algorithm is altered in a similarly interesting way: instead of maintaining a *mark bit* for whether the object is live or not, a true reference count is maintained. This doesn't impact the algorithm in complexity or really change it much, but it does allow the Ruby pseudocode for tracing and counting to look eerily similar. Here they are, based on the work in Bacon.
+The mark and sweep algorithm is altered in a similarly interesting way: instead of maintaining a *mark bit* for whether the object is live or not, a true reference count is maintained. This doesn't impact the algorithm in complexity or really change it much conceptually, but it does allow the Ruby pseudocode for tracing and counting to look eerily similar.
 
 {% highlight ruby %}
 def new
@@ -214,7 +214,7 @@ After demonstrating these similarities, the authors also posit that the design o
 
 > "Partition: divide memory (heap, stack, and global variables) into a set of partitions, within which different strategies may be applied; Traversal: for each partition, decide whether the object graph will be traversed by tracing or reference counting; and Trade-offs: for each partition, choose space-time trade-offs such as semi-space vs. sliding compaction, pointer reversal vs. stack traversal, etc."
 
-This shows that the GCs which are successful in real-world application, thus exhibiting either a great degree of flexibility through tunable parameters or specialization in a field like Real-Time GC, are those which are chosen based on a fine-grained understanding of their operational characteristics.
+This shows that the GCs which are successful in real-world application exhibit either a great degree of flexibility through tunable parameters or specialization in a field like Real-Time GC, but are always hybrids. In other words, successful GCs are those which are chosen based on a fine-grained understanding of their operational characteristics and how they will support the mutator most efficiently.
 
 On a parting note, the comparison of two long-standing approaches to a common challenging problem reminded me of the tensions between the successes and failures of Object-Oriented and Functional Programming. Though not "algorithmic duals" by Bacon et al.'s definition, there are many texts which, using a Lisp implementation for example, stretch a functional system until it appears Object Oriented, or torture the Object Oriented principles until they appear functional. More than a similarity in expositional style, however, these two pairs of systems share parity in other interesting ways. A distant, vague connection, perhaps, but that's enough for me.
 
