@@ -57,7 +57,7 @@ def delete_reference(ref)
 end
 {% endhighlight %}
 
-The naive mark and sweep implementation is even simpler than reference counting in the respect that no write barrier is involved. When objects are allocated, if no memory is available, the GC is invoked. Starting from a set of objects (the *matter* in Bacon et al.'s formulation) known as the *roots*, the entire reachable heap is scanned, and objects which are referenced are *marked* as alive. The full heap is then scanned and objects which aren't marked are presumed dead, and collected. Here's Ruby pseudocode for a naive mark and sweep, again taken from Jones.
+The naive mark and sweep implementation is even simpler than reference counting in the respect that no write barrier is involved. When objects are allocated, if no memory is available, the GC is invoked. Starting from a set of objects (the *matter* in Bacon et al.'s formulation) known as the *roots*, the entire reachable heap is scanned, and objects which are referenced are *marked* as alive. The full heap is then scanned and objects which aren't marked are presumed dead, and collected. Here's Ruby pseudocode for a naive mark and sweep, again translated from Jones.
 
 {% highlight ruby %}
 # The program interface to the heap
@@ -101,52 +101,10 @@ def sweep(heap_start, heap_end)
 end
 {% endhighlight %}
 
+# 
 #### The Tweaks
 
 There are situations in which the way that naive reference counting algorithms allocate and free memory are desirable, but for the most part, it is desirable to offload some of the tax on the *mutator*, or main thread of program execution. While not a recommended optimization, in order to push the two paradigms toward each other, the authors suggest a simple tweak to the reference counting algorithm: buffer decrement operations. Under this algorithm, when space is needed during an allocation, decrement operations which have been buffered in a *work-list* are recursively iterated over. Objects with a zero reference count are collected and objects which reference them are handled appropriately. This work-list contains *anti-matter.*
-
-The mark and sweep algorithm is altered in a similarly interesting way: instead of maintaining a *mark bit* for whether the object is live or not, a true reference count is maintained. This doesn't impact the algorithm in complexity or really change it much, but it does allow the Ruby pseudocode for tracing and counting to look eerily similar. Here they are, based on the work in Bacon.
-
-Modified mark and sweep:
-
-{% highlight ruby %}
-def new
-  ref = allocate
-end
-
-def collect
-  initialize_for_tracing
-  scan_by_tracing
-  sweep_for_tracing
-end
-
-def initialize_for_tracing
-  work_list << heap_roots
-end
-
-def scan_by_tracing
-  work_list.each do |work|
-    work.ref_count = work.ref_count + 1
-    if work.ref_count == 1
-      recursively_scan(work)
-    end
-  end
-end
-
-def sweep_for_tracing
-  object_cursor = heap_start
-  while object_cursor < heap_end
-    if object_cursor.ref_count.zero?
-      free(object_cursor.ref)
-    else
-      object_cursor.ref_count = 0
-    end
-    object_cursor.next
-  end
-end
-{% endhighlight %}
-
-Modified reference counting:
 
 {% highlight ruby %}
 def new
@@ -193,6 +151,45 @@ def assign(a, p)
 end
 {% endhighlight %}
 
+The mark and sweep algorithm is altered in a similarly interesting way: instead of maintaining a *mark bit* for whether the object is live or not, a true reference count is maintained. This doesn't impact the algorithm in complexity or really change it much, but it does allow the Ruby pseudocode for tracing and counting to look eerily similar. Here they are, based on the work in Bacon.
+
+{% highlight ruby %}
+def new
+  ref = allocate
+end
+
+def collect
+  initialize_for_tracing
+  scan_by_tracing
+  sweep_for_tracing
+end
+
+def initialize_for_tracing
+  work_list << heap_roots
+end
+
+def scan_by_tracing
+  work_list.each do |work|
+    work.ref_count = work.ref_count + 1
+    if work.ref_count == 1
+      recursively_scan(work)
+    end
+  end
+end
+
+def sweep_for_tracing
+  object_cursor = heap_start
+  while object_cursor < heap_end
+    if object_cursor.ref_count.zero?
+      free(object_cursor.ref)
+    else
+      object_cursor.ref_count = 0
+    end
+    object_cursor.next
+  end
+end
+{% endhighlight %}
+
 In this modified form, the heart of each algorithm is very similar. As the authors say:
 
 > "By changing two characters in the heart of the algorithm, we have changed from tracing to reference counting!"
@@ -211,7 +208,13 @@ In other words, Generational GCs are hybrid tracer-collectors. Other compelling 
 
 #### Conclusions
 
-This post merely attempts to expose the central most interesting technique used in this paper to illustrate the point of the "algorithmic duality" between reference counting and mark and sweep, or tracing, garbage collection. After implementing various real-world GCs, the authors had formed a deep intuition for the heart of GC algorithms and this insight sprang from this experience. After studying GC heavily in preparation for this blog and a conference talk, I felt that nothing made the abstract concepts at play click for me as well as this paper did. I hope I have been able to share some of this insight.
+This post merely attempts to expose the central most interesting technique used in this paper to illustrate the point of the "algorithmic duality" between reference counting and mark and sweep, or tracing, garbage collection. After implementing various real-world GCs, the authors had formed a deep intuition for the heart of GC algorithms and this insight sprang from this experience. After studying GC heavily in preparation for this blog and a conference talk, I felt that nothing made the abstract concepts at play click for me as well as this paper did. I hope I have been able to share some of this paper's insight if not some of its enthusiasm.
+
+After demonstrating these similarities, the authors also posit that the design of GCs could be "made more deliberate." Instead of choosing between reference counting and tracing, designers should consider the following choices:
+
+> "Partition: divide memory (heap, stack, and global variables) into a set of partitions, within which different strategies may be applied; Traversal: for each partition, decide whether the object graph will be traversed by tracing or reference counting; and Trade-offs: for each partition, choose space-time trade-offs such as semi-space vs. sliding compaction, pointer reversal vs. stack traversal, etc."
+
+This shows that the GCs which are successful in real-world application, thus exhibiting either a great degree of flexibility through tunable parameters or specialization in a field like Real-Time GC, are those which are chosen based on a fine-grained understanding of their operational characteristics.
 
 On a parting note, I am reminded by this paper of the tensions between other "systems," such as Object-Oriented and Functional Programming. While I know it is a bit of a stretch, there are many texts which, using a Lisp implementation for example, stretch a purely functional system until it appears Object Oriented, or torture the Object Oriented principles until they appear functional. A distant, vague connection, perhaps, but that's enough for me.
 
