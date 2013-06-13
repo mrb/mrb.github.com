@@ -218,6 +218,8 @@ This shows that the GCs which are successful in real-world application exhibit e
 
 On a parting note, the comparison of two long-standing approaches to a common challenging problem reminded me of the tensions between the successes and failures of Object-Oriented and Functional Programming. Though not "algorithmic duals" by Bacon et al.'s definition, there are many texts which, using a Lisp implementation for example, stretch a functional system until it appears Object Oriented, or torture the Object Oriented principles until they appear functional. More than a similarity in expositional style, however, these two pairs of systems share parity in other interesting ways. A distant, vague connection, perhaps, but that's enough for me.
 
+*If you like this kind of content, <a href="http://twitter.com/mrb_bk">follow me on Twitter</a> for more.*
+
 #### Works Cited
 
 <a id="bib1">[1]</a>David F. Bacon, Perry Cheng, and V. T. Rajan. *A Uniﬁed Theory of Garbage Collection* In OOPSLA 2004 [OOPSLA04], 2004, pages 50-68
