@@ -2,6 +2,7 @@
 layout: post
 title: "Learning How To Learn Programming"
 published: true
+ctm: true
 ---
 # 
 

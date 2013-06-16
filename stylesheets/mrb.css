@@ -66,6 +66,13 @@ ul.posts span {
   font-size: 80%;
 }
 
+li.index a {
+  background: white;
+}
+li.index a:hover {
+  background: yellow;
+}
+
 .site {
   font-size: 110%;
   text-align: justify;
@@ -154,3 +161,9 @@ blockquote{
 	src: local('DejaVuSerifCondensed-Bold'), local('DejaVuSerifCondensed-Bold'), url('DejaVuSerifCondensed-Bold.woff') format('woff'), url('DejaVuSerifCondensed-Bold.ttf') format('truetype'), url('DejaVuSerifCondensed-Bold.svg#DejaVuSerifCondensed-Bold') format('svg');
 }
 
+.index-date{
+  font-size:90%;
+  font-style:italic;
+  float:left;
+  width: 180px;
+}

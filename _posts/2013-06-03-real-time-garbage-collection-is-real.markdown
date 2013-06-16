@@ -2,6 +2,7 @@
 layout: post
 title: Real-Time Garbage Collection Is Real
 published: true
+gc: true
 ---
 # 
 ### Real-Time Garbage Collection Is Real

@@ -2,6 +2,7 @@
 layout: post
 title: "Matter, Anti-Matter, and the Unified Theory of Garbage Collection"
 published: true
+gc: true
 ---
 # 
 ### Matter, Anti-Matter, and the Unified Theory of Garbage Collection

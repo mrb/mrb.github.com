@@ -2,6 +2,7 @@
 layout: post
 title: "The Declarative Computation Model: Notes on CTM Chapter 02"
 published: false
+tags: "CTM, PLT"
 ---
 # 
 

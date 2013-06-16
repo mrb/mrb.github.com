@@ -2,6 +2,7 @@
 layout: post
 title: "To Know A Garbage Collector: GoRuCo 2013"
 published: true
+gc: true
 ---
 # 
 ### To Know A Garbage Collector: GoRuCo 2013

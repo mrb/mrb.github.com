@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "The Beginning of a Long Journey: Notes on CTM Chapter 01"
+published: true
+ctm: true
 ---
 # 
 
