@@ -7,7 +7,7 @@ title: home
 {% for post in site.posts %}
   {% if post.published != false %}
     <li class="index">
-      <div class="index-date">{{ post.date | date: "%B %e, %Y" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
       {% if post.ctm %}<b><i>**</i></b>{% endif %}
       {% if post.gc %}<b><i>*</i></b>{% endif %}
     </li>
@@ -16,4 +16,3 @@ title: home
 </ul>
 
 <b><i>Blog Series:</b></i> &nbsp;&nbsp; <b>*</b> Garbage Collection &nbsp;&nbsp;&nbsp; <b>**</b>Concepts, Techniques, and Models
-
