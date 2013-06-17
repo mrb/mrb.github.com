@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Declarative Computation, Syntactic Sugar, and the Abstract Machine"
-published: false
+published: true
 ctm: true
 ---
 # 
@@ -11,7 +11,7 @@ ctm: true
 
 The first kernel language that is explored and expanded upon in Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models</a> expresses what the authors call the Declarative Computation Model.<a href="#bib3">[3]</a> Starting with Chapter 2, there is a large amount of material about this model in the book, and I hope to cover various aspects of it over the course of a few posts. All quotes and most code are from CTM.
 
-In Chapter 2 we see up close how *syntactic sugar* enhances expressivity, and are treated to an in-depth look at the mechanics of the *abstract machine* which we can use to reason about the execution of our code. I'll dive a little bit into each in this post, to lay the ground work for expanding the declarative model to include, for example, the primitives for declarative concurrency.
+In Chapter 2 we see up close how *syntactic sugar* enhances expressivity, and are treated to an in-depth look at the mechanics of the *abstract machine* which we can use to reason about the execution of our code. I'll dive a little bit into each in this post, to lay the ground work for expanding the declarative model to include, for example, the primitives for "declarative concurrency."
 
 #### Syntactic Sugar
 
@@ -28,7 +28,13 @@ local X in
 end
 {% endhighlight %}
 
-makes a variable `X` available to be bound to another variable or value within the scope of `in`...`end`. We also need to understand basic assignment, and the concept of a procedure (`proc`). A procedure is a building block for a function in kernel languages. The simplest form of a procedure is:
+makes a variable `X` available to be bound to another variable or value within the scope of `in`...`end`. We also need to understand basic assignment:
+
+{% highlight ruby %}
+X = 2
+{% endhighlight %}
+
+and the concept of a procedure (`proc`). A procedure is a building block for a function in kernel languages. The simplest form of a procedure is:
 
 {% highlight ruby %}
 Max = proc {$ X Y ?Z}
@@ -43,9 +49,9 @@ The declaration of `?Z` is necessary because Z must be bound within the proc for
 {Max 3 5 X}
 {% endhighlight %}
 
-where `X` as declared in the outer scope. It will be bound to the result of the `Max` proc to be used later.
+where `X` has been declared in the outer scope. It will be bound to the result of the `Max` proc to be used later.
 
-Using no syntactic shortcuts, here is how we we could define the full `Max` procedure (as it is shown in the book), which given two inputs returns the one that is of greater numerical value. For example, `{Max 3 5 X}` should return bind `X` to `5`.
+Using no syntactic shortcuts, here is how we we could define the full `Max` procedure (as it is shown in the book), which given two inputs returns the one that is of greater numerical value. For example, `{Max 3 5 X}` should bind `X` to `5`.
 
 {% highlight ruby %}
 local Max in
@@ -71,7 +77,7 @@ Using some shortcuts, the authors then show the following version:
 
 {% highlight ruby %}
 local Max C in # declare variables Max (to hold proc) and C (to hold result)
-  proc {Max X Y ?Z} # declare the proc, store it in Max, provide two inputs and one output
+  proc {Max X Y ?Z} # declare the proc (two inputs and one output), store it in Max
     if X>=Y then Z=X else Z=Y end # the Max algorithm
   end
   {Max 3 5 C} # call Max with 3 and 5, store the result in C
@@ -84,7 +90,7 @@ This can be unpacked to create the code above, or it can be read and used as it 
 * 'In-line' values instead of variables (`proc {Max X Y ?z}`)
 * Operations as expressions (`if X>=Y`)
 
-This illustration of syntactic sugar was an extremely effective way of understanding how to keep programming languages simple for me. Instead of changing semantics or introducing new operators, language authors can find more compact means of expressing the same logic. I am reminded of the tendency toward spare efficiency in code authorship - keep functions tight and packed with meaning by providing APIs that are composable.
+This illustration of syntactic sugar was an extremely effective way of understanding how to keep programming languages simple for me. Instead of changing semantics or introducing new operators, language authors can find more compact means of expressing the same logic. The beauty of this reminds me of the tendency toward spare efficiency in good code. Code that can keep functions tight and packed with meaning by providing APIs that are composable is preferable because it easier to understand and reuse.
 
 #### The Abstract Machine: Definitions
 
@@ -112,7 +118,7 @@ With these definitions in place, we can proceed with program execution.
 
 #### The Abstract Machine: Program Execution
 
-An illustration of a simple bit of declarative code (which actually does not have much syntactic sugar applied to it) as executed in the abstract machine can still be quite instructive. The following piece of code and the accompanying prose that explains how it is executed in the abstract machine will illustrate how the declarative kernel language's notion of static or lexical scope is enforced.  Note the new `Browse` function, which displays the value given to the user.
+An illustration of a small bit of declarative code (which actually does not have much syntactic sugar applied to it) as executed in the abstract machine can appear simple but still be quite instructive. The following piece of code and the accompanying prose that explains how it is executed in the abstract machine will illustrate how the declarative kernel language's notion of static or lexical scope is calculated.  Note the new `Browse` function, which displays the value given to the user, and that the `<s>` statement comments are referred to in the steps below.
 
 {% highlight ruby %}
 local X in #<s> begin
