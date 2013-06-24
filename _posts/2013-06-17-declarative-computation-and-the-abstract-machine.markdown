@@ -5,8 +5,10 @@ published: true
 ctm: true
 ---
 # 
-*This post is part of a series exploring a massive book known as CTM. Check the <a href="/">blog index</a> for more.*
 
+<div class="lead">This post is part of a series exploring the incredible book known as <a href="http://www.info.ucl.ac.be/~pvr/book.html">CTM</a>. Check the <a href="/">blog index</a> for more.</div>
+
+# 
 ### Declarative Computation, Syntactic Sugar, and the Abstract Machine
 
 The first kernel language that is explored and expanded upon in Van Roy and Haridi's <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models</a> expresses what the authors call the Declarative Computation Model.<a href="#bib3">[3]</a> Starting with Chapter 2, there is a large amount of material about this model in the book, and I hope to cover various aspects of it over the course of a few posts.

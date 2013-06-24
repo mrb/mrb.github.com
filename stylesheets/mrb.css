@@ -167,3 +167,8 @@ blockquote{
   float:left;
   width: 120px;
 }
+
+.lead{
+  font-style:italic;
+  font-size:85%;
+}
