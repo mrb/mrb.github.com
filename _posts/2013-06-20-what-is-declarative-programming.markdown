@@ -77,7 +77,7 @@ The classic examples offered include client server applications and video displa
 
 Consider a defined component in the kernel language to which a developer would like to add *instrumentation,* or a means of measuring aspects of program execution. Given a reusable component `SC`:
 
-```
+{% highlight ruby %}
 fun {SC ...}
   proc {P1 ...}
     ...
@@ -95,12 +95,12 @@ fun {SC ...}
 in
  `export`(p1:P1 p2:P2 p3:P3)
 end
-```
+{% endhighlight %}
 
 We can see that `SC` encapsulates three operations, `P1`, `P2`, and `P3`, and that the procedures call each other and themselves. Because this code is declarative, it can be used elsewhere in an understandable way, but in order to protect this quality, we sacrifice expressiveness. Demonstrably, in order to do something as simple as add an accumulator to this component for instrumentation purposes, we must add two arguments to each procedure: this means that we must change three procedure definitions and four procedure calls. Here's what the altered code looks like:
 
 
-```
+{% highlight ruby %}
 fun {SC ...}
   proc {P1 ... S1 ?Sn}
     Sn=S1+1
@@ -119,11 +119,11 @@ fun {SC ...}
 in
   `export`(p1:P1 p2:P2 p3:P3)
 end
-```
+{% endhighlight %}
 
 In a stateful language, the same could be achieved by changing no procedure signatures. Incrementing would be done at the call site, and a variable would be made available globally upon program instantiation. Consider a bit of Ruby code:
 
-```
+{% highlight ruby %}
 module Work
   def part_one
     ...
@@ -141,11 +141,11 @@ module Work
     part_three(...)
   end
 end
-```
+{% endhighlight %}
 
 And the instrumented version:
 
-```
+{% highlight ruby %}
 module Work
   @@counter = 0
 
@@ -166,7 +166,7 @@ module Work
     part_three(...)
   end
 end
-```
+{% endhighlight %}
 
 No method signatures change, and significantly, the only places you see change are where you'd expect them.
 
