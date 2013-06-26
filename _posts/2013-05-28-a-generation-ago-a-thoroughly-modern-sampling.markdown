@@ -104,6 +104,7 @@ Modern tunable Garbage Collectors have clear roots in the work Hewitt and Lieber
 The AI Memos are an extremely fertile ground for modern research. While it's true that what this group of pioneers thought was impossible then may be possible now, it's even clearer that some things we think are impossible now have been possible all along.
 
 # 
+*Special thanks to Maciej Katafiasz for correcting some incorrectly transcribed LISP code below.*
 <hr/>
 
 # 
@@ -137,7 +138,7 @@ The fact that code appeared in this paper is one of the reasons that made me wan
     (transpose (mapcar 'cdr
     matrix))))))
 
-(def matrix-multiply (left-matrix right-matrix)
+(defun matrix-multiply (left-matrix right-matrix)
   (let ((columns (transpose right-matrix)))
     (mapcar
       '(lambda (row)
@@ -152,21 +153,20 @@ The fact that code appeared in this paper is one of the reasons that made me wan
 The second code sample is more efficient because it allocates fewer lists and functions, and performs fewer passes. For this reason, two operations are conflated, making this harder to read, and less reusable.
 
 {% highlight clojure %}
-(defun matrix-multiply-without-transposing
-(left-matrix right-matrix)
+(defun matrix-multiply-without-transposing (left-matrix right-matrix)
   (mapcar
-  '(lambda (row
-           (let ((column-index 0)
-                (mapcar
-                '(lambda (column
-                         (prog1 (dot-product-column
-                          row
-                          right-matrix
-                          column-index)
-                          (seq column-index
-                          (+column-index 1))))
-                (car right-matrix))))
-  left-matrix)))))
+   '(lambda (row)
+     (let ((column-index 0)
+           (mapcar
+             '(lambda (column)
+               (prog1 (dot-product-column
+                       row
+                       right-matrix
+                       column-index)
+                 (setq column-index
+                      (+ column-index 1))))
+             (car right-matrix)))))
+   left-matrix))
 
 (defun dot-product-column
 (row matrix column-index)
