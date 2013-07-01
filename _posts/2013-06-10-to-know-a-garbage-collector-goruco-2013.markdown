@@ -55,6 +55,10 @@ Garbage Collection is designed to be transparent. Your goal should be to control
 
 Finally, I'd like to thank all of my friends and colleagues for their help preparing for this presentation. During research they helped me with guidance and critiques, and were instrumental in me providing a great experience for the GoRuCo attendees.
 
+#### The Video
+
+<object width="560" height="315"><param name="movie" value="//www.youtube.com/v/NFCsZbtQElk?version=3&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="//www.youtube.com/v/NFCsZbtQElk?version=3&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+
 #### The Slides
 # 
 
