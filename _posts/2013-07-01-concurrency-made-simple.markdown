@@ -153,7 +153,7 @@ Beginning professional developers who jump right in to programming with mutable,
 
 #### Works Cited
 
-*All quotes from unless otherwise cited from Van Roy and Haridi.*
+*All quotes unless otherwise cited from Van Roy and Haridi.*
 
 <a id="bib1">[1]</a> Hickey, Rich. *Index of Published Talks* <a href="http://www.infoq.com/author/Rich-Hickey">HTML Page</a>
 
