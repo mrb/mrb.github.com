@@ -157,6 +157,6 @@ Beginning professional developers who jump right in to programming with mutable,
 
 <a id="bib1">[1]</a> Hickey, Rich. *Index of Published Talks* <a href="http://www.infoq.com/author/Rich-Hickey">HTML Page</a>
 
-<a id="bib1">[2]</a> Sutter, Herb. *A Fundamental Turn Toward Concurrency in Software* Dr. Dobbs Software Journal. <a href="http://www.drdobbs.com/article/print?articleId=184405990&siteSectionName=web-development/">Available here.</a>
+<a id="bib2">[2]</a> Sutter, Herb. *A Fundamental Turn Toward Concurrency in Software* Dr. Dobbs Software Journal. <a href="http://www.drdobbs.com/article/print?articleId=184405990&siteSectionName=web-development/">Available here.</a>
 
-<a id="bib2">[3]</a> Van Roy and Haridi. *Concepts, Techniques, and Models of Computer Programming* MIT Press, hardcover, ISBN 0-262-22069-5, March 2004
+<a id="bib3">[3]</a> Van Roy and Haridi. *Concepts, Techniques, and Models of Computer Programming* MIT Press, hardcover, ISBN 0-262-22069-5, March 2004
