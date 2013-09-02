@@ -39,7 +39,7 @@ The two new operations are the final two in the list:
 In order to extend the kernel language from Chapter 4 with the new `Port` abstraction, the execution state must be altered.
 A port is an asynchronous FIFO (first-in, first-out) communi new data type with two operations - `NewPort` and `Send`.
 
-Mutable Store μ (MST, o, μ)
+ Mutable Store μ (MST, o, μ)
 
 * New model - concept of port, kernel language
 * Port is new data type - create and send operations
