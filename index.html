@@ -2,17 +2,52 @@
 layout: default
 title: home
 ---
-<ul class = "posts">
 <br/>
+Hello, my name is <b>Michael R. Bernstein</b> and this is my technical blog. The posts are divided into sections below, because that is how I tend to write - for a period about one subject at a time.
+<br/>
+<br/>
+<h1>Concepts, Techniques, and Models</h1>
+<div class="lead">I am working my way through <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a> and writing about as much of it as I can. These posts are my take on a very dense and rewarding book.</div>
+<ul class = "posts">
 {% for post in site.posts %}
-  {% if post.published != false %}
+    {% if post.published and post.ctm %}
     <li class="index">
       <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
-      {% if post.ctm %}<b><i>**</i></b>{% endif %}
-      {% if post.gc %}<b><i>*</i></b>{% endif %}
+    {% endif %}
+    </li>
+{% endfor %}
+
+<br/>
+<h1>Garbage Collection</h1>
+<div class="lead">I tend to get obsessed with topics and get into them deeply. In preparation for <a href="http://localhost:4000/2013/06/10/to-know-a-garbage-collector-goruco-2013.html">a talk</a>, I worked on a series of posts about the very broad subject of Garbage Collection.</div>
+{% for post in site.posts %}
+  {% if post.published and post.gc %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    {% endif %}
+   </li>
+{% endfor %}
+
+<br/>
+<h1>Talks and Presentations</h1>
+<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
+{% for post in site.posts %}
+    {% if post.published and post.talks %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    {% endif %}
+   </li>
+{% endfor %}
+
+<br/>
+<h1>Everything Else</h1>
+<div class="lead">I don't know what to expect in terms of what will show up here, but I know I need this section.</div>
+{% for post in site.posts %}
+  {% if post.published and post.other %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
     </li>
   {% endif %}
 {% endfor %}
 </ul>
 
-<b><i>Blog Series:</b></i> &nbsp;&nbsp; <b>*</b> Garbage Collection &nbsp;&nbsp;&nbsp; <b>**</b>Concepts, Techniques, and Models

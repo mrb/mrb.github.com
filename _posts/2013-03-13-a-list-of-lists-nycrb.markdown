@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "A List of Lists: NYC.rb 2013.03.12"
+published: true
+talks: true
 ---
 # 
 ### A List of Lists: NYC.rb 2013.03.12

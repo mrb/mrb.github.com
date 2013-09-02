@@ -2,6 +2,7 @@
 layout: post
 title: A Nice Feature in core.logic and Thoughts About A Data Structure
 published: true
+other: true
 ---
 # 
 #### A Nice Feature in core.logic and Thoughts About A Data Structure
