@@ -39,17 +39,17 @@ The asynochronous communication channel is implemented as an abstract data type 
 * `{NewPort ?S ?P}` creates a new port with **entry point** `P` and **stream** `S`.
 * `{Send P X}` appends `X` to the stream corresponding to the entry point `P`.
 
-These operations are integrated into the execution state by extending the abstract machine definition inherited from the previous chapters with a Mutable Store μ. That makes the execution state (MST, σ, μ) where MST is the multiset of semantic stacks, σ is the single assignment store, and μ is the mutable store.
+These operations are integrated into the execution state by extending the abstract machine definition inherited from the previous chapters with a Mutable Store μ. That makes the execution state (MST, σ, μ) where MST is the multiset of semantic stacks, σ is the single assignment store, and μ is the mutable store (<a href="http://michaelrbernste.in/2013/06/17/declarative-computation-and-the-abstract-machine.html">this earlier post in the series</a> contains an overview of calculating with the abstract machine). To illustrate the layout of the concurrent model, the authors provide an excellent illustration:
 
+<center>
+<img src="https://dl.dropboxusercontent.com/u/1401061/message_passing_diagram.png">
+<div class="lead">The Message-Passing Concurrent Model, Diagramatically<a href="#bib1">[1]</a></div>
+</center>
 
-* Extend the execution state of the declarative model with a mutable store
-* Mutable store μ contains ports which are pais of the form x:y where x and y are variables of the signle assignment store
+This diagram is useful for understanding what role the mutable store plays in the execution state, and what happens when a `NewPort` operation is executed. The two bubbles at the top of the diagram contain program fragments that represent threads of execution. They combine with the immutable store and the mutable store to create an environment. The immutable store σ, well covered in other posts, contains all of the data for the port instances, while the mutable store μ contains pairs of the form `x:y` where `x` and `y` are variables of the signle assignment store. μ is initially empty 
 
-* μ is initially empty
+A line of code containing a `NewPort` call can be reduced to a semantic statement ({NewPort <x> <y>}, E), which does the following:
 
-* Execution state becomes (MST, o, μ)
-
-* NewPort operation - ({NewPort <x> <y>}, E)
 * Creates a fresh port with a name n
 * Binds E(<y>) and n in the store
 * If binding succeeds, add E(<y>):E(<x>) to the mutable store μ
