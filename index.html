@@ -6,6 +6,18 @@ title: home
 Hello, my name is <b>Michael R. Bernstein</b> and this is my technical blog. The posts are divided into sections below, because that is how I tend to write - for a period about one subject at a time.
 <br/>
 <br/>
+<h1>Distributed Systems Archaeology</h1>
+<div class="lead">Currently I am doing research for a talk called at <a href="http://ricon.io/west.html">Ricon West</a> titled "Distributed Systems Archaeology." These posts will cover concurrency and distributed computing theory and practice.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+    {% if post.published and post.dsa %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    {% endif %}
+    </li>
+{% endfor %}
+
+<br/>
 <h1>Concepts, Techniques, and Models</h1>
 <div class="lead">I am working my way through <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a> and writing about as much of it as I can. These posts are my take on a very dense and rewarding book.</div>
 <ul class = "posts">
