@@ -30,7 +30,7 @@ There were some merciful exceptions, like Jeff Hodges’ *Notes on Distributed S
 
 > "I've been thinking about the lessons that distributed systems engineers learn on the job."
 
-I read that and thought, "well shit, I've been think a lot about that too!" In this essay Hodges states that while developers will come across literature, they will not come across applicable lessons. This was my experience, and this delta, *between the literature and the lessons* is what I am trying to understand. 
+I read that and thought, "well shit, I've been thinking a lot about that too!" In this essay Hodges states that while developers will come across literature, they will not come across applicable lessons. This was my experience, and this delta, *between the literature and the lessons* is what I am trying to understand. 
 
 So I saturated myself in the literature in order to get some clarity around what the field was all about, and why it is so challenging to interact with distributed systems precisely at a time when we need them to be easy.
 
