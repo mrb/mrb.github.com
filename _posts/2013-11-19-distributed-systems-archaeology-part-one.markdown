@@ -58,7 +58,7 @@ Licklider and Minsky each contributed massive amounts of energy and numerous nov
 
 One of the best anecdotes about Licklider I’ve heard came from an interview I watched with Tracy Licklider, JCR Licklider’s son. According to Tracy, Licklider was an eccentric. He did eccentric things like drink Coke for breakfast. He did eccentric things like dreaming about connecting the entire human race and abolishing the barriers to knowledge inherent in an unbalanced society. He also did eccentric things like calling that project the *Intergalactic Computer Network* because he knew the scientists he was pitching to would think it was funny. 
 
-Licklider spoke of  spoke of *Man-Computer Symbiosis* and truly believed in the distributed future. 
+Licklider spoke of *Man-Computer Symbiosis* and truly believed in the distributed future. 
 
 His *The Computer as a Communication Device* was a futuristic take on technology. Licklider spread money around to big thinkers, started programs, and believed, above all, in humanity.
 
