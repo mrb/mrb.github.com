@@ -1,27 +1,18 @@
 ---
 layout: post
-title: "Distributed Systems Archaeology"
-published: false
+title: "Distributed Systems Archaeology, Part Three"
+published: true
 dsa: true
 ---
 # 
 # 
-### Distributed Systems Archaeology
+### Distributed Systems Archaeology, Part Three
 
-
-Next, I want to discuss the final archaeological thread, The Market.
+*This post presents the final part of a narrative form of the talk I gave at Ricon West 2013. <a href="http://michaelrbernste.in/2013/11/19/distributed-systems-archaeology-part-one.html">Part one can be found here</a> and <a href="http://michaelrbernste.in/2013/11/20/distributed-systems-archaeology-part-two.html">part two can be found here</a>. The works cited can <a href="http://michaelrbernste.in/2013/11/06/distributed-systems-archaeology-works-cited.html">be found here</a>, and the slides can <a href="https://speakerdeck.com/mrb/distributed-systems-archaeology">be found here</a>. Video is forthcoming.*
 
 ### The Market 
 
 *The impact of commerce on distributed systems research*
-
-- So far we’ve discussed the philosophical and humanity-based origins of distributed systems research in the work of Licklider, Minsky and Hewitt, and the formal origins in the work of Dijkstra and Lynch
-- My job motivated me to be professionally competent in distributed systems programming
-- I know many others are in the same position 
-- Clearly there is a great commercial interest in distributed systems 
-- The existence of this conference helps validate this idea
-- It made me wonder - has this always been the case?
-- The researchers we have covered up until this point have mostly impacted the field in terms of theory - who had actual industrial involvement?
 
 So far we’ve discussed the philosophical and humanity-based origins of distributed systems research in the work of Licklider, Minsky and Hewitt, and the formal origins in the work of Dijkstra and Lynch.
 
@@ -35,70 +26,23 @@ I was very happy to find, however, that someone I was very intent on studying, L
 
 Amongst the many gems on Lamport’s page is a paper from 1978 called *SIFT: Design and Analysis of a Fault-Tolerant Computer for Aircraft Control.* Lamport annotates this entry with the following quote:
 
-> "When it became clear that computers were going to be flying commercial aircraft, NASA began funding research to figure out how to make them reliable enough for the task.""
-
-- Wow. Let’s stare at this for a second.
-- Part of the NASA funding included the SIFT (Software Implemented Fault Tolerance) project
-- Lamport helped to theorize and prove the system’s reliability even in the face of malicious (also known as “Byzantine”) faults
-- Software was now responsible for safely coordinating hardware that was responsible for HUMAN LIFE. Not advertising revenue, HUMAN LIFE.
-- Lamport could have clearly been covered in the last section on Formalism, as he published many works in response to Dijkstra’s
-- But his impact, to me, has had influence in other ways
+> "When it became clear that computers were going to be flying commercial aircraft, NASA began funding research to figure out how to make them reliable enough for the task."
 
 Part of that funding was the SIFT project, which was charged with the task of designing the hardware and software for the aircraft and formally verifying its correctness. Lamport explains that the technology described in this paper is notable because the distributed system that composed the airplanes hardware and software could tolerate malicious, also known as Byzantine faults.
 
-Lamport’s work in SIFT amounted to applying theory to the practical aspects of hardware and software that was in charge of people’s lives. In many ways Lamport and his peers were there at a time and place that made their work indispensable to those who followed.  HIs attention to formalism could have placed him firmly in the last category, and indeed I have not even come close to scratching the surface of the depth of his work - but other archaeologists (Lamport included) have already covered that territory. 
+In 2003, Lamport published *High-Level Speciﬁcations: Lessons from Industry*, a collaboration with an intel engineer he worked with to formally verify multiprocessor memory designs. Lamport has applied techniques of formal verification to a variety of industrial applications, and this is why he straddles the section on the Market and the section on Formalism. In this paper, Lamport claims that high Level Specifications, such as the tools provided by his TLA+ language are essential to verifying industrial systems, concurrent algorithms, and more.
 
-There is one aspect of the lasting influence of his work with industry that I wanted to highlight, however, that I think is seldom discussed.
-
-One of the foundational issues facing the modern developer is the availability of too many tools for too few purposes. As a consequence of a million programming languages with a million libraries to solve many fewer actual problems, developers reach for tools which they do not understand, are too complex, or simply just don’t fit their use case, if they’re lucky enough to have a use case at all.
-
-*High-Level Speciﬁcations: Lessons from Industry*
-
-- A collaboration with an intel engineer he worked with to formally verify multiprocessor memory designs
-- Lamport has applied techniques of formal verification to a variety of industrial applications
-- This is why he straddles the section on the Market and the section on Formalism
-- Lamport claims that high Level Specifications, such as the tools provided by his TLA+ language are essential to verifying industrial systems, concurrent algorithms, and more
-- TLA+ allows you to provide specifications which get “compiled” into proofs
-- I feel that in the long run, his work on TLA+, which makes proving systems more accessible, will be of great importance - I’ve seen mention of it being used at Amazon, for example
-- It shows that Lamport has made the connection between the theory of distributed systems and one form of its practice 
-- A form of practice that is very different from what most of us do
-
-
-Lamport certainly did have a use case, and could not afford to misunderstand even the smallest component of what was involved in the work he was doing. It’s important to remember that Lamport worked with a much smaller, more specifiable system with a much more important workload than the typical software developer faces. It was absolutely necessary for him to have formal assurance of his work, and he was actually capable of doing this. 
-
-Today, many developers simply do not have the option to pursue the formal verification of their work. As a result, they partially understand formal results, reach for very strong consensus when they don’t need it, and opine about acronyms instead of studying them.
-
-Additionally, Lamport’s research for SIFT inspired an enormous amount of academic work of varying amounts of applicability to software practitioners. The strong assumptions necessary in aircraft software do not necessarily hold elsewhere, and the prize of making new strides in consensus algorithms at times feels a bit like trying to make the impossible possible.
+TLA+ allows you to provide specifications which get “compiled” into proofs. In many ways, I feel that in the long run his work on TLA+, which makes proving systems more accessible, will be of great importance. I’ve seen mention of it being used at Amazon, for example, and in other industrial modern applications. It shows that Lamport has made the connection between the theory of distributed systems and one form of its practice, although a form of practice that is very different from what most of us do.
 
 Another luminary in the field of distributed systems, Ken Birman, has had quite a bit to say over the years about the mixture of commercialism and research and its impact on practitioners. Birman is noted for his work on Virtual Synchrony and the Isis toolkit, which is very well covered by his own bit of archaeological work in 2010’s *A History of the Virtual Synchrony Replication Model.*
 
 Virtual synchrony is a system for considering work in distributed systems and has had various formulations over the years. Birman’s flirtations with industrial application of distributed systems are storied - his work was used by the New York Stock Exchange, amongst other important clients, for many years. Additionally he is an outspoken, reflective writer who has participated in workshops and produced papers about the history and impact of distributed systems research.
 
-A famous back and forth in the form of academic papers from 1993 between Birman and two other authors in the field, Cheriton and Skeen, can and should be consumed by those interested. Cheriton and Skeen came out with *Understanding the Limitations of Causally and Totally Ordered Communication*, which Birman claimed was a thinly veiled attack against his work on Isis in *A Response to Cheriton and Skeen’s Criticism of Causal and Totally Ordered Communication*.
+To get a better sense of Birman's involvement in industry, a famous exchange in the form of academic papers from 1993 between Birman and two other authors in the field, Cheriton and Skeen, can and should be consumed by fellow archaeologists. Cheriton and Skeen came out with *Understanding the Limitations of Causally and Totally Ordered Communication*, which Birman claimed was a thinly veiled attack against his work on Isis in *A Response to Cheriton and Skeen’s Criticism of Causal and Totally Ordered Communication*.
 
-- A famous exchange in the form of two academic papers from 1993 between Birman and two other authors in the field, Cheriton and Skeen, can and should be consumed by any fellow obsessives
-- Cheriton & Skeen published “Understanding...” wherein they critique what they see as the primary thrust of Birman’s work: network level ordered communication - they say it is inefficient and hard to reason about
-- Birman fired back, claiming that their work was a thinly veiled attack on Isis, and revealing that all three authors had “skin in the game” with respect to trying to sell systems to industrial clients at the time their work was being developed
-- The papers are a fascinating read and they remind us that researchers are living, breathing human beings who have to survive and want to advance their ideas
+The interesting aspect of this exchange is that Birman indicts Cheriton and Skeen for having financial skin in the game, and for over-simplifying his work in order to prove a relatively lame point. Fascinating reading, and important in that it reminds us that researchers are living, breathing human beings who have to survive and want to advance their ideas.
 
-- Fast forward more than 10 years later, and Birman has some interesting perspectives on the interactions between money, research, and practice, specifically as it pertains to advancements in the field of distributed systems
-- In these papers, where he is not coming off a bit bitter for his history, Birman urges his fellow researchers to pursue practical and thus humane solutions to the problems that actual people face. 
-- He has many interesting things to say, from the impact of the “impossibility” idea I discussed previously to the blow that the applicability of transactions and database theory had on the field of software reliability.
-- As a takeaway, Birman’s main idea seems to be that we need to be aware of the impact that the market has on our work, and thus our lives, both as researchers and practitioners
-
-
-*A History of the Virtual Synchrony Replication Model*
-
-- Another luminary in the field of distributed systems, Ken Birman, has had quite a bit to say over the years about the the mixture of commerce and research, and its impact on practitioners
-- Birman is noted for his work on Virtual Synchrony and the Isis Toolkit, which is very well covered by his own bit of auto-archeology in 2010’s “A History...”
-- Virtual Synchrony is a framework for considering work in distributed systems and has had various formulations over the years
-- Birman’s flirtations with industrial applications of distributed systems are storied.
-- New York Stock Exchange, the French Air Traffic Control System, and more were powered by Isis
-- He is also an outspoken, reflective writer who has participated in workshops and produced papers about the history and impact of distributed systems research.
-
-The interesting aspect of this back and forth is that Birman indicts Cheriton and Skeen for having financial skin in the game, and for over-simplifying his work in order to prove a relatively lame point. Fascinating reading, and important in that it reminds us that researchers are living, breathing human beings who have to survive and want to advance their ideas.
-
-Fast forward to the mid 2000’s and two more documents that have Birman’s name on them, 2006’s *How the Hidden Hand Shapes the Market for Software Reliability*, and 2008’s *Towards a Cloud-Computing Research Agenda* both contain critical looks at practitioners, researchers, and the market in general. In these works, where he is not coming off a bit bitter for his history, Birman urges his fellow researchers to pursue practical and thus humane solutions to the problems that actual people face. He has many interesting things to say, from the impact of the "impossibility" idea I discussed above to the blow that the applicability of transactions and database theory had on the field of software reliability.
+Fast forward to the mid 2000’s and two more documents that have Birman’s name on them, 2006’s *How the Hidden Hand Shapes the Market for Software Reliability*, and 2008’s *Towards a Cloud-Computing Research Agenda* both contain critical looks at practitioners, researchers, and the market in general. In these works Birman urges his fellow researchers to pursue practical and thus humane solutions to the problems that actual people face. He has many interesting things to say, from the impact of the "impossibility" idea I discussed above to the blow that the applicability of transactions and database theory had on the field of software reliability.
 
 Overall, however, the take away from his work is that we need to be aware of the impact that the market has on our work, and thus our lives. 
 
@@ -112,10 +56,6 @@ The answer is that sometimes they are applicable, and sometimes they aren’t, a
 
 Okay, that was a lot. Now that I’ve covered each of the three threads, and exposed a few obvious sources of tension for the modern practitioner, I have two recommendations in the form of directions for the community to pursue: Language, and Humanity.
 
-- That was a lot.
-- I’ve covered each of the main threads that I introduced at the beginning of the talk, and hopefully I have exposed some obvious sources of inspiration and tension for the current state of distributed systems theory and practice 
-- To wrap things up, I am going to cover two areas of pursuit that I think can help usher us towards where we need to be, in order to look back 10 years from now and feel confident that we have, as a community, successfully conquered, or at least intelligently considered, the issues at play in designing, implementing, and maintaining distributed systems
-
 ### Programming Languages
 
 In pursuing my archaeological project, I came across many many "languages for distributed computation," and I also know of some interesting work going on right now in this field. However the idea that a "language for distributed computing" that isn’t Erlang could possibly exist is not known to many developers, and I think it is high time to destroy this myth.
@@ -124,7 +64,7 @@ Two books that I have been very fond of lately that are directly applicable to w
 
 Concepts, Techniques and Models, also known as CTM, and its accompanying whitepaper *Teaching Programming With The Kernel Language Approach* is a revolutionary Computer Science textbook that completely changed my brain and finally got me to understand the connection between comptuer programming and computer science, no easy task to be sure - just ask Dijkstra, or anyone unfortunate enough to work with me.
 
-In the paper, Van Roy and Haridi state that *Teaching programming in terms of a single paradigm or language has a detrimental effect on programmer competence and thus on program quality.* and that is indeed how many practitioners are taught. They are taught to bend the will of the languages that are commercially popular to the needs of distributed computing *at the same time that they are expected to learn the foundations of the problems themselves*. This is catastrophic. 
+In the paper, Van Roy and Haridi state that *Teaching programming in terms of a single paradigm or language has a detrimental effect on programmer competence and thus on program quality* ...and that is indeed how many practitioners are taught. They are taught to bend the will of the languages that are commercially popular to the needs of distributed computing *at the same time that they are expected to learn the foundations of the problems themselves*. This is catastrophic. 
 
 CTM is an important book for many reasons, chief amongst them being that it makes the reader realize that small, simple, understandable languages and formal models that can be evolved into more complex ones are very powerful for forming intuitions of problems in computer science. In the book you are exposed to a basic language with a simple underlying formal model that is made more and less advanced over time as various subjects are treated - state is added here and taken away, distribution is included when it is needed, etc. 
 
@@ -160,3 +100,5 @@ Given all of the lessons above, my hopes for *the future* can be summed up as fo
 In conclusion, distributed systems is an incredibly deep and rich field. Studying it has been absolutely thrilling and in addition to a fascinating body of artifacts that are ripe for more archaeological work, the community is generous, motivated, and forward-thinking.
 
 I hope this talk inspires you to be reflective about the challenges of programming and understanding distributed systems regardless of your position in the "triangle" above, and remember, together we can do some amazing things.
+
+*If you like this work, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
