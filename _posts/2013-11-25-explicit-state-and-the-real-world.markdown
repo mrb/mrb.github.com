@@ -19,6 +19,27 @@ Van Roy and Haridi, like <a href="http://mitpress.mit.edu/sicp/">Abelson and Sus
 
 #### The Stateful Model
 
+The stateful model is a tweak on the declarative model of computation that adds a mutable store alongside the immutable store and the semantic stack:
+
+<center>
+<img src="http://michaelrbernste.in/images/explicit_state_computational_model.png">
+<div class="lead">The Stateful Model of Computation<a href="#bib1">[1]</a></div>
+</center>
+
+Stateful programs in this model are always sequential, and a minimal number of operations are added to the kernel language to make managing state tractable:
+
+<center>
+<img src="http://michaelrbernste.in/images/explicit_state_stateful_model.png">
+<div class="lead">The Stateful Model Kernel Language<a href="#bib1">[1]</a></div>
+</center>
+
+Two convenience methods for manipulating cells can make the language even more expressive, but amount to syntactic sugar for the `Exchange` operation:
+
+<center>
+<img src="http://michaelrbernste.in/images/explicit_state_cell_operations.png">
+<div class="lead">The Stateful Model Kernel Language: Cell Operations<a href="#bib1">[1]</a></div>
+</center>
+
 The mutable store
 
 #### Data Types and Explicit State
