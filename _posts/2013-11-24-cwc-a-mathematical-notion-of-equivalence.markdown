@@ -22,3 +22,5 @@ Practical and theoretical computer science are both concerned with notions of eq
 What do we mean when we consider equality of abstract types?
 
 If you take the time to create the two knots above, you can get a *physical* sense for how they are not equivalent in the knot theory sense. This level of intuitive connection to foundational concepts of our theoretical frameworks is what we should strive for in our models as practical and theoretical computer scientists.
+
+*If you like this work, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
