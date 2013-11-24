@@ -7,6 +7,18 @@ Hello, my name is <b>Michael R. Bernstein</b> and this is my personal blog. The 
 <br/>
 
 <br/>
+<h1>Computing Without Computers</h1>
+<div class="lead">The more I learn about computers, the more I look elsewhere to help me understand them. This series of posts is an experiment in getting away from the screen.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+    {% if post.published and post.cwc %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    {% endif %}
+    </li>
+{% endfor %}
+
+<br/>
 <h1>Distributed Systems Archaeology</h1>
 <div class="lead">I gave a talk at <a href="http://ricon.io/west.html">Ricon West</a> in October 2013 called "Distributed Systems Archaeology." This section contains one article written during research, and the available resources documenting the talk, including a written transcript.</div>
 <ul class = "posts">
