@@ -10,6 +10,12 @@ talks: true
 
 This post collects the available resources from the talk I gave on the history and future of distributed systems theory and practice at Basho's Ricon West Conference in October 2013.
 
+Video has been published and is available on YouTube:
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/Wp08EmQtP44?rel=0" frameborder="0" allowfullscreen></iframe>
+
+And the rest of the resources can be found here:
+
 * <a href="http://michaelrbernste.in/2013/11/19/distributed-systems-archaeology-part-one.html">Part one </a>: The Mind
 * <a href="http://michaelrbernste.in/2013/11/20/distributed-systems-archaeology-part-two.html">Part two</a>: The Proof
 * <a href="http://michaelrbernste.in/2013/11/20/distributed-systems-archaeology-part-two.html">Part two</a>: The Market and the Future
