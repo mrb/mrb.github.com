@@ -101,4 +101,4 @@ In conclusion, distributed systems is an incredibly deep and rich field. Studyin
 
 I hope this talk inspires you to be reflective about the challenges of programming and understanding distributed systems regardless of your position in the "triangle" above, and remember, together we can do some amazing things.
 
-*If you like this work, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
