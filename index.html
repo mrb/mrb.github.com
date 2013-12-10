@@ -3,34 +3,22 @@ layout: default
 title: home
 ---
 <br/>
-Hello, my name is <b>Michael R. Bernstein</b> and this is my personal blog. The posts are divided into sections below, because that is how I tend to write - for a period about one subject at a time.
+Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my personal blog. The posts are divided into sections below, because that is how I tend to write - for a period about one subject at a time.
 <br/>
 
 <br/>
-<h1>Computing Without Computers</h1>
-<div class="lead">The more I learn about computers, the more I look elsewhere to help me understand them. This series of posts is an experiment in getting away from the screen.</div>
+<h1>Talks and Presentations</h1>
+<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
 <ul class = "posts">
 {% for post in site.posts %}
-    {% if post.published and post.cwc %}
+    {% if post.published and post.talks %}
     <li class="index">
       <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
-    {% endif %}
     </li>
-{% endfor %}
-
-<br/>
-<h1>Distributed Systems Archaeology</h1>
-<div class="lead">I gave a talk at <a href="http://ricon.io/west.html">Ricon West</a> in October 2013 called "Distributed Systems Archaeology." This section contains one article written during research, and the available resources documenting the talk, including a written transcript.</div>
-<ul class = "posts">
-{% for post in site.posts %}
-    {% if post.published and post.dsa %}
-    <li class="index">
-      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
     {% endif %}
-    </li>
 {% endfor %}
+</ul>
 
-<br/>
 <h1>Concepts, Techniques, and Models</h1>
 <div class="lead">I am working my way through <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a> and writing about as much of it as I can. These posts are my take on a very dense and rewarding book.</div>
 <ul class = "posts">
@@ -38,35 +26,50 @@ Hello, my name is <b>Michael R. Bernstein</b> and this is my personal blog. The 
     {% if post.published and post.ctm %}
     <li class="index">
       <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
-    {% endif %}
     </li>
+    {% endif %}
 {% endfor %}
+</ul>
 
-<br/>
+<h1>Computing Without Computers</h1>
+<div class="lead">The more I learn about computers, the more I look elsewhere to help me understand them. This series of posts is an experiment in getting away from the screen.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+    {% if post.published and post.cwc %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+<h1>Distributed Systems Archaeology</h1>
+<div class="lead">I gave a talk at <a href="http://ricon.io/west.html">Ricon West</a> in October 2013 called "Distributed Systems Archaeology." This section contains one article written during research, and the available resources documenting the talk, including a written transcript.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+    {% if post.published and post.dsa %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>
+
 <h1>Garbage Collection</h1>
 <div class="lead">I tend to get obsessed with topics and get into them deeply. In preparation for <a href="http://michaelrbernste.in/2013/06/10/to-know-a-garbage-collector-goruco-2013.html">a talk</a>, I worked on a series of posts about the very broad subject of Garbage Collection.</div>
+<ul class = "posts">
 {% for post in site.posts %}
   {% if post.published and post.gc %}
     <li class="index">
       <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
     {% endif %}
-   </li>
 {% endfor %}
+</ul>
 
-<br/>
-<h1>Talks and Presentations</h1>
-<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
-{% for post in site.posts %}
-    {% if post.published and post.talks %}
-    <li class="index">
-      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
-    {% endif %}
-   </li>
-{% endfor %}
-
-<br/>
 <h1>Everything Else</h1>
 <div class="lead">I don't know what to expect in terms of what will show up here, but I know I need this section.</div>
+<ul class = "posts">
 {% for post in site.posts %}
   {% if post.published and post.other %}
     <li class="index">
@@ -75,4 +78,3 @@ Hello, my name is <b>Michael R. Bernstein</b> and this is my personal blog. The 
   {% endif %}
 {% endfor %}
 </ul>
-
