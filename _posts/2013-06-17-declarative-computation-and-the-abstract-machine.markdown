@@ -185,6 +185,6 @@ Now that we have seen how to define and execute a small language, we can begin t
 
 <a id="bib1">[1]</a> Harold Abelson, Gerald Jay Sussman, and Julie Sussman. *Structure and Interpretation of Computer Programs, Second Edition.* The MIT Press, Cambridge, Mass, 1996.
 
-<a id="bib2">[3]</a> Friedman and Wand. *Essentials of Programming Languages.* MIT Press, hardcover, ISBN-10: 0-262-206279-8, April 2008
+<a id="bib2">[2]</a> Friedman and Wand. *Essentials of Programming Languages.* MIT Press, hardcover, ISBN-10: 0-262-206279-8, April 2008
 
 <a id="bib3">[3]</a> Van Roy and Haridi. *Concepts, Techniques, and Models of Computer Programming* MIT Press, hardcover, ISBN 0-262-22069-5, March 2004
