@@ -10,7 +10,7 @@ other: true
 
 In getting recently re-obsessed with Logic Programming and its relationship to the future of both programming and computation (with a healthy dose of obsession for its history, of course), I recalled coming across a few relevant Ruby libraries last year that I wanted to write up a bit after playing with them here and there. I was interested in seeing some small implementations of <a href="http://en.wikipedia.org/wiki/Unification_(computer_science)">unification algorithms</a> and logic programming systems, and bingo, I came across that and more in one person's unassuming profile.
 
-GitHub user <a href="https://github.com/jimwise">jimwise</a> who apparently is in the general part of the world as me but I have no idea who he is (the internet is awesome) has a trio of libraries that implement unification a la Ehud & Shapiro, a small nondeterministic programming library that utilizes Ruby's `callcc` functionality, and a small Prolog system also influenced by **The Art of Prolog**. Since most systems you see that tackle these problems are written in Scheme, Pascal, Haskell, etc, it was nice for me to see them in Ruby, which for better or worse is still very much my code *lingua franca*.
+GitHub user <a href="https://github.com/jimwise">jimwise</a> who apparently is in the general part of the world as me but I have no idea who he is (the Internet is awesome) has a trio of libraries that implement unification a la Ehud & Shapiro, a small nondeterministic programming library that utilizes Ruby's `callcc` functionality, and a small Prolog system also influenced by **The Art of Prolog**. Since most systems you see that tackle these problems are written in Scheme, Pascal, Haskell, etc, it was nice for me to see them in Ruby, which for better or worse is still very much my code *lingua franca*.
 
 This post is a quick overview of what each of these libraries can do, and I encourage you to check them out if you're curious about what bringing features of other languages to Ruby can look like, or even if you're just interested in language implementation details in general.
 
@@ -83,7 +83,7 @@ If you think you're seeing things, you're probably starting to see how that code
 
 <a href="https://github.com/jimwise/rulog">rulog</a> is a Prolog engine in Ruby that relies on **unific** and **ambit**. I found rulog when searching for an implementation of a logic programming engine, because I needed to see the implementation to understand how it worked, or so I thought. It turns out that I actually needed to learn what the hell I was trying to learn - logic programming is such a foreign paradigm that when I first encountered it I had no idea what I was seeing.
 
-Through exposure to books like **Concepts, Techniques, and Models of Computer Programming,** **The Art of Prolog,** and **The Architecture of Symoblic Computers,** I have started to see real value in exploring declarative programming and how it can intersect with modern, practical approaches to computation. While **rulog** is a simple and somewhat rudimentary Prolog, it is great to be able to see it up close, and the author has made some thoughtful design decisions.
+Through exposure to books like **Concepts, Techniques, and Models of Computer Programming,** **The Art of Prolog,** and **The Architecture of Symbolic Computers,** I have started to see real value in exploring declarative programming and how it can intersect with modern, practical approaches to computation. While **rulog** is a simple and somewhat rudimentary Prolog, it is great to be able to see it up close, and the author has made some thoughtful design decisions.
 
 Here is how you can define the rules for <a href="http://mathworld.wolfram.com/PeanosAxioms.html">Peano's Axioms</a> - the number, equal, and plus relations:
 
@@ -144,7 +144,7 @@ The author's decision to put tracing in is absolutely awesome! We can see how th
 
 ### In Conclusion
 
-It is one of my goals in 2014 to get more people excited about logic programming and how we can leverage it in a multi-paradigm context. Embedding pattern matching, non-deterministic choice, and logic programming into an Object-Oriented language like Ruby has many interesting possibilities. We've seen some traction with thise ideas in the Clojure community, and I hope this small tour of some easy to digest libraries by one awesome author helps get you excited about their potential.
+It is one of my goals in 2014 to get more people excited about logic programming and how we can leverage it in a multi-paradigm context. Embedding pattern matching, non-deterministic choice, and logic programming into an Object-Oriented language like Ruby has many interesting possibilities. We've seen some traction with these ideas in the Clojure community, and I hope this small tour of some easy to digest libraries by one awesome author helps get you excited about their potential.
 
 *If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
 
