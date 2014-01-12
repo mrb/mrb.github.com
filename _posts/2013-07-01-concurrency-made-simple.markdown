@@ -21,7 +21,9 @@ They demonstrate the basic means by which a program can be made concurrent as fo
 fun {Gen L H} 
 	{Delay 100} 
 	if L>H then nil else L|{Gen L+1 H} end
-endXs={Gen 1 10} 
+end
+
+Xs={Gen 1 10} 
 Ys={Map Xs fun {$ X} X*X end}
 {Browse Ys}
 {% endhighlight %}
@@ -29,7 +31,9 @@ Ys={Map Xs fun {$ X} X*X end}
 A function `Gen` takes two variables `L` and `H`. It waits 100 milliseconds. It terminates if `L` is greater than `H`, else it recurs on a constructed list with `L` as the head and a new list beginning with `L+1` as the tail. When run with `{Gen 1 10}`, it would return a list `[1 2 3 4 5 6 7 8 9 10]` Below the function definition, the `1..10` list is bound to `Xs`, and `Ys` is bound to the results of mapping over the elements of `Xs` and squaring them. The results of the list are then shown with `Browse`.
 
 The concurrent or threaded version uses the same definition for Gen, and only adds the `thread` keyword:
-{% highlight ruby %}thread Xs={Gen 1 10} endthread Ys={Map Xs fun {$ X} X*X end}
+{% highlight ruby %}
+thread Xs={Gen 1 10} end
+thread Ys={Map Xs fun {$ X} X*X end}
 {Browse Ys}
 {% endhighlight %}
 
@@ -69,8 +73,12 @@ We still have the concepts of a **single assignment store ($\sigma$)**, an **env
 Consider the following small sample concurrent program:
 
 {% highlight ruby %}
-local B in	thread B=true end	if B then {Browse yes} endend{% endhighlight %}
-This program only has one place to begin, on the first line. `B` is introduced into an environment in a semantic stack and then the next line is reached. `thread` never blocks, but peels off the work into its own semantic stack to be executed at the scheduler's convenience. The next line is reached. If `B` has been bound by the work done in the computation in the previous step, then this line will display `yes` and the program will be complete. There are no circumstances under which this program would behave in any other way under the given semantics.
+local B in
+	thread B=true end
+	if B then {Browse yes} end
+end
+{% endhighlight %}
+This program only has one place to begin, on the first line. `B` is introduced into an environment in a semantic stack and then the next line is reached. `thread` never blocks, but peels off the work into its own semantic stack to be executed at the scheduler's convenience. The next line is reached. If `B` has been bound by the work done in the computation in the previous step, then this line will display `yes` and the program will be complete. There are no circumstances under which this program would behave in any other way under the given semantics.
 
 #### What is Declarative Concurrency?
 
@@ -120,12 +128,24 @@ And a program that combines these concepts to form a basic **producer/consumer**
 
 {% highlight ruby %}
 fun {Generate N Limit}
-	if N<Limit then		N|{Generate N+1 Limit} 
-	else nil endendfun {Sum Xs A}	case Xs	of X|Xr then {Sum Xr A+X}
-	[] nil then Aendendlocal Xs S in	# Producer thread	thread Xs={Generate 0 150000} end 	# Consumer thread
+	if N<Limit then
+		N|{Generate N+1 Limit} 
+	else nil end
+end
+fun {Sum Xs A}
+	case Xs
+	of X|Xr then {Sum Xr A+X}
+	[] nil then A
+end
+end
+local Xs S in
+	# Producer thread
+	thread Xs={Generate 0 150000} end 
+	# Consumer thread
 	thread S={Sum Xs 0} end 
 	# Display results				  
-	{Browse S}end
+	{Browse S}
+end
 {% endhighlight %}
 
 Producer and consumer each run in their own threads, operating on the shared dataflow variable `Xs`. As data is appended to the stream by `Generate`, it is consumed by `Sum`.  The `case` statement in `Sum` blocks when there are no available values to bind, and calculates values when they are there to be read. As the authors say, "Waiting for a dataflow variable to be bound is the basic mechanism for synchronization and communication in the declarative concurrent model."
@@ -150,6 +170,8 @@ The authors have shown us yet again that simple extension of the semantics of th
 *Mutability* refers to the ability of the programmer to change the value of an *object* after it has been instantiated (*object* is an abstract name given to any assignable quantity that developers have access to). Much discussion has been raised specifically surrounding the connection between mutability and the inability for our tools to properly handle concurrency in a reasonable way, and in fact we are making progress.<a id="bib1">[1]</a> Several active programming languages, including the Mozart platform that the CTM book constructs, Clojure, which runs on the Java Virtual Machine, and Haskell all have embraced the value of immutability and the leverage it gives programming language designers in providing *simpler concurrency*. 
 
 Beginning professional developers who jump right in to programming with mutable, global state, objects, and concurrency rightfully believe that "concurrency in **LANGUAGE X** is Hard." Unfortunately, many people extend that to "programming with concurrency is Hard." They don't seek other paradigms because they think that the complexity is necessary. They think it is capital-H Hard and the truth is that it doesn't have to be.
+
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
 
 #### Works Cited
 

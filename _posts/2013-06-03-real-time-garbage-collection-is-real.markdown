@@ -65,6 +65,8 @@ While reading the literature about RTGC, I was struck again and again by how the
 
 *Thanks to James Golick for his proofreading and Computology expertise.*
 
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 #### Works Cited
 
 <a id="bib1">[1]</a> David F. Bacon, Perry Cheng, and V.T. Rajan. *The Metronome: A simpler approach to garbage collection in real-time systems.* In On The Move to Meaningful Internet Systems 2003: OTM 2003 Workshops, volume 2889 of Lecture Notes in Computer Science, pages 466-478, Catania, Sicily, Italy, November 2003. Springer-Verlag

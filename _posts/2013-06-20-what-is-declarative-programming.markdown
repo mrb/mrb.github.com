@@ -190,7 +190,7 @@ Declarativeness is a property of code which subsumes what professional developer
 
 Extending the declarative model to include properties for concurrency, for example, can help make declarative code more realistic for application in real world programs. Declarative concurrency is a fascinating subject which has a deep history, and in covering it with the next post, will pause our in depth study of the declarative paradigm as we move on to Message Passing Concurrency in Chapter 5.
 
-*If you like this kind of content, <a href="http://twitter.com/mrb_bk">follow me on Twitter</a> for more.*
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
 
 #### Works Cited
 

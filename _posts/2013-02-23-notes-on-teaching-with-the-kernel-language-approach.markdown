@@ -97,3 +97,5 @@ Many professional programmers jump straight into the most complex form of progra
 Instead of hiring developers to write code in a specific language, we should encourage cross-paradigm movement and expose our developers to as many different concepts of Computer Science as possible. Those who know both broadly and deeply will have a better chance of forming the kinds of intuition that make for successful, productive programmers.
 
 _Thank you to <a href="http://twitter.com/gordondiggs">@gordondiggs</a>, <a href="http://twitter.com/timonk">@timonk</a>, amd <a href="http://twitter.com/eallam">@eallam</a> for your thoughtful and helpful reviews._
+
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*

@@ -38,3 +38,5 @@ Where possible I have linked to the author's publication pages.
 21. Varela, C ["Programming Distributed Computing Systems: A Foundational Approach"](http://mitpress.mit.edu/books/programming-distributed-computing-systems)
 20. Thurston, W ["On Proof and Progress in Mathematics"](http://arxiv.org/pdf/math/9404236v1)
 21. Papadamitriou, C ["Database Metatheory: Asking the Big Queries"](http://www.cs.ubc.ca/~rap/teaching/504/2005/readings/database-metatheory.pdf)
+
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*

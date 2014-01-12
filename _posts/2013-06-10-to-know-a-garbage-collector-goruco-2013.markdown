@@ -64,3 +64,5 @@ Finally, I'd like to thank all of my friends and colleagues for their help prepa
 # 
 
 <script async class="speakerdeck-embed" data-id="123a0ac0b2730130eaf05236bfdba4c0" data-ratio="1.2994923857868" src="//speakerdeck.com/assets/embed.js"></script>
+
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*

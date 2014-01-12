@@ -171,6 +171,8 @@ The five computational models presented as the basis for understanding concurren
 
 The last part of the book covers programming languages which implement these various models. While far from perfect, these languages and their summation provides evidence that there is purposeful work to be done if we are to achieve a natural system of designing programs destined to run on a distributed platform. Layers and layers of software currently represent what could be shed if assumptions were baked into the design of systems from the outset. Distributed systems practitioners could benefit from researching the various process calculi and their predecessors, to appreciate the deep connection between their work and the theoretical underpinnings which sometimes seem so distant.
 
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 #### Works Cited
 
 *All quotes unless otherwise noted from Varela*
