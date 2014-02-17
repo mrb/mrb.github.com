@@ -5,8 +5,20 @@ title: home
 <br/>
 Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my personal blog. The posts are divided into sections below, because that is how I tend to write - for a period about one subject at a time.
 <br/>
-
 <br/>
+
+<h1>Types and Programming Languages</h1>
+<div class="lead"><a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Benjamin C. Pierce's tome</a> formalizes type systems and offers a different perspective to understanding computation. Notoriously dense, I am slowly making my way through and posts here will likely be sporadic.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+    {% if post.published and post.tapl %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>
+
 <h1>Talks and Presentations</h1>
 <div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
 <ul class = "posts">
@@ -31,7 +43,7 @@ Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my 
 {% endfor %}
 </ul>
 
-<h1>Concepts, Techniques, and Models</h1>
+<h1 id="i-ctm">Concepts, Techniques, and Models</h1>
 <div class="lead">I am working my way through <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a> and writing about as much of it as I can. These posts are my take on a very dense and rewarding book.</div>
 <ul class = "posts">
 {% for post in site.posts %}
