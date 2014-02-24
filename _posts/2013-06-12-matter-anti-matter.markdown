@@ -48,8 +48,8 @@ def add_reference(ref)
 end
 
 def delete_reference(ref)
-  rc.ref_count = rc.ref_count - 1
-  if rc.ref_count == 0
+  ref.ref_count = ref.ref_count - 1
+  if ref.ref_count == 0
     ref.pointers.each do |field|
       delete_reference(field.address)
     end
