@@ -19,18 +19,6 @@ Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my 
 {% endfor %}
 </ul>
 
-<h1>Talks and Presentations</h1>
-<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
-<ul class = "posts">
-{% for post in site.posts %}
-    {% if post.published and post.talks %}
-    <li class="index">
-      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-    {% endif %}
-{% endfor %}
-</ul>
-
 <h1>Distraction Accretion</h1>
 <div class="lead">I don't know what to expect in terms of what will show up here, but I know I need this section.</div>
 <ul class = "posts">
@@ -40,6 +28,18 @@ Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my 
       <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
     </li>
   {% endif %}
+{% endfor %}
+</ul>
+
+<h1>Talks and Presentations</h1>
+<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+    {% if post.published and post.talks %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+    {% endif %}
 {% endfor %}
 </ul>
 
