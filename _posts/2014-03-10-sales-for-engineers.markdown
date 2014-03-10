@@ -18,7 +18,7 @@ In my capacity as a software engineer for the last 7 years or so, I've done all 
 
 3. Don't take being a "cost center" personally. Actually just kidding, that shit is offensive.
 
-4. Learn some statistics for the love of Edsger.
+4. <a href="http://www.springer.com/statistics/computational+statistics/book/978-0-387-79053-4">Learn some statistics</a> for the love of Edsger.
 
 5. You already know everything about computers, programming, software engineering, etc, so why not something new?
 
@@ -38,15 +38,15 @@ In my capacity as a software engineer for the last 7 years or so, I've done all 
 
 13. If you can't confidently sell your product at the price you sell it for, either don't sell it, or sell it for a different price.
 
-14. Sales and the interaction between human beings is the ultimate complex distributed system.
+14. Sales and the interaction between human beings is the ultimate distributed system.
 
-15. You have an advantage in sales because you understand the product in a special way.
+15. You have an advantage in sales because you understand the product in a specific way.
 
 16. You have an advantage in sales because you breathe numbers and functions.
 
 17. You have an advantage in sales because you can see through the data.
 
-18. You have a disadvantage in sales because you understand the product in a special way.
+18. You have a disadvantage in sales because you understand the product in a specific way.
 
 19. You have a disadvantage in sales because you breathe numbers and functions.
 
