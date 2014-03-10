@@ -112,5 +112,7 @@ In my capacity as a software engineer for the last 7 years or so, I've done all 
 
 50. Sales is fun. Enjoy it.
 
+*Thanks to JD Maturen for inspiration and James Golick for corrections.*
+
 *If you like this kind of content, <a href="http://twitter.com/mrb_bk">follow me on Twitter</a> for more.*
 
