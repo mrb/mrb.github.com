@@ -8,7 +8,7 @@ other: true
 # 
 ### On Programming and Cooking
 
-We should be reading <a href="http://stackoverflow.com/">fewer recipes</a> and more <a href="https://github.com/papers-we-love/papers-we-love">food science</a>.
+We should be reading fewer <a href="http://stackoverflow.com/">recipes</a> and more <a href="https://github.com/papers-we-love/papers-we-love">food science</a>.
 
 #### Notes
 
