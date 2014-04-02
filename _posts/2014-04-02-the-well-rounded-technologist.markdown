@@ -21,4 +21,6 @@ In terms of my personal life, I have a wife and two children, I've dedicated yea
 
 Our culture, as people in technology, has been plagued by problems with diversity, economic inequality, and stagnant innovation. Perhaps if we show more of ourselves, remember that we are more than employable, more than productive, excited about more than the latest tech, than we can start to steer this ship in a better direction.
 
+*P.S. In the spirit of this post, I shouldn't only link to Rob's technical blog. He's also a musician and <a href="https://soundcloud.com/rob_sickmode">his music can be found on Soundcloud</a>.*
+
 *If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
