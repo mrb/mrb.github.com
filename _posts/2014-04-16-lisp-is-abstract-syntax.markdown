@@ -20,6 +20,4 @@ If this quote reflects reality, it means that the syntax for Lisp was meant to b
 
 #### Works Cited
 
-<a id="bib1">[1]</a>
-
-<a href="#bib1">[1]</a> It's not! I had forgotten about M-Expressions. <a href="http://www.gigamonkeys.com/book/syntax-and-semantics.html">Practical Common Lisp</a> by Peter Seibel has a good bit about this.
+<a id="bib1">[1]</a> It's not! I had forgotten about M-Expressions. <a href="http://www.gigamonkeys.com/book/syntax-and-semantics.html">Practical Common Lisp</a> by Peter Seibel has a good bit about this.
