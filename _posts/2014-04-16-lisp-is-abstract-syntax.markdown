@@ -14,10 +14,12 @@ I'm currently working through a bit of Andrew W. Appel's <a href="https://www.cs
 
 If this quote reflects reality, it means that the syntax for Lisp was meant to be a stepping stone, but programmers adopting it prevented advancement. Perhaps this was the first time that software engineering and computer science's fundamental differences manifested themselves in a way that impacted future directions of both fields.
 
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
+*Thanks to Tom Santero and Greg Pfeil for corrections.*
+
 #### Works Cited
 
 <a id="bib1">[1]</a>
 
 <a href="#bib1">[1]</a> It's not! I had forgotten about M-Expressions. <a href="http://www.gigamonkeys.com/book/syntax-and-semantics.html">Practical Common Lisp</a> by Peter Seibel has a good bit about this.
-
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
