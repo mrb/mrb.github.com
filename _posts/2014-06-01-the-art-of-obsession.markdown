@@ -697,3 +697,6 @@ and learn. Get obsessed, and that's it.
 Thank you.
 
 (applause)
+
+
+*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
