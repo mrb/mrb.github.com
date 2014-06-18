@@ -11,8 +11,9 @@ talks: true
 
 *This is the video and unedited text of my keynote talk at <a href="http://bangbangcon.com/">!!Con</a> 2014 in NYC. The <a href="https://speakerdeck.com/mrb/the-art-of-obsession">slides can be found here</a>. Transcription provided by the <a href="http://stenoknight.com/">awesome Mirabai Knight</a> - hire them for your next conference!*
 
-<iframe width="560" height="315" src="//www.youtube.com/embed/yJgwrk6_zGY" frameborder="0" allowfullscreen></iframe>
+<center><iframe width="560" height="315" src="//www.youtube.com/embed/yJgwrk6_zGY" frameborder="0" allowfullscreen></iframe></center>
 
+#  
 ### Transcript
 
 All right. Allow me to... Uh... Bet
