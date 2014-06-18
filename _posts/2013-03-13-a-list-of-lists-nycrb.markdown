@@ -17,7 +17,7 @@ Books are my favorite things. I am constantly pursuing them, acquiring them, and
 
 _Concepts, Techniques, and Models of Computer Programming_ by Van Roy and Haridi
 
-<a href="http://localhost:4000/2013/02/23/notes-on-teaching-with-the-kernel-language-approach.html">I've already written</a> about how important I feel Van Roy and Haridi's work is on this blog. I chose "Rethink Everything" because it's clear that existing developers can learn quite a bit from reading this book - in addition to supplying new information, it helps you understand things you already know in a deeper and broader way. Van Roy and Haridi push you to investigate the complex relationships between various programming paradigms and is truly enlightening.
+<a href="http://michaelrbernste.in/2013/02/23/notes-on-teaching-with-the-kernel-language-approach.html">I've already written</a> about how important I feel Van Roy and Haridi's work is on this blog. I chose "Rethink Everything" because it's clear that existing developers can learn quite a bit from reading this book - in addition to supplying new information, it helps you understand things you already know in a deeper and broader way. Van Roy and Haridi push you to investigate the complex relationships between various programming paradigms and is truly enlightening.
 
 <a href="http://www.info.ucl.ac.be/~pvr/book.html">Click here</a> for more information.
 
