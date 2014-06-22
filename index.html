@@ -7,6 +7,18 @@ Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my 
 <br/>
 <br/>
 
+<h1>Talks and Presentations</h1>
+<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+    {% if post.published and post.talks %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>
+
 <h1 id="i-tapl">Types and Programming Languages</h1>
 <div class="lead"><a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Benjamin C. Pierce's tome</a> formalizes type systems and offers a different perspective to understanding computation. Notoriously dense, I am slowly making my way through and posts here will likely be sporadic.</div>
 <ul class = "posts">
@@ -28,18 +40,6 @@ Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my 
       <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
     </li>
   {% endif %}
-{% endfor %}
-</ul>
-
-<h1>Talks and Presentations</h1>
-<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
-<ul class = "posts">
-{% for post in site.posts %}
-    {% if post.published and post.talks %}
-    <li class="index">
-      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-    {% endif %}
 {% endfor %}
 </ul>
 
