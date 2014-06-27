@@ -96,4 +96,4 @@ The last test shows more advanced usage of `featurec`, bringing us full circle t
 
 Clojure programmers often resort to a lot of trickery in core.logic to massage their data structures into lists for compatibility with the classic examples of Prolog, miniKanren, etc. Rich support for maps is one of the things that makes core.logic such an exciting library that is edging ever closer to wider adoption amongst Clojure programmers in non-trivial applications. Drawing on inspiration from a wide array of sources is what makes Clojure so fascinating and vital, and core.logic is clearly following in these footsteps. I hope this blog post helps get you excited enough to `run*` your own.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

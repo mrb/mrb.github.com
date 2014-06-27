@@ -15,4 +15,4 @@ And here are the slides:
 
 <script async class="speakerdeck-embed" data-id="56e841407fd90131efdb6ecfb9eaf79b" data-ratio="1.17028571428571" src="//speakerdeck.com/assets/embed.js"></script>
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

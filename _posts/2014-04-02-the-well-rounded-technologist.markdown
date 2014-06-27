@@ -23,4 +23,4 @@ Our culture, as people in technology, has been plagued by problems with diversit
 
 *P.S. In the spirit of this post, I shouldn't only link to Rob's technical blog. He's also a musician and <a href="https://soundcloud.com/rob_sickmode">his music can be found on Soundcloud</a>.*
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

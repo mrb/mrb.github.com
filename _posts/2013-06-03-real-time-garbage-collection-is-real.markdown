@@ -65,7 +65,7 @@ While reading the literature about RTGC, I was struck again and again by how the
 
 *Thanks to James Golick for his proofreading and Computology expertise.*
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

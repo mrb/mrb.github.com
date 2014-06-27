@@ -167,7 +167,7 @@ The practice of examining what state is and why we need it is a fundamental comp
 
 State is a fundamental component of how we reason about computation and thus the tradeoffs we accept are worth it in the long run. How we introduce it into our programs can be positively impacted by a deeper intuition for how it works and how it got there in the first place.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

@@ -171,7 +171,7 @@ The authors have shown us yet again that simple extension of the semantics of th
 
 Beginning professional developers who jump right in to programming with mutable, global state, objects, and concurrency rightfully believe that "concurrency in **LANGUAGE X** is Hard." Unfortunately, many people extend that to "programming with concurrency is Hard." They don't seek other paradigms because they think that the complexity is necessary. They think it is capital-H Hard and the truth is that it doesn't have to be.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

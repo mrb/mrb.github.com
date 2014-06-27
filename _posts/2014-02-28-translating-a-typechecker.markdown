@@ -198,7 +198,7 @@ Type systems in the wild are often large, scary, unapproachable things. Working 
 
 In my estimation, Pierce is correct and the idea of a *translation* does work. When the inversion lemma is written as OCaml code, it bears the realities of the system it runs on: it has to handle errors with words, use specific names for functions, etc. To me, that's a beautiful thing.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

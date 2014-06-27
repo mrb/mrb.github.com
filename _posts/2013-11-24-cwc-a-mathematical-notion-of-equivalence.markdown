@@ -28,5 +28,3 @@ If you take the time to create the two knots above, you can get a *physical* sen
 [1] http://en.wikipedia.org/wiki/Knot_theory
 
 [2] "Terese Lite," Excerpts from the book TERM REWRITING SYSTEMS by Terese. From the Course *Term Rewriting Systems at the Vrije Universiteit*, fall 2006.
-
-*If you like this work, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*

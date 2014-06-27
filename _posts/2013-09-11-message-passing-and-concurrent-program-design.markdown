@@ -211,7 +211,7 @@ The expansion from declarative concurrency to message-passing concurrency in the
 
 As the limitations of the declarative concurrent system previously presented were extensively discussed in the previous chapters, it is encouraging that the authors are capable of alleviating some of those unappealing aspects by making trade-offs between functionality and expressiveness, declarativeness and statefulness, and so on. Various design solutions and abstractions are introduced that reinforce, to my mind, the importance of the careful consideration of correctness and design in creating flexible, powerful, concurrent software.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

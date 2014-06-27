@@ -22,4 +22,4 @@ It reminds me of the years I spent working on music as a hobby. I found that the
 
 Building a habit of reading code, (or math, or prose about code or math) will have the same impact - over time you will make progress, grow stronger, and get more done - without the guilt and bullshit.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

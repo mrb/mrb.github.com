@@ -20,7 +20,7 @@ I love the connection that Will draws here, and I think that once you witness th
 
 I think this is the beginning of an important dialogue from which we can all benefit greatly.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

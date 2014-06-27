@@ -14,4 +14,4 @@ We should be reading fewer <a href="http://stackoverflow.com/">recipes</a> and m
 
 <a id="bib1">[1]</a> For an actual book on food science, check out Harold McGee's <a href="http://curiouscook.typepad.com/site/on-food-and-cooking.html">On Food and Cooking</a>. It is a fantastically effective book on how to cook because it teaches you the science and history of food -- you don't only get the how, you get the why.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

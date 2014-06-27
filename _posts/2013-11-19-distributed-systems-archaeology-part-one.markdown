@@ -87,4 +87,4 @@ To recap, Licklider, Minsky, and Hewitt all were inherently concerned with the d
 
 *Next, we will look at 'Formalism: The role of the proof the history of distributed systems research. Stay tuned.*
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

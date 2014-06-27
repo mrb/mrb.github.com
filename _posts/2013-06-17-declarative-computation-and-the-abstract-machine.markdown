@@ -179,7 +179,7 @@ It's an interesting exercise to consider how the programming language constructs
 
 Now that we have seen how to define and execute a small language, we can begin to extend it. The variables in the Single Assignment Store have interesting properties that the authors leverage for various purposes, and before long a useful, beautiful language emerges.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

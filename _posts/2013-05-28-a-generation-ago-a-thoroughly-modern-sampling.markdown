@@ -106,7 +106,7 @@ The AI Memos are an extremely fertile ground for modern research. While it's tru
 # 
 *Special thanks to Maciej Katafiasz for correcting some incorrectly transcribed LISP code below.*
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 <hr/>
 

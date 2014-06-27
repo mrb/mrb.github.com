@@ -21,5 +21,3 @@ And the rest of the resources can be found here:
 * <a href="http://michaelrbernste.in/2013/11/21/distributed-systems-archaeology-part-three.html">Part three</a>: The Market and the Future
 * <a href="http://michaelrbernste.in/2013/11/06/distributed-systems-archaeology-works-cited.html">Works Cited</a>
 * Slides can <a href="https://speakerdeck.com/mrb/distributed-systems-archaeology">be found here</a>. 
-
-*If you like this sort of thing, please consider supporting my writing and speaking on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*

@@ -98,4 +98,4 @@ Instead of hiring developers to write code in a specific language, we should enc
 
 _Thank you to <a href="http://twitter.com/gordondiggs">@gordondiggs</a>, <a href="http://twitter.com/timonk">@timonk</a>, amd <a href="http://twitter.com/eallam">@eallam</a> for your thoughtful and helpful reviews._
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

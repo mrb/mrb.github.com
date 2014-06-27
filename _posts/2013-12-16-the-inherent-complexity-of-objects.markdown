@@ -25,7 +25,7 @@ One of the deeper parts of the chapter for me were the lines Van Roy and Haridi 
 
 #### Mostly Misunderstood
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

@@ -63,7 +63,7 @@ The paper states that in addition to a modicum of somewhat superficial bug fixes
 
 So without knowing it, developers, managers, and testers rely on code review for a wide variety of  purposes including communicating the design goals of implementations, enforcing style, and more. If we tweak our expectations and prepare for the inevitable outcomes, over time we can improve our code and use our tools to maximum effect.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

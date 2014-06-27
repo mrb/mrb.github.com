@@ -119,4 +119,4 @@ It is relatively simple to get up and running with this system. <a href="http://
 
 <i><b>Note:</b> An earlier version of this post linked directly to the PDF. A correction was made to link to the information page at the request of the authors.</i>
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

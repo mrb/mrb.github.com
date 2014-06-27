@@ -146,7 +146,7 @@ The author's decision to put tracing in is absolutely awesome! We can see how th
 
 It is one of my goals in 2014 to get more people excited about logic programming and how we can leverage it in a multi-paradigm context. Embedding pattern matching, non-deterministic choice, and logic programming into an Object-Oriented language like Ruby has many interesting possibilities. We've seen some traction with these ideas in the Clojure community, and I hope this small tour of some easy to digest libraries by one awesome author helps get you excited about their potential.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

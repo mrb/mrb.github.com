@@ -139,4 +139,4 @@ Aman Gupta at GitHub is working on some performance tools again (lucky us!) and 
 
 That's all I got! Thanks for checking out my lists.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

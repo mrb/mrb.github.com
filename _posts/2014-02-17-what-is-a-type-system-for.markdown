@@ -75,7 +75,7 @@ While many professional programmers have opinions about dynamic vs. static progr
 
 As with any other aspect of the discipline, choosing to use a type system or not shouldn't preclude you from learning more about them and understanding the inherent tradeoffs that are involved in their application. It is clear to me that expressive type systems like those found in OCaml and Haskell are rich and well-considered; they definitely have light to shed on problems encountered in almost any modern developers day-to-day work, but whether or not they can be unobtrusive, for me, remains to be seen.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

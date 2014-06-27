@@ -26,4 +26,4 @@ A pretty simple message, but hey - it worked.
 
 I don't know if I would have continued on with my dedication to reading if I didn't have both the modeling and the pestering, but if you're looking for inspiration, I thought one more data point couldn't hurt.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+

@@ -67,5 +67,3 @@ This chapter makes me very excited for the book though I'm nervous because I kno
 * "An operation is atomic if no intermediate states can be observed"
 * Atomicity is offered as a means to avoid race conditions
 * Locks are introduced as a mechanism to provide atomicity
-
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*

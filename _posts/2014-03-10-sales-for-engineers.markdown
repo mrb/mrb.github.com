@@ -114,5 +114,5 @@ In my capacity as a software engineer for the last 7 years or so, I've done all 
 
 *Thanks to JD Maturen and Bryan Helmkamp for inspiration and James Golick for corrections.*
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 

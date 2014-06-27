@@ -22,7 +22,7 @@ Specifically, two papers -- "Dynamic Inference of Static Types for Ruby" and "Th
 
 #### Conclusion
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

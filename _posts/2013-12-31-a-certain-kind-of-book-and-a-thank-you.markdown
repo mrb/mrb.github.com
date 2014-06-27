@@ -35,5 +35,3 @@ Cast off the shackles of von Neumann and study the implementations of Functional
 ### Thank You
 
 Finally, I'd like to say thank you all for your support and for reading my writing in 2013. Your comments and encouragement make it worthwhile.
-
-*If you like this work, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*

@@ -80,7 +80,7 @@ That makes me wonder what other kinds of transformations you can make to terms i
 
 Whether your programming language "embraces" types or has a modern type system or not, these concepts are central to how programs execute, because they are a fundamental part of how computation works. Adding types to the lambda calculus is what transformed the primordial ooze of computation into the complex ecosystem of programming, and its mysteries and intricacies are manifold.
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited
 

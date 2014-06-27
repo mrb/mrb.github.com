@@ -74,6 +74,6 @@ other: true
 ; 0)
 {% endhighlight %}
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
 
 #### Works Cited

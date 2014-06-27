@@ -60,4 +60,4 @@ Dijkstra and Lynch, in addition to Leslie Lamport, whose work I am going to cove
 
 *Next, we will look at 'The Market: The impact of commerce on distributed systems research, and I'll wrap things up. Stay tuned.*
 
-*If you like this article, please consider supporting my writing on <a href="https://www.gittip.com/mrb_bk/">gittip.</a>*
+
