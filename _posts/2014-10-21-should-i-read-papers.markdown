@@ -24,7 +24,7 @@ Of the four words, the "**should**" is probably the most challenging. What do I 
 
 No, I really don't. If you don't want to read papers, don't. That's fine. But I wanted it to be on record why I think you **should**.
 
-I mean **should** in the same sense that you **should** eat healthful food, or you **should** get out in the fresh air as often as possible. I mean it in the sense that if you believe that you **should** bring purpose to your work, than you **should** be doing whatever you can to improve and to understand the universe you work in a little bit better each day.
+I mean **should** in the same sense that you **should** eat healthful food, or you **should** get out in the fresh air as often as possible. I mean it in the sense that if you believe that you **should** bring purpose to your work, then you **should** be doing whatever you can to improve and to understand the universe you work in a little bit better each day.
 
 > "Should <b>I</b> read papers?"
 
