@@ -48,7 +48,11 @@ But that is a fantastically terrible definition for **read** in the sense of "Sh
 
 This is because to **read** a paper means to have a relationship with it. Over a long period of time. You may sit down and "give it a good **read**," but really, if it's worth reading, you'll come back to it again and again.
 
-In other words: you can't be "too dumb" to **read** a paper. Anyone can **read** any paper at any time. Don't be afraid, be encouraged. You will learn something. You may even form an opinion. You may even have ideas of your own.
+In other words: you can't be "too dumb" to **read** a paper. Anyone can **read** any paper at any time. Don't be afraid, be encouraged. You will learn something.
+
+Keep in mind that <a href="https://github.com/papers-we-love/papers-we-love#how-to-read-a-paper">"reading a paper is not the same as reading a blogpost or a novel"</a> and also don't forget: you are not alone.
+
+Even though the question at hand is "Should *I* read papers?" you're barely ever alone. There's almost always someone else going down a similar pathway as you. And now more than ever those people are reachable, either in person or virtually.
 
 > "Should I read <b>papers</b>?"
 
@@ -68,7 +72,7 @@ Give yourself a challenge.
 
 There's more beneath the surface than you could ever imagine.
 
-*Thanks to Caitie McCaffrey, Tom Santero, James Golick, Zeeshan Lakhani, Alex Kahn, and Ken Keiter for their help with this post.
+*Thanks to Caitie McCaffrey, Tom Santero, James Golick, Zeeshan Lakhani, Alex Kahn, and Ken Keiter for their help with this post.*
 
 #### Notes
 
