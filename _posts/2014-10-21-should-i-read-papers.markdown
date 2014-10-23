@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Should I Read Papers?"
-published: true
+published: false
 other: true
 ---
 # 
@@ -67,6 +67,8 @@ My answer to the question "Should I read papers?" is a resounding yes, but reall
 Give yourself a challenge.
 
 There's more beneath the surface than you could ever imagine.
+
+*Thanks to Caitie McCaffrey, Tom Santero, James Golick, Zeeshan Lakhani, Alex Kahn, and Ken Keiter for their help with this post.
 
 #### Notes
 
