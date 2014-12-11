@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "You Are Learning Haskell Right Now (Or Any Language You Want Really)"
+title: "You Are Learning Haskell Right Now (Or Anything You Want Really)"
 published: true
 other: true
 ---
 # 
 # 
-### You Are Learning Haskell Right Now (Or Any Language You Want Really)
+### You Are Learning Haskell Right Now (Or Anything You Want Really)
 
 It wasn't that long ago (about 6 months or so) that I wrote in the description for a talk I was giving in New York City that I "still can't write Haskell." I wasn't joking at the time, or being coy - I couldn't put even a simple program together. Since then, I've turned a bit of a corner and have made modest progress working on an "Intermediate" level Haskell program involving nasty State Monad bits, Networking, and a lot of brow scratching and internal trauma and anxiety.
 
@@ -36,6 +36,6 @@ The point I want to get across with the incidental nature of the time line that 
 
 Another reason to not publish a time line about how I learned a specific language is because in reality, it's not at all that interesting. What the world needs is more posts encouraging people to forge their own paths and try, try, try to achieve the very challenging goals that they're setting out for themselves. It doesn't matter if it's learning an "academic" language or something more "practical" - the lesson remains the same.
 
-The only thing that works is time, but guess what? Time is passing: you're learning Haskell right now. Or any other language you want to, for that matter.
+The only thing that works is time, but guess what? Time is passing: you're learning Haskell right now. Or anything else you want to, for that matter.
 
 
