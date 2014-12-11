@@ -42,4 +42,6 @@ I tried over and over again to turn my self doubt into a pure functional program
 
 So I have come to the conclusion that the only thing that works is time and repetition, and that may seem daunting, but guess what? Time is passing. You're learning Haskell right now. Or anything else you want to, for that matter.
 
+**P.S.** *I'm anticipating that some clever people will come to the conclusion that if I had only tried to "learn the language properly," I would have had an easier time. My response is: if that's your conclusion, you're missing the point.*
+
 
