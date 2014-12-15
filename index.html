@@ -2,13 +2,10 @@
 layout: default
 title: home
 ---
-<br/>
-Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my personal blog. The posts are divided into sections below, because that is how I tend to write - for a period about one subject at a time.
-<br/>
-<br/>
+<p style="font-size: 36px; line-height:46px; font-weight: normal;">Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my personal blog. Here you'll find my talks and presentations, general blog posts, mixes and other sounds, posts on TAPL and CTM, and more. I hope you enjoy!</p>
 
 <h1>Talks and Presentations</h1>
-<div class="lead">I try to follow up talks and presentations I give with posts with materials and an overview. Here are the posts I've managed to write so far.</div>
+<div class="lead">Slides, videos, and transcripts from talks I've given.</div>
 <ul class = "posts">
 {% for post in site.posts %}
     {% if post.published and post.talks %}
@@ -16,6 +13,30 @@ Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my 
       <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
     </li>
     {% endif %}
+{% endfor %}
+</ul>
+
+<h1>Distraction Accretion</h1>
+<div class="lead">General blog posts.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+  {% if post.published and post.other %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endif %}
+{% endfor %}
+</ul>
+
+<h1>Mixes and Other Sounds</h1>
+<div class="lead">Tracklists and breakdowns of sounds I've collected.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+  {% if post.published and post.sound %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endif %}
 {% endfor %}
 </ul>
 
@@ -31,19 +52,7 @@ Hello, my name is <a href="/about.html">Michael R. Bernstein</a> and this is my 
 {% endfor %}
 </ul>
 
-<h1>Distraction Accretion</h1>
-<div class="lead">I don't know what to expect in terms of what will show up here, but I know I need this section.</div>
-<ul class = "posts">
-{% for post in site.posts %}
-  {% if post.published and post.other %}
-    <li class="index">
-      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endif %}
-{% endfor %}
-</ul>
-
-<h1 id="i-ctm">Concepts, Techniques, and Models</h1>
+<h1 id="i-ctm">Concepts, Techniques, and Models of Computer Programming</h1>
 <div class="lead">I am working my way through <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a> and writing about as much of it as I can. These posts are my take on a very dense and rewarding book.</div>
 <ul class = "posts">
 {% for post in site.posts %}
