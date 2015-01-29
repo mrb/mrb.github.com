@@ -13,7 +13,8 @@ Recently, I found myself in the curious position of trying to learn something ag
 I found it online, started reading, and found this definition of a "partially ordered set" or "poset," which is one of those annoying prerequisites for understanding what a "Galois connection" is. Here's the explanation:
 
 ```
-A partially ordered set - henceforth, a poset - is a set P, carrying an ordering relation 􏱒which is reflexive, anti-symmetric and transitive.
+A partially ordered set - henceforth, a poset - is a set P, carrying an
+ordering relation 􏱒which is reflexive, anti-symmetric and transitive.
 ```
 
 Okay, this seems simple enough but there are definitely some more prerequisites here - "ordering relation," "reflexive," "anti-symmetric," and "transitive." Where to go from here?
