@@ -14,7 +14,7 @@ I found it online, started reading, and found this definition of a "partially or
 
 ```
 A partially ordered set - henceforth, a poset - is a set P, carrying an
-ordering relation 􏱒which is reflexive, anti-symmetric and transitive.
+ordering relation which is reflexive, anti-symmetric and transitive.
 ```
 
 Okay, this seems simple enough but there are definitely some more prerequisites here - "ordering relation," "reflexive," "anti-symmetric," and "transitive." Where to go from here?
