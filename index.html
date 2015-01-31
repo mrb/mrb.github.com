@@ -16,6 +16,18 @@ title: home
 {% endfor %}
 </ul>
 
+<h1>Programs That Eat Programs</h1>
+<div class="lead">General blog posts.</div>
+<ul class = "posts">
+{% for post in site.posts %}
+  {% if post.published and post.hungry %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endif %}
+{% endfor %}
+</ul>
+
 <h1>Distraction Accretion</h1>
 <div class="lead">General blog posts.</div>
 <ul class = "posts">
