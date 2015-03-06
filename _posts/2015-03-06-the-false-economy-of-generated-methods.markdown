@@ -35,9 +35,9 @@ def a_method
 end
 {% endhighlight %}
 
-The method `bar?` is generated for us because `bar` is a `Boolean`. The method is not something you can find by searching through the code base. It is only somethig you can know if you know how all of the underlying machinery of `SomeVeryLargeORMClass` works. After a while, this stops being convenient, and starts being annoying and expensive.
+The method `bar?` is generated for us because `bar` is a `Boolean`. The method is not something you can find by searching through the code base. It is only something you can know if you know how all of the underlying machinery of `SomeVeryLargeORMClass` works. After a while, this stops being convenient, and starts being annoying and expensive.
 
-According to everyone's favorite primary source of infalible and always perfect truths, Wikipedia, a false economy is defined as:
+According to everyone's favorite primary source of infallible and always perfect truths, Wikipedia, a false economy is defined as:
 
 > "... an action that saves money at the beginning but which, over a longer period of time, results in more money being spent or wasted than being saved."
 
