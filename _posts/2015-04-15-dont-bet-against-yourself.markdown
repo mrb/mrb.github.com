@@ -8,7 +8,7 @@ other: true
 # 
 ### Don't Bet Against Yourself
 
-In startup land these days, there's a lot of discussion around the "right tool for the job." You should "never invent here," you should "use boring tools," you should "use whatever the hell you want." I'm currently involved in my third consecutive startup, and have the dubious distinction of having a lot of friends who are in similar positions - they've seen a lot, made a lot of mistakes, and have tried to learn what impact that the tools we choose have on our ability to do the two things that matter when starting a business:
+In startup land these days, there's a lot of discussion around the "right tool for the job." You should "never invent here," you should "use boring tools," you should "use whatever the hell you want." I'm currently involved in my third consecutive startup, and have the dubious distinction of having a lot of friends who are in similar positions - they've seen a lot, made a lot of mistakes, and have tried to learn what impact that the tools we choose have on our ability to do the three things that matter when starting a business:
 
 * Making something that works
 * Making customers happy
