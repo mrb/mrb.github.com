@@ -25,3 +25,7 @@ So when you're choosing the tools for the job, it's a bit of a quandary. It can 
 On the other hand, choosing "too liberally" will leave you with a whole lot of uncertainty. You don't know if the tools you're playing around with will even exist in N years. This might be worth it to you, but what's important is considering the tradeoffs up front. Perhaps your choice is so revolutionary, so bold, and so right that you can't help but make it. In that case I say to you - congratulations, but with a word of caution:
 
 > "Being right doesn't pay the bills."
+
+#### Further Listening
+
+Aaron Quint and I discussed some of these ideas on our podcast, Beats, Rye & Types. Check out [Episode 9: Magic](http://beatsryetypes.com/episodes/2015/03/30/episode-9-magic.html).
