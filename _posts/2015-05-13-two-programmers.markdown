@@ -22,7 +22,7 @@ The first programmer said, "All of those languages sound amazing. All of the oth
 
 The two programmers sat at their terminal. They felt sad for 100 days.
 
-One day a junior developer walked by. "Joey, could you tell us what kind of programming languages the other programmers are using?" Asked the stones.
+One day a junior developer walked by. "Joey, could you tell us what kind of programming languages the other programmers are using?" Asked the programmers.
 
 Joey said quickly, without thinking, "They're using the same languages as you!"
 
