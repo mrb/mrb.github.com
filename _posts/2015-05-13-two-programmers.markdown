@@ -18,7 +18,7 @@ One day a senior developer walked by. "Suzie, could you tell us what kind of pro
 
 The first programmer said, "All of those languages sound amazing. All of the other programmers are using them."
 
-"How sad." Said the seconds stone. "We cannot use them, we never will."
+"How sad." Said the second programmer. "We cannot use them, we never will."
 
 The two programmers sat at their terminal. They felt sad for 100 days.
 
