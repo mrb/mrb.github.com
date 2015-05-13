@@ -14,7 +14,7 @@ Two programmers sat at a computer with an opened text editor, writing in the onl
 
 "We do not know. We never will."  Said the second programmer.
 
-One day a senior developer walked by. "Suzie, could you tell us what kind of programming languages the other programmers are using?"  Asked the two programmers. Suzie thought about it for a second and said, "They are using paradigms you've never seen of, languages of unbridled efficiency, clarity, and performance."
+One day a senior developer walked by. "Suzie, could you tell us what kind of programming languages the other programmers are using?"  Asked the two programmers. Suzie thought about it for a second and said, "They are using paradigms you've never seen, languages of unbridled efficiency, clarity, and performance."
 
 The first programmer said, "All of those languages sound amazing. All of the other programmers are using them."
 
