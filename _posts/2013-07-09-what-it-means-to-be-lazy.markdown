@@ -49,7 +49,7 @@ C={F3 30}
 D=A+B
 {% endhighlight %}
 
-`F1`, `F2`, and `F3` are `lazy` functions (`lazy` is a syntactic construction on top of the `ByNeed` instruction we mentioned earlier, and is explained below). When these functions are called, as they are with the assignments to `A`, `B`, and `C`, a **stopped execution** is created. The values of these variables are not yet needed, so those *stopped executions* are not *resumed and completed.* The final line of the fragment shows that the assignment to `D` needs the values of `A` and `B`. This call **triggers** the execution of `A` and `B`, and `C` is assigned the sum of `{F1 10}` and `{F2 20}`. `C`, which is still stopped, is never executed, because its value is never needed. In other words, though this program can be read and understood in a sequential way, it is in fact not executed in the traditional *eager* manner.
+`F1`, `F2`, and `F3` are `lazy` functions (`lazy` is a syntactic construction on top of the `ByNeed` instruction we mentioned earlier, and is explained below). When these functions are called, as they are with the assignments to `A`, `B`, and `C`, a **stopped execution** is created. The values of these variables are not yet needed, so those *stopped executions* are not *resumed and completed.* The final line of the fragment shows that the assignment to `D` needs the values of `A` and `B`. This call **triggers** the execution of `A` and `B`, and `D` is assigned the sum of `{F1 10}` and `{F2 20}`. `C`, which is still stopped, is never executed, because its value is never needed. In other words, though this program can be read and understood in a sequential way, it is in fact not executed in the traditional *eager* manner.
 
 Laziness changes the way things happen in a program and can be applied *in the small*, as in the above code snippet, or *in the large* as in the "lazily loaded code modules" example above. An entire language can be *lazy* if that is the default means by which execution within computation occurs. This is not the case for our model, which chooses to *extend the kernel with the ability to declare computations as lazy at the discretion of the developer*. With the combination of concurrency, laziness, and declarativeness, we have a powerful set of ideas to explore.
 
@@ -129,7 +129,7 @@ Laziness is a quality of a programming language's semantics that is often misund
 
 Adding laziness to the concurrent declarative model also provides insight into how complexity is introduced into a programming language and its computational model. This language is small and provably correct, but considerably less expressive than a typical production language with many of the same characteristics. Adding laziness meant adding an entirely new concept to the abstract machine, new instructions to the kernel language, new linguistic abstractions, new ways of thinking about time and space complexity, and more. The relationship between laziness and state is also quite compelling. Reading that "laziness is state" is one thing, but seeing the mechanics of how that state is added and passed around in the abstract machine is a whole beautiful other.
 
-
+*Special thanks to Mauricio Martínez for submitting a correction to this post via email.*
 
 #### Works Cited
 
