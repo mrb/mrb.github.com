@@ -129,7 +129,7 @@ Laziness is a quality of a programming language's semantics that is often misund
 
 Adding laziness to the concurrent declarative model also provides insight into how complexity is introduced into a programming language and its computational model. This language is small and provably correct, but considerably less expressive than a typical production language with many of the same characteristics. Adding laziness meant adding an entirely new concept to the abstract machine, new instructions to the kernel language, new linguistic abstractions, new ways of thinking about time and space complexity, and more. The relationship between laziness and state is also quite compelling. Reading that "laziness is state" is one thing, but seeing the mechanics of how that state is added and passed around in the abstract machine is a whole beautiful other.
 
-*Special thanks to Mauricio Martínez for submitting a correction to this post via email.*
+*Special thanks to Mauricio Martínez Jimenez for submitting a correction to this post via email.*
 
 #### Works Cited
 
