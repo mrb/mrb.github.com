@@ -30,7 +30,7 @@ And I'm pretty sure if you're reading this, you like at least some of those thin
 
 I decided to write down some notes and musings from each of the 10 chapters in the book in order to bolster my understanding, provide an artifact of my learning in case anything becomes fuzzy to me later (which it certainly will, given historical evidence), and to prove to myself that I can explain this stuff in the context of Wadler's paper. This post covers the first 5 chapters. For each one, I've written down what the "Big ideas" were for me - what resonated, what I think the authors were after, and what I could take away. Here we go!
 
-*Note: There is some Scheme code below that is illustrative, and some that is meant to be executed by the J-Bob proof assistant, the design and implementation of which is one of the central focuses of the book. Understanding which is which is a little bit confusing, but check out <a href="github.com/the-little-prover/j-bob">The J-Bob Source Code on GitHub</a> for some clues.*
+*Note: There is some Scheme code below that is illustrative, and some that is meant to be executed by the J-Bob proof assistant, the design and implementation of which is one of the central focuses of the book. Understanding which is which is a little bit confusing, but check out <a href="http://github.com/the-little-prover/j-bob">The J-Bob Source Code on GitHub</a> for some clues.*
 
 ## Chapter 1 - Old Games, New Rules
 
