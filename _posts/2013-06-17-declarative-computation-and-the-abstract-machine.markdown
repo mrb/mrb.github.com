@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: mathjax
 title: "Declarative Computation, Syntactic Sugar, and the Abstract Machine"
 published: true
 ctm: true
