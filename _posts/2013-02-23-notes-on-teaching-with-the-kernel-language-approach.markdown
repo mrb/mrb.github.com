@@ -20,7 +20,7 @@ The classroom is the first place many people get exposed to computer science and
 
 > "Widely-different practical languages...are explained by straightforward translations into closely-related kernel languages, simple languages that consist of small numbers of programmer-significant concepts."
 
-These two quotes sum up the _what_ and the _how_ of the kernel language approach. In terms of the kernel language itself, it is in fact its own programming language, a sort of "runnable pseudocode" that is executable in the <a href="http://www.mozart-oz.org/">Mozart/Oz platform</a>.
+These two quotes sum up the _what_ and the _how_ of the kernel language approach. In terms of the kernel language itself, it is in fact its own programming language, a sort of "runnable pseudocode" that is executable in the <a href="http://mozart.github.io/">Mozart/Oz platform</a>.
 
 At this point it is easy to indulge the "practical" part of your brain that says that there's no point in studying a language that you can't use in production. I often have to remind myself that I didn't learn to program in a language that I ended up using in any professional capacity, and that many around me learned with an entirely different toolchain, an entirely different mindset, an entirely different venue. The point isn't to learn a new language, it's to learn new concepts, how to apply them, and how to draw conclusions about what paradigms are applicable to what situations based on that understanding.
 
