@@ -10,6 +10,7 @@ other: true
 
 ### "Live Every Time" By Mike Bernstein
 
+<br/><br/>
 <center><img src="http://michaelrbernste.in/images/bernstein.jpg"></center>
 
 *Mike Bernstein is a central cog in the Northeastern USA art/noise scene. As a member of Double Leopards he brought a sophisticated feel for primitively re-wired electronics and hi-jacked music software to the table, lending their already fathoms-deep sound a couple of miles more boom. As a member of Religious Knives alongside his partner Maya Miller and Nate Nelson from Mouthus he has convincingly formulated new approaches to rock song that would incorporate the most advanced noise syntax. As co-owner of the Heavy Tapes imprint he has been at the forefront of the analog renaissance and has set new standards for homemade art documentation, an area of interest that he has further expanded upon via his curatorship of the current Leaderless: Underground Cassette Culture Now exhibition at Printed Matter in New York City. We’re pleased to welcome him as a Volcanic Tongue columnist with a very personal piece on Bootleg Culture.*
