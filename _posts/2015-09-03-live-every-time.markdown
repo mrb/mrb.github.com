@@ -8,9 +8,9 @@ other: true
 # 
 *Note: this was originally published in May, 2007 on the Volcanic Tongue website. Volcanic Tongue was a record distributor and label run by my friends Heather Leigh and David Keenan out of Glasgow, Scotland. Volcanic Tongue is over and I wanted to document some of my 'other' writing on my blog, so I'm re-posting this here. Below is the original introduction written by David, followed by the article itself. Photo by Chris Gray, originally published with the article as well.*
 
-<center><img src="http://michaelrbernste.in/images/bernstein.jpg"></center>
-
 ### "Live Every Time" By Mike Bernstein
+
+<center><img src="http://michaelrbernste.in/images/bernstein.jpg"></center>
 
 *Mike Bernstein is a central cog in the Northeastern USA art/noise scene. As a member of Double Leopards he brought a sophisticated feel for primitively re-wired electronics and hi-jacked music software to the table, lending their already fathoms-deep sound a couple of miles more boom. As a member of Religious Knives alongside his partner Maya Miller and Nate Nelson from Mouthus he has convincingly formulated new approaches to rock song that would incorporate the most advanced noise syntax. As co-owner of the Heavy Tapes imprint he has been at the forefront of the analog renaissance and has set new standards for homemade art documentation, an area of interest that he has further expanded upon via his curatorship of the current Leaderless: Underground Cassette Culture Now exhibition at Printed Matter in New York City. We’re pleased to welcome him as a Volcanic Tongue columnist with a very personal piece on Bootleg Culture.*
 
