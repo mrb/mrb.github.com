@@ -18,6 +18,6 @@ Today's a Sunday. I'm traveling in the opposite direction of my wife and kids to
 
 * Recently, my wife and I were fortunate enough to buy our first home. It's a big and strange house, over 100 years old, mysterious and graceful in its way. It has multiple screened-in porches. The front yard gets a lot of sun. As we've settled in, my wife and I have been planning how to landscape around the house - it could use some work. Talking to a friend in the neighborhood who had recently done something similar, they were frustrated to find out that growing a decent hedge takes about five years. That amount of time sounded just about perfect to me.
 
-I think you know me a little bit better now, or at least you know what I think I', about, at 35 years old, on September 13, 2015.
+I think you know me a little bit better now, or at least you know what I think I'm about, at 35 years old, on September 13, 2015.
 
 Thanks for reading.
