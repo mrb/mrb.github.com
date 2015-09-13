@@ -4,8 +4,8 @@ title: "What I Am About"
 published: true
 other: true
 ---
-#
-#
+# 
+# 
 ### What I Am About
 
 You don't know me. I mean, you might actually know me, but chances are, you don't. Which is great. That's kinda what this whole thing is about. If you want to know me, you should know what I am about. What makes me tick. What motivates me.
