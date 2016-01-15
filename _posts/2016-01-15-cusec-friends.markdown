@@ -4,8 +4,7 @@ title: "I'd like to introduce you to a few of my closest friends - CUSEC 2016 Ke
 published: true
 talks: true
 ---
-#
-#
+
 ### I'd like to introduce you to a few of my closest friends
 
 *This is the transcript and slides of a keynote talk I gave at CUSEC 2016 in Montreal.*
