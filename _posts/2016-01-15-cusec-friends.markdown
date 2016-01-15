@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "I'd like to introduce you to a few of my closest friends"
+title: "I'd like to introduce you to a few of my closest friends - CUSEC 2016 Keynote"
 published: true
 talks: true
 ---
 #
 #
-## I'd like to introduce you to a few of my closest friends
+### I'd like to introduce you to a few of my closest friends
 
 *This is the transcript and slides of a keynote talk I gave at CUSEC 2016 in Montreal.*
 
