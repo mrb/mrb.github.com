@@ -27,9 +27,9 @@ I really didn't want to let you all down, so I started to think long and hard ab
 
 I'm not a well-renowned programmer, nor have I ever innovated or created any kind of popular world-changing programming language or web framework, so talking about a specific technology was out.
 
-I'm not a researcher presenting original thought about Computer Science, so unfortunately today I won't be giving you a sneak peak at my current work, nor giving a retrospective of my famous work that you're already familiar with. Mostly because I'm not working on anything original and I don't have any famous work that you're already familiar with.
+I'm not a researcher presenting original thought about Computer Science, so unfortunately today I won't be giving you a sneak peek at my current work, nor giving a retrospective of my famous work that you're already familiar with. Mostly because I'm not working on anything original and I don't have any famous work that you're already familiar with.
 
-I wasn't employee #3 at a famous social media startup that makes a product that everyone in the world uses. Your parents and that weird cousin of yours in Saskatchewan have never heard of anything I've worked on.
+I wasn't employee #3 at a famous social media startup that makes a product that everyone in the world uses. Your parents and that weird cousin of yours who lives in the middle of nowhere have never heard of anything I've worked on.
 
 I've never started a company, or made a lot of money from a Venture Capital based exit, or written fiery thinkpieces that have changed the course of ... wait, do fiery thinkpieces ever change the course of anything?
 
@@ -169,7 +169,7 @@ So without further ado, let's get started.
 
 I first met Thelonious as a teenager. I was young and didn't know anything about music. Vanilla Ice was popular and I was cool with that - this is the kind of state of mind I was in back then.
 
-One day my friend Mark Dolgonos, who was learning how to play the trumpet at the time, came over with a CD of Miles Davis' seminal album "Kind of Blue." We listened to it on my crappy JVC boombox, and I was super confused.
+One day my friend Mark, who was learning how to play the trumpet at the time, came over with a CD of Miles Davis' seminal album "Kind of Blue." We listened to it on my crappy JVC boombox, and I was super confused.
 
 Where were the words? What kind of weird songs are these? No electric guitar? Were these people even stopping, collaborating, and listening? Turns out they were.
 
@@ -193,7 +193,7 @@ Wow. I was floored. First of all I loved music A LOT up until this point and tho
 
 Here's a picture of me about 10 years after I first learned about improvised music. I'm playing a homemade synthesizer in a quartet of improvised musicians and wearing tie-dye. So really, not much has changed in the 10 years that have passed since this picture was taken.
 
-So Thelonious (and tangentially, Mark Dolgonos, wherever the hell you are): thank you for teaching me about improvisation. I rely on this concept all of the time. I try to give myself permission to improvise.
+So Thelonious (and tangentially, Mark, wherever the hell you are): thank you for teaching me about improvisation. I rely on this concept all of the time. I try to give myself permission to improvise.
 
 Improvisation is about starting down a well-known path and ending up somewhere you could never imagine, and is a crucial skill for human beings in general and software engineers in particular.
 
@@ -239,16 +239,13 @@ Though I postured in many other ways at this time during my life, claiming alleg
 
 Baudelaire's most famous work is (pardon my horrendous French accent) "Les Fleurs du Mal," or "The Flowers of Evil." A long, meandering, disturbing book, it nevertheless manages to do what I believe Baudelaire hoped it would - it expands your notion and understanding of what is beautiful, of what words can describe, of what a book can make you feel.
 
-In an homage to peaking out of windows, Baudelaire looks upon the world, reports on it, and provokes the reader who asks him whether his observations of the world are in fact "the right story." Baudelaire replies:
+In an homage to peeking out of windows, Baudelaire looks upon the world, reports on it, and provokes the reader who asks him whether his observations of the world are in fact "the right story." Baudelaire replies:
 
-"What does it matter what reality is outside myself, so long as it has helped me to live, to feel that I am, and what I am?"
+> "What does it matter what reality is outside myself, so long as it has helped me to live, to feel that I am, and what I am?"
 
 The preface to the book contains this "malediction," another provocation, a defensive answer to the readers who he knows will misinterpret his work in some way:
 
-“It's Ennui!—his eye brimming with spontaneous tear
-He dreams of the gallows in the haze of his hookah.
-You know him, reader, this delicate monster,
-Hypocritical reader, my likeness, my brother!”
+> "It's Ennui!—his eye brimming with spontaneous tear / He dreams of the gallows in the haze of his hookah. / You know him, reader, this delicate monster, / Hypocritical reader, my likeness, my brother!"
 
 There are many poets who have since taught me lessons that have helped me redefine my aesthetics in subtle ways. Baudelaire was simply one of the first to bring a hammer to my naive, narrow notions of the capabilities of words.
 
@@ -290,7 +287,7 @@ This brilliant technique really worked for me. I recall an assignment related to
 
 One of my favorite quotes from the book either sums this whole section up perfectly or completely muddles what I'm trying to say, rendering this section useless. That's for you to decide:
 
-"What is the meaning of life? That was all—a simple question; one that tended to close in on one with years. The great revelation had never come. The great revelation perhaps never did come. Instead there were little daily miracles, illuminations, matches struck unexpectedly in the dark; here was one."
+> "What is the meaning of life? That was all—a simple question; one that tended to close in on one with years. The great revelation had never come. The great revelation perhaps never did come. Instead there were little daily miracles, illuminations, matches struck unexpectedly in the dark; here was one."
 
 So thank you, Virginia Woolf, for showing me the malleability of perspective, for encouraging me to use and develop my own voice, by showing me that you could use and develop your own.
 
@@ -306,18 +303,18 @@ Over the course of his life, it Seemed that what Smith collected was less import
 
 Here's the story of how Harry Smith ended up moving to New York City, where he completed his most famous projects - an epic abstract film and a collection of folk music for Folkways records which led directly to the proliferation of American rural and spiritual music to the emerging folk scene that birthed Bob Dylan, Joan Baez, and more:
 
-"In 1950 Smith received a Guggenheim grant to complete an abstract film, which enabled him first to visit and later move to New York City.[10] He arranged for his collections, including his records, to be shipped to the East Coast. He said that "one reason he moved to New York was to study the Cabala. And, 'I wanted to hear Thelonious Monk play'."[11]"
+> "In 1950 Smith received a Guggenheim grant to complete an abstract film, which enabled him first to visit and later move to New York City.[10] He arranged for his collections, including his records, to be shipped to the East Coast. He said that "one reason he moved to New York was to study the Cabala. And, 'I wanted to hear Thelonious Monk play'."[11]"
 
 Here's a list of some of the things that Harry Smith collected throughout his lifetime:
 
-Songs
-Films
-Knots
-Paper Airplanes
-Books
-Pop-up books
-Beaded costumes
-Things shaped like other things, including spoons shaped like ducks, banks shaped like apples, and anything shaped like a hamburger.
+* Songs
+* Films
+* Knots
+* Paper Airplanes
+* Books
+* Pop-up books
+* Beaded costumes
+* Things shaped like other things, including spoons shaped like ducks, banks shaped like apples, and anything shaped like a hamburger.
 
 And lots lots lots more.
 
