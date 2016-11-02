@@ -1,0 +1,38 @@
+---
+layout: post
+title: "The hidden secrets of the CAC ratio"
+published: false
+---
+
+<div id="cta">After more than three years helping to build a business around a developer facing SaaS product, I've left to start my own consulting company called <a href="http://computermodern.io">Computer Modern.</a> We do sales and Marketing software and process consulting for <span class="highlight">developer-facing, business to business SaaS companies</span>. Get in touch if you make a product for developers and need help!</div>
+
+### The hidden secrets of the CAC ratio
+
+The <a href="http://www.pacific-crest.com/2016-saas-survey/">2016 Pacific Crest Private SaaS Company Survey</a>, which this year aggregated and analyzed data from 336 SaaS companies, was recently released. Finding data about private companies without paying for it isn't easy, and the Pacific Crest survey is one of the best, most well-respected free sources of data available on the subject.
+
+There are plenty of good roundups of the report that surface each year, so instead of a full recap, I'll spend a few posts pointing out slides in the presentation which were particularly interesting to me, and to the companies I'm talking to at <a href="http://computermodern.io">Computer Modern.</a>
+
+Today's is about the cost of acquiring customers, a question which was posed to participating companies in this way:
+
+> "How much do you spend on a fully-loaded sales & marketing cost basis to acquire $1 of new ACV from a new customer?"
+
+So your CAC ratio, according to this report, is the amount you spend per dollar you receive from a new customer. Here's the graph:
+
+<center><img src="http://michaelrbernste.in/images/cac_ratio.jpg" width=600></center>
+
+The sidebar explanation here is interesting:
+
+> "Respondents (excluding the smallest companies) spent a median of $1.13 to acquire each dollar of new ACV from a new customer. The result drops to $1.00 if we include companies with <$2.5MM in revenues."
+
+Let's take a look at one more graph:
+
+<center><img src="http://michaelrbernste.in/images/cac_2.jpg" width=600></center>
+
+This one's got a nice little summary on the sidebar too:
+
+> "Larger companies tended to report increasing CAC ratios for new ACV from new customers."
+
+There are some lessons to be learned here, especially if you're running a company that makes less than $2.5MM annually, or you're thinking about turning your idea into a product
+
+Larger companies spend more money to acquire new customers
+Expansion revenue
