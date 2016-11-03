@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "The hidden secrets of the CAC ratio"
-published: false
+title: "The hidden secret of the CAC ratio"
+published: true
 ---
 
 <div id="cta">After more than three years helping to build a business around a developer facing SaaS product, I've left to start my own consulting company called <a href="http://computermodern.io">Computer Modern.</a> We do sales and Marketing software and process consulting for <span class="highlight">developer-facing, business to business SaaS companies</span>. Get in touch if you make a product for developers and need help!</div>
 
-### The hidden secrets of the CAC ratio
+### The hidden secret of the CAC ratio
 
 The <a href="http://www.pacific-crest.com/2016-saas-survey/">2016 Pacific Crest Private SaaS Company Survey</a>, which this year aggregated and analyzed data from 336 SaaS companies, was recently released. Finding data about private companies without paying for it isn't easy, and the Pacific Crest survey is one of the best, most well-respected free sources of data available on the subject.
 
@@ -24,7 +24,7 @@ The sidebar explanation here is interesting:
 
 > "Respondents (excluding the smallest companies) spent a median of $1.13 to acquire each dollar of new ACV from a new customer. The result drops to $1.00 if we include companies with <$2.5MM in revenues."
 
-Let's take a look at one more graph:
+That shows us the distribution of the CAC ratios, but it would be interesting to see how that changes with the size of the company. Let's take a look at one more graph:
 
 <center><img src="http://michaelrbernste.in/images/cac_2.jpg" width=600></center>
 
@@ -32,7 +32,15 @@ This one's got a nice little summary on the sidebar too:
 
 > "Larger companies tended to report increasing CAC ratios for new ACV from new customers."
 
-There are some lessons to be learned here, especially if you're running a company that makes less than $2.5MM annually, or you're thinking about turning your idea into a product
+There are some lessons to be learned here, especially if you're running a company that makes less than $2.5MM annually, or you're thinking about turning your idea into a product.
 
-Larger companies spend more money to acquire new customers
-Expansion revenue
+* The median cost of $1.13 for $1.00 of new ACV shows that in SaaS, the money is in longterm happiness and success of customers.
+* Larger companies paying more money to acquire new customers shows that they have proven mechanisms to expand revenue during the lifetime of the customer.
+
+To turn this into advice for SaaS companies who are trying to figure out their positioning and go-to-market strategy:
+
+* How much money you *should* spend to acquire a customer should be a crucial part of how you think about your company, from the beginning.
+* The lifetime value of your customers should be a crucial part of how you think about your company, from the beginning.
+* How you can provide your customers with more value over time, and thus charge them more money over their lifetime, should be a crucial part of how you think about your company, from the beginning.
+
+Don't just think about how to get people to pay you initially, think about how to keep them onboard, to keep them satisfied, and to find ways to provide them more value over time. That's the hidden secret of the CAC ratio.
