@@ -8,4 +8,4 @@ published: true
 
 ### A quick note on starting a business with someone else
 
-I'm more inclined to work with someone who wants to build a company of the *right size* than someone who wants to work on the *right thing*.
+I'm more inclined to work with someone who wants to build a company of the **right size** than with someone who wants to build the **right thing.**
