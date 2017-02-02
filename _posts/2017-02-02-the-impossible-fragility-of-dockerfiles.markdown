@@ -16,7 +16,7 @@ As an example, I recently spent time, as a *very experienced Docker user*, attem
 
 - Ruby
 - Rails
-- MySQL
+- MySQL (as in the client, not running a DB server inside this container)
 
 Perhaps the three most vanilla, obvious choices for a language, a web framework, and a database to back them.**[1]** Instead of being straightforward for me to put this together, it was anything but. There is no off the shelf, easy way to "Dockerize" this type of application, and any solution that I found was broken in one way or another, made one or more wrong assumptions, or just straight up didn't work.
 
