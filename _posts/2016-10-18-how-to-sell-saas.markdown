@@ -4,7 +4,7 @@ title: "How to Sell SaaS"
 published: true
 ---
 
-<div id="cta">After more than three years helping to build a business around a developer facing SaaS product, I've left to start my own consulting company called <a href="http://computermodern.io">Computer Modern.</a> We do sales and Marketing software and process consulting for <span class="highlight">developer-facing, business to business SaaS companies</span>. Get in touch if you make a product for developers and need help!</div>
+<div id="cta">After more than three years helping to build a business around a developer facing SaaS product, I've left to start my own consulting company called <a href="http://reifyworks.com">Reify.</a> We do sales and Marketing software and process consulting for <span class="highlight">developer-facing, business to business SaaS companies</span>. Get in touch if you make a product for developers and need help!</div>
 
 ### How to Sell SaaS
 
@@ -83,7 +83,7 @@ This quote really spoke to me, because it's the whole reason I've been ranting a
 
 #### Wrapping up
 
-Overall, the authors do an admirable job of collecting data and impressions from a wide variety of sources in an attempt to codify something very complex: how your SaaS business should approach Sales and Marketing. Whether you agree or disagree with their categorizations or choice KPIs, the "clover" is a great conversation starter, and I'll definitely be breaking it out when chatting with folks through <a href="http://computermodern.io">Computer Modern.</a> 
+Overall, the authors do an admirable job of collecting data and impressions from a wide variety of sources in an attempt to codify something very complex: how your SaaS business should approach Sales and Marketing. Whether you agree or disagree with their categorizations or choice KPIs, the "clover" is a great conversation starter, and I'll definitely be breaking it out when chatting with folks through <a href="http://computermodern.io">Computer Modern.</a>
 
 #### Works Cited
 
