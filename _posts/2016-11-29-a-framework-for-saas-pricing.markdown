@@ -12,13 +12,13 @@ For many, pricing a product remains a dark art. Without a framework to work with
 
 The existing SBIFT framework is named for the dimensions in the chart:
 
-<center><img src="/images/pricing_framework_sbift.png" width=600></center>
+<center><img src="http://michaelrbernste.in/images/pricing_framework_sbift.png" width="600"></center>
 
 The idea is that a pricing model can be described by choosing a set of positions along a set of dimensions. **Scope** refers to the size of the product, **base** is the perspective that is most heavily used to inform pricing, **influence** describes various parties' ability to control pricing, **formula** is another way of describing packaging, and **temporal rights** refers to the length of time a user can use the product.
 
 Starting with this model, the authors extend it to be more specific to pricing and selling cloud-based software services:
 
-<center><img src="/images/pricing_framework_sbift_saas.png" width=600></center>
+<center><img src="http://michaelrbernste.in/images/pricing_framework_sbift_saas.png" width="600"></center>
 
 **Scope** changes to move away from language using "packaging" and "attribute" toward language that uses "bundling" and "unbundling," which are more common terms in the SaaS domain. "Pure bundling" refers to software which is sold in a way where features are only purchasable in pre-defined bundles, and "Unbundling" refers to the opposite, where the scope of features can be dynamically determined. *Performance-based pricing*, or pricing that is based on a certain SLA, is added to the **base** dimension.
 
@@ -36,7 +36,7 @@ Once the model has been constructed based on research, the authors characterize 
 
 Beyond the interesting takes on how to classify elements of a pricing framework, the paper's real power comes when survey results are overlaid on top of this newly defined model:
 
-<center><img src="/images/pricing_framework_sbift_breakdown.png" width=600></center>
+<center><img src="http://michaelrbernste.in/images/pricing_framework_sbift_breakdown.png" width="600"></center>
 
 Tracing through all of the elements aside from **Base** and **Dynamic pricing strategy**, which did not have enough data, you can see the choices that most companies make, segmented by sector: SaaS, IaaS, or PaaS. Popular choices in each dimension are highlighted with boxes, and otherwise segmented percentage breakdowns are offered.
 
