@@ -1,0 +1,22 @@
+---
+layout: default
+title: Technical & Business Writing
+---
+
+<p style="font-size: 24px; line-height:36px; font-weight: bold;">
+<i>Technical & Business Writing</i>
+</p>
+
+<p style="font-size: 18; line-height:36px; font-weight: normal;">
+From 2013-2017 I published a number of technical and business related articles here on my blog. They
+are the most trafficked and referenced pages here by far. After starting a consultancy in 2016, I started
+publishing writing of this sort there, <a href="https://www.reifyworks.com/writing">on the Reify blog.</a>
+</p>
+
+<ul class = "posts">
+{% for post in site.posts %}
+    <li class="index">
+      <div class="index-date">{{ post.date | date: "%Y.%m.%d" }}</div><a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+</ul>
