@@ -1,0 +1,27 @@
+---
+layout: default
+title: Built for Dreaminmg
+---
+<h3>Built for Dreaming</h3>
+
+I learn how to ride a bicycle when we remove my training wheels and my brother balances me at the top of the driveway and lets me go — I gain momentum, turn onto the sidewalk, pedal a few times, and then fall into the grass. He doesn’t warn me before he lets me go, and he doesn’t pay attention to where I end up, which sums up one of our first and last trusting encounters perfectly.
+
+Later, a yellow and black bike is my first ticket out of my immediate neighborhood on my own. I’m immediately impressed by this very small vehicle, how it’s all I need — to see friends and get pizza and play video games, to explore our 80s suburban legends, to find houses of satanic worship, a group of houses developed for and built by families of little people, a dumpster where they found a dead person once, and more — and it never leaves my side.
+
+I crashed that yellow and black bike many, many times, most memorably when I was out playing while my parent’s were at their friend’s house. Pedaling as fast as I can around a corner, I misjudge a parked car, hit it, and roll all the way over the hood, and land on the other side with a comically soft thud as I snapshot the arrangement of clouds in my mind — ice cubes in blue Gatorade. I shake my head and rode away. I’m not going to miss the rainbow cookies at the house.
+
+Various unremarkable bikes follow (some stolen, some lost, some recovered) and crashes happen (out the exit of a Taco Bell drive through to test if it would react to a bike) throughout the years and I really don’t ride anymore when I hit High School, where everything becomes about cars, even though I hate them and don’t have one. 25 years later I still hate them, but now I have one.
+
+After college, my first adult jobs, and the interesting part of my life that I spend most of my time thinking and writing about, I get a new bike a few months before my first kid is born to get my ass in shape and figure out how the hell I am going to get around when we need to. I buy the bike on a whim based on marketing and wrong ideas, but end up making it my own, something pretty great.
+
+Commuting to work from Brooklyn to Manhattan over the Manhattan bridge forms my complete communion with the black steel bike and I don’t feel like a kid again, but maybe an adult for the first time. As I learn, my mentor is my most patient and gentle friend who also harbors a lion inside but is more wise than me about when to roar. He points out the best things, like flowers, trees, birds, common gaffes and occasional courtesies. He reveals his deep and riverlike way to me, and I try to follow it humbly.
+
+I stay safe aside from one crash on the way home from work one night, speeding up Irving place to turn right on Gramercy Park South, right near my brother’s old apartment. I misjudge and end up rolling over the hood of a yellow taxi cab that is stopped in the middle of the street, land on the other side, face up, with a less-comical-but-still-a-thud thud, and this time I snapshot the power lines and tree branches - piles of burnt raw spaghetti. There’s a crowd and a few laugh as I’m on the ground smiling and shaking my head, my black helmet cracked. I’ve been here before. Time is standing still.
+
+I can still feel myself flowing and picture the constant motion of the commuters as a strong river running the concrete in the city, over roads and bridges, and I can picture myself suiting up again at any time to join the flow and wave hello, get offended, get rewarded, bask in it and jolt along, find a snack and maybe a friend. I have another crash in me, or two.
+
+More than ten years and another kid later as a suburbanite, I get my first fancy new bike for riding through the city and around and across a network of trails beside creeks and beneath unfamiliar smelling flowers and cartoonish, brightly colored trees in bunches that hide secrets. I make a new patient friend and he points out flowers, birds, and shows me where to find mushrooms — morel, maitake, and my favorite, the orangeish-yellowish chanterelle, which smells like apricots from far away.
+
+We ride our bikes home and cook them, eat them and drink good, pale yellow wine that smells like rocks and flowers, standing on the back porch over a fire, scheming about what the next big thing will be.
+
+All we have to do is remember the day and we have our fuel. Bicycles were built for dreaming.
