@@ -1,0 +1,140 @@
+I"PL<p>#
+#</p>
+<h3 id="a-taste-of-logic-programming-in-ruby">A Taste of Logic Programming In Ruby</h3>
+
+<p>In getting recently re-obsessed with Logic Programming and its relationship to the future of both programming and computation (with a healthy dose of obsession for its history, of course), I recalled coming across a few relevant Ruby libraries last year that I wanted to write up a bit after playing with them here and there. I was interested in seeing some small implementations of <a href="http://en.wikipedia.org/wiki/Unification_(computer_science)">unification algorithms</a> and logic programming systems, and bingo, I came across that and more in one person’s unassuming profile.</p>
+
+<p>GitHub user <a href="https://github.com/jimwise">jimwise</a> who apparently is in the general part of the world as me but I have no idea who he is (the Internet is awesome) has a trio of libraries that implement unification a la Ehud &amp; Shapiro, a small nondeterministic programming library that utilizes Ruby’s <code class="language-plaintext highlighter-rouge">callcc</code> functionality, and a small Prolog system also influenced by <strong>The Art of Prolog</strong>. Since most systems you see that tackle these problems are written in Scheme, Pascal, Haskell, etc, it was nice for me to see them in Ruby, which for better or worse is still very much my code <em>lingua franca</em>.</p>
+
+<p>This post is a quick overview of what each of these libraries can do, and I encourage you to check them out if you’re curious about what bringing features of other languages to Ruby can look like, or even if you’re just interested in language implementation details in general.</p>
+
+<h3 id="unific---a-unification-engine">unific - A Unification Engine</h3>
+
+<p>Unification is a concept that is at the heart of understanding how logic programming systems work. Toward that end, <a href="https://github.com/jimwise/unific">unific</a> provides an interface to Logic Variables, a flexible Environment, and the ability to chain unifications. Here’s a small sample:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">00</span><span class="mi">8</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="no">Unific</span><span class="o">::</span><span class="no">Var</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"a"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Unific::Var:0x007f8c5a833ab8 @name="a"&gt;</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">00</span><span class="mi">9</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="no">Unific</span><span class="o">::</span><span class="no">Var</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"b"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Unific::Var:0x007f8c5a828fa0 @name="b"&gt;</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">010</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="no">Unific</span><span class="o">::</span><span class="n">unify</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]).</span><span class="nf">unify</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Unific::Env:0x007f8c5a0dec40...&gt;</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">014</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">e</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="mi">0</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">015</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">e</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="mi">3</span></code></pre></figure>
+
+<p>Does this smell like <a href="http://en.wikipedia.org/wiki/Pattern_matching">pattern matching</a> to you? Unification is often described as “double-sided pattern matching,” so you’re on the right track if so. Also, what is a <code class="language-plaintext highlighter-rouge">Var</code>? If you’ve never experienced logic variables, stare at unific for a while, they’re an awesome way to think about how data can flow through a program.</p>
+
+<p>You can also <code class="language-plaintext highlighter-rouge">trace</code> unification calls in unific to see how the engine is working, making the algorithm that much simpler to understand.</p>
+
+<h3 id="ambit---nondeterministic-programming">ambit - Nondeterministic Programming</h3>
+
+<p>The <a href="https://github.com/jimwise/ambit">ambit</a> library provides a platform for nondeterministic programming in Ruby. This programming paradigm is quite complex and a little bit abstract to be sure, but the the <a href="https://github.com/jimwise/ambit/blob/master/README.rdoc">ambit README</a> has a good introduction. I came across this particular library because it used in the <strong>rulog</strong> library that I talk about below. Also interesting is that ambit relies on MRI’s <code class="language-plaintext highlighter-rouge">callcc</code> functionality to implement nondeterministic choice. The code is interesting, so I’ve included it here. If you’re uninitiated, <code class="language-plaintext highlighter-rouge">callcc</code> is worthy of your study:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># Given an enumerator, begin a generate-and-test process.</span>
+  <span class="c1">#</span>
+  <span class="c1"># Returns with the first member of the enumerator.  A later call to #fail!</span>
+  <span class="c1"># on the same generator will backtrack and try the next value in the</span>
+  <span class="c1"># enumerator, continuing from the point of this #choose as if that value</span>
+  <span class="c1"># had been chosen originally.</span>
+  <span class="c1">#</span>
+  <span class="c1"># Multiple calls to #choose will nest, so that backtracking forms</span>
+  <span class="c1"># a tree-like execution path</span>
+  <span class="c1">#</span>
+  <span class="c1"># calling #choose with no argument or an empty iterator </span>
+  <span class="c1"># is equivalent to calling #fail!</span>
+  <span class="k">def</span> <span class="nf">choose</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ch</span> <span class="o">=</span> <span class="n">choices</span><span class="p">.</span><span class="nf">clone</span>          <span class="c1"># clone it in case it's modified by the caller</span>
+    <span class="n">ch</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">choice</span><span class="o">|</span>
+      <span class="nb">callcc</span> <span class="k">do</span> <span class="o">|</span><span class="n">cc</span><span class="o">|</span>
+        <span class="no">STDERR</span><span class="p">.</span><span class="nf">print</span> <span class="s2">"choosing from "</span> <span class="o">+</span> <span class="n">choices</span><span class="p">.</span><span class="nf">inspect</span> <span class="o">+</span> <span class="s2">": "</span> <span class="k">if</span> <span class="vi">@trace</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="vi">@paths</span><span class="p">.</span><span class="nf">unshift</span> <span class="n">cc</span>
+        <span class="no">STDERR</span><span class="p">.</span><span class="nf">puts</span> <span class="n">choice</span><span class="p">.</span><span class="nf">inspect</span> <span class="k">if</span> <span class="vi">@trace</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">choice</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="nb">self</span><span class="p">.</span><span class="nf">fail!</span>                  <span class="c1"># if we get here, we've exhausted the choices</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Indicate that the current combination of choices has </span>
+  <span class="c1"># failed, and roll execution back to the last #choose, </span>
+  <span class="c1"># continuing with the next choice.</span>
+  <span class="k">def</span> <span class="nf">fail!</span>
+    <span class="k">raise</span> <span class="no">ChoicesExhausted</span><span class="p">.</span><span class="nf">new</span> <span class="k">if</span> <span class="vi">@paths</span><span class="p">.</span><span class="nf">empty?</span>
+    <span class="n">cc</span> <span class="o">=</span> <span class="vi">@paths</span><span class="p">.</span><span class="nf">shift</span>
+    <span class="c1"># if it quacks (or can be called) like a duck, call it -- it's either a Proc</span>
+    <span class="c1"># from #mark or a Continuation from #choose</span>
+    <span class="n">cc</span><span class="p">.</span><span class="nf">call</span>
+  <span class="k">end</span></code></pre></figure>
+
+<p>If you think you’re seeing things, you’re probably starting to see how that code works. (<em>Note:</em> It’s not as scary as it looks, it’s scarier.)</p>
+
+<h3 id="rulog---a-prolog-in-ruby">rulog - A Prolog in Ruby</h3>
+
+<p><a href="https://github.com/jimwise/rulog">rulog</a> is a Prolog engine in Ruby that relies on <strong>unific</strong> and <strong>ambit</strong>. I found rulog when searching for an implementation of a logic programming engine, because I needed to see the implementation to understand how it worked, or so I thought. It turns out that I actually needed to learn what the hell I was trying to learn - logic programming is such a foreign paradigm that when I first encountered it I had no idea what I was seeing.</p>
+
+<p>Through exposure to books like <strong>Concepts, Techniques, and Models of Computer Programming,</strong> <strong>The Art of Prolog,</strong> and <strong>The Architecture of Symbolic Computers,</strong> I have started to see real value in exploring declarative programming and how it can intersect with modern, practical approaches to computation. While <strong>rulog</strong> is a simple and somewhat rudimentary Prolog, it is great to be able to see it up close, and the author has made some thoughtful design decisions.</p>
+
+<p>Here is how you can define the rules for <a href="http://mathworld.wolfram.com/PeanosAxioms.html">Peano’s Axioms</a> - the number, equal, and plus relations:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rs1</span> <span class="o">=</span> <span class="no">Rulog</span><span class="o">::</span><span class="n">rules</span><span class="p">(</span>
+   <span class="no">Rulog</span><span class="o">::</span><span class="n">declare</span><span class="p">{</span>  <span class="n">num</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="p">},</span>
+   <span class="no">Rulog</span><span class="o">::</span><span class="n">declare</span><span class="p">{</span>  <span class="n">num</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">)))</span> <span class="p">[</span> <span class="n">num</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">))</span> <span class="p">]</span>     <span class="p">},</span>
+
+   <span class="no">Rulog</span><span class="o">::</span><span class="n">declare</span><span class="p">{</span>  <span class="n">equal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="p">},</span>
+   <span class="no">Rulog</span><span class="o">::</span><span class="n">declare</span><span class="p">{</span>  <span class="n">equal</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">)),</span> <span class="n">s</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:y</span><span class="p">)))</span> <span class="p">[</span> <span class="n">equal</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">),</span> <span class="n">v</span><span class="p">(</span><span class="ss">:y</span><span class="p">))</span> <span class="p">]</span> <span class="p">},</span>
+
+   <span class="no">Rulog</span><span class="o">::</span><span class="n">declare</span><span class="p">{</span>  <span class="n">plus</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">))</span> <span class="p">},</span>
+   <span class="no">Rulog</span><span class="o">::</span><span class="n">declare</span><span class="p">{</span>  <span class="n">plus</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">),</span> <span class="n">s</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:y</span><span class="p">)),</span> <span class="n">v</span><span class="p">(</span><span class="ss">:z</span><span class="p">))</span> <span class="p">[</span>
+                         <span class="n">plus</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">)),</span> <span class="n">v</span><span class="p">(</span><span class="ss">:y</span><span class="p">),</span> <span class="n">v</span><span class="p">(</span><span class="ss">:z</span><span class="p">))</span> <span class="p">]</span> <span class="p">}</span>
+   <span class="p">)</span></code></pre></figure>
+
+<p>Here, we turn rulog’s tracing to a verbose setting, and ask the engine to solve the equation <code class="language-plaintext highlighter-rouge">x + 2 = 4</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">030</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="mi">3</span><span class="p">.</span><span class="nf">times</span><span class="p">{</span> <span class="n">rs1</span><span class="p">.</span><span class="nf">trace</span> <span class="p">}</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">030</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">rs1</span><span class="p">.</span><span class="nf">solve</span><span class="p">(</span><span class="no">Rulog</span><span class="o">::</span><span class="n">declare</span><span class="p">{</span>  <span class="n">plus</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="ss">:x</span><span class="p">),</span> <span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span> <span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="mi">0</span><span class="p">)))))</span> <span class="p">})</span>
+
+<span class="c1"># marking!</span>
+<span class="c1"># choosing!</span>
+<span class="c1"># chose num(0).</span>
+<span class="c1"># chose num(s(?x)) :- num(?x).</span>
+<span class="c1"># chose equal(0, 0).</span>
+<span class="c1"># chose equal(s(?x), s(?y)) :- equal(?x, ?y).</span>
+<span class="c1"># chose plus(?x, 0, ?x).</span>
+<span class="c1"># chose plus(?x, s(?y), ?z) :- plus(s(?x), ?y, ?z).</span>
+<span class="c1"># marking!</span>
+<span class="c1"># choosing!</span>
+<span class="c1"># chose num(0).</span>
+<span class="c1"># chose num(s(?x)) :- num(?x).</span>
+<span class="c1"># chose equal(0, 0).</span>
+<span class="c1"># chose equal(s(?x), s(?y)) :- equal(?x, ?y).</span>
+<span class="c1"># chose plus(?x, 0, ?x).</span>
+<span class="c1"># chose plus(?x, s(?y), ?z) :- plus(s(?x), ?y, ?z).</span>
+<span class="c1"># marking!</span>
+<span class="c1"># choosing!</span>
+<span class="c1"># chose num(0).</span>
+<span class="c1"># chose num(s(?x)) :- num(?x).</span>
+<span class="c1"># chose equal(0, 0).</span>
+<span class="c1"># chose equal(s(?x), s(?y)) :- equal(?x, ?y).</span>
+<span class="c1"># chose plus(?x, 0, ?x).</span>
+<span class="c1"># finished rule</span>
+<span class="c1"># finished rule</span>
+<span class="c1"># finished rule</span>
+<span class="c1"># </span>
+<span class="c1"># goal:</span>
+<span class="c1">#   plus(?x, s(s(0)), s(s(s(s(0)))))</span>
+<span class="c1"># answer:</span>
+<span class="c1">#   plus(s(s(0)), s(s(0)), s(s(s(s(0)))))</span></code></pre></figure>
+
+<p>The author’s decision to put tracing in is absolutely awesome! We can see how the whole thing works.</p>
+
+<h3 id="in-conclusion">In Conclusion</h3>
+
+<p>It is one of my goals in 2014 to get more people excited about logic programming and how we can leverage it in a multi-paradigm context. Embedding pattern matching, non-deterministic choice, and logic programming into an Object-Oriented language like Ruby has many interesting possibilities. We’ve seen some traction with these ideas in the Clojure community, and I hope this small tour of some easy to digest libraries by one awesome author helps get you excited about their potential.</p>
+
+<h4 id="works-cited">Works Cited</h4>
+
+<p><strong>Special thanks to Jim Wise, all code from his GitHub repos.</strong></p>
+
+<p><a id="bib1">[1]</a> Sterling, Leon and Ehud Shapiro, The Art of Prolog, MIT Press, 1994</p>
+:ET

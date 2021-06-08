@@ -1,0 +1,136 @@
+I"B0<p>#</p>
+<h3 id="a-list-of-lists-nycrb-20130312">A List of Lists: NYC.rb 2013.03.12</h3>
+
+<p><em>I had the pleasure of giving a small talk to a great crowd of developers at <a href="http://www.meetup.com/NYC-rb/">NYC.rb</a> recently. It’s different than the typical meetup talk - instead of the group’s topic, I talked about some things I was excited about at the time. I decided to turn the meager ‘slides’ that I had into a blog post - I hope you learn about something you’ll enjoy!</em></p>
+
+<h3 id="list-one-three-books-you-should-read">List One: Three Books You Should Read</h3>
+
+<p>Books are my favorite things. I am constantly pursuing them, acquiring them, and digesting them, and I always want <em>more</em>. I love getting people excited about books that I’m immersed in, and in this case I chose three titles that might be attractive to programmers. The headings for each title are terms I used on the slides to give the main ‘thrust’ behind each recommendation.</p>
+
+<h4 id="rethink-everything">Rethink Everything</h4>
+
+<p><em>Concepts, Techniques, and Models of Computer Programming</em> by Van Roy and Haridi</p>
+
+<p><a href="http://michaelrbernste.in/2013/02/23/notes-on-teaching-with-the-kernel-language-approach.html">I’ve already written</a> about how important I feel Van Roy and Haridi’s work is on this blog. I chose “Rethink Everything” because it’s clear that existing developers can learn quite a bit from reading this book - in addition to supplying new information, it helps you understand things you already know in a deeper and broader way. Van Roy and Haridi push you to investigate the complex relationships between various programming paradigms and is truly enlightening.</p>
+
+<p><a href="http://www.info.ucl.ac.be/~pvr/book.html">Click here</a> for more information.</p>
+
+<h4 id="revisit-rubys-roots">Revisit Ruby’s Roots</h4>
+
+<p><em>Functional Programming for the Object-Oriented Programmer</em> by Brian Marick</p>
+
+<p>Recently a group of developers at Paperless Post have been going through this book as part of an internal book club. It’s been awesome to see how both new day to day Object Oriented programmers and those with deeper OO roots react to solving problems in a functional way. It made me think that the group at NYC.rb would enjoy it too. “Revisit Ruby’s Roots” is a call to think about using Ruby functionally and to understand the deeper ideas behind powerful data structures with expressive interfaces. This book, like CTM and <a href="http://mitpress.mit.edu/books/art-metaobject-protocol"><em>The Art of the Metaobject Protocol</em></a> before it, does a lot to draw connections between Functional and Object Oriented programming.</p>
+
+<p><a href="https://leanpub.com/fp-oo">Click here</a> for more information.</p>
+
+<h4 id="get-under-the-hood">Get Under The Hood</h4>
+
+<p><em>The Garbage Collection Handbook</em> by Jones, Hosking, &amp; Moss</p>
+
+<p>If you want to know Ruby deeply, to “Get Under The Hood,” you have to try to understand its Garbage Collector. If you want to understand Garbage Collection, you have to read this book. The amount of research that has been done into this area of Computer Science is staggering, and there are still advancements being made - some which blur the line between hardware and software. Jones, Hosking, and Moss explain an extremely complex area of study in a straightforward, digestible way. You don’t need to read the whole thing, but the first few chapters alone are worth it.</p>
+
+<p><a href="http://gchandbook.org/">Click here</a> for more information.</p>
+
+<h3 id="list-two-ten-minimalist-albums-you-should-program-to">List Two: Ten Minimalist Albums You Should Program To</h3>
+
+<p>A broad, flexible term to refer to a lot of different kinds of music, ‘minimalism’ is not a single genre. Minimalism is an underlying philosophy in the composition, performance, and structure of music and sound, and it typically has a few specific characteristics, including repetition in structure, compositions with extended durations, and effects to warp time. I’ve chosen ten albums I think people would enjoy, and assigned each a tongue-in-cheek ‘occasion’ that might go well with the suggested recording. Where possible I’ve provided a YouTube link to the music, but of course, <em>any albums still in print are worth purchasing</em>.</p>
+
+<h4 id="the-feature-push---charlemagne-palestine-strumming-music">The Feature Push - <em>Charlemagne Palestine</em> “Strumming Music”</h4>
+
+<p>You need to get that code out the door. You can’t wait to :shipit:. Might I suggest 52 minutes of alternately dissonant and melodic pulsing frantic piano playing? I might.</p>
+
+<p><a href="http://www.youtube.com/v/k0CjX-xaLnU">Click Here</a> for the music on YouTube.</p>
+
+<h4 id="the-careful-refactor---aphex-twin-selected-ambient-works-vol-2">The Careful Refactor - <em>Aphex Twin</em> “Selected Ambient Works Vol. 2”</h4>
+
+<p>The dark art of the code refactor requires the calming, warm embrace of analogue techno music. In this case, there is no one I would rather hug than Richard D. James.</p>
+
+<p><a href="http://www.youtube.com/watch?v=kR9J0WcQZEA">Click Here</a> for the music on YouTube.</p>
+
+<h4 id="architectural-decisions---steve-reich-music-for-18-musicians">Architectural Decisions - <em>Steve Reich</em> “Music for 18 Musicians”</h4>
+
+<p>You can’t believe your luck. You’re going to fucking design something. Holy shit. You better take some Steve Reich with you, you’d be lost without it.</p>
+
+<p><a href="http://www.youtube.com/watch?v=xU23LqQ6LY4">Click here</a> for the music on YouTube.</p>
+
+<h4 id="the-picky-algorithm---hermann-nitsch-harmoniumwerk">The Picky Algorithm - <em>Hermann Nitsch</em> “Harmoniumwerk”</h4>
+
+<p>Nothing says “don’t interrupt me” like the sound of an Austrian conceptual artist (known for painting with animal blood and holding live bacchanals) leaning on a harmonium for an hour.</p>
+
+<p><a href="http://www.youtube.com/watch?v=Uo9W5fIn6Yg">Click here</a> for the music on YouTube.</p>
+
+<h4 id="cross-browser-testing---oval-systemisch">Cross Browser Testing - <em>Oval</em> “Systemisch”</h4>
+
+<p>Times are tough. Embrace the glitch. Cross Browser Testing just isn’t the same without gorgeous landscapes created from the sounds of failing technology.</p>
+
+<p><a href="http://www.youtube.com/watch?v=HtRljr0PfeI">Click here</a> for the music on YouTube.</p>
+
+<h4 id="monday-hangover---basic-channel-quadrant-dub">Monday Hangover - <em>Basic Channel</em> “Quadrant Dub”</h4>
+
+<p>When you need to get back on your feet, some atmospheric, abstract dub flavored techno music really helps. Get your head straight, get some fluids in you, and you’ll be fine.</p>
+
+<p><a href="http://www.youtube.com/watch?v=Gi4vzEoJXHU">Click here</a> for the music on YouTube.</p>
+
+<h4 id="greenfield-rails-application---terry-riley-persian-surgery-dervishes">Greenfield Rails Application - <em>Terry Riley</em> “Persian Surgery Dervishes”</h4>
+
+<p>Your life is full of promise. A gorgeous river of organ drenched in tape delay awaits you as your journey starts.</p>
+
+<p><a href="http://www.youtube.com/watch?v=hVWr3AhrgT8">Click here</a> for the music on YouTube.</p>
+
+<h4 id="code-review---jon-gibson-two-solo-pieces">Code Review - <em>Jon Gibson</em> “Two Solo Pieces”</h4>
+
+<p>I have to admit that the “Code Review” header on this one makes no sense, but really you should check this album out - it was published by Philip Glass’s Chatham Square label and it’s beautiful.</p>
+
+<p><a href="http://www.youtube.com/watch?v=YyZ68lzPiYU">Click here</a> for the music on YouTube.</p>
+
+<h4 id="soapxml-legacy-system-integration---laraaji--brian-eno-day-of-radiance">SOAP/XML Legacy System Integration - <em>Laraaji &amp; Brian Eno</em> “Day of Radiance”</h4>
+
+<p>The name of the beast that shall not be spoken. “Day of Radiance” can effuse joy into even the most dire of occasions. Recommended for any time you have to do that one thing you just can’t stand doing.</p>
+
+<p><a href="http://www.youtube.com/watch?v=fWjkEzydxp4">Click here</a> for the music on YouTube.</p>
+
+<h4 id="hack-day---jim-orourke-happy-days">Hack Day - <em>Jim O’Rourke</em> “Happy Days”</h4>
+
+<p>Beautiful, inventive, and inspiring even after more than 15 years. Acoustic guitar gives way to an immense drone that could definitely clean your nugget well enough to make your wildest dreams a reality.</p>
+
+<p><a href="http://www.youtube.com/watch?v=ktqjiv0FHsk">Click here</a> for the music on YouTube.</p>
+
+<h3 id="list-three-five-projects-you-should-check-out">List Three: Five Projects You Should Check Out</h3>
+
+<p>GitHub’s volume of code is growing at an incredible rate, and keeping up is impossible. I thought I’d choose some projects I’ve been interested in lately in my personal pursuits, plus some practical choices for Ruby developers.</p>
+
+<h4 id="pattern-match---pattern-matching-in-ruby">pattern-match - Pattern Matching in Ruby</h4>
+
+<p>Pattern Matching is a functional programming syntax construct that allows for complex assignment and conditional semantics to be expressed in a compact way.* It’s not a native feature of Ruby like it is for Erlang, Haskell, etc., and this library has an interesting take on introducing it to the language.</p>
+
+<p><em>*Note: Pattern Matching is complex. This sentence is my shot at explaining it briefly. Wikipedia says it’s “the act of checking a perceived sequence of tokens for the presence of the constituents of some pattern.”</em></p>
+
+<p><a href="https://github.com/k-tsj/pattern-match">Click here</a> to check out the repo.</p>
+
+<h4 id="minikanrenrb---relational-programming-engine">miniKanren.rb - Relational Programming Engine</h4>
+
+<p><a href="http://minikanren.org/">miniKanren</a> is a “embedded DSL for logic programming,” that is very interesting and fun to play around with. I’ve done some work to clean up this Ruby port, in hopes of getting more Ruby developers interested in Relational Programming.</p>
+
+<p><a href="https://github.com/spariev/mini_kanren">Click here</a> to check out the repo.</p>
+
+<h4 id="dampqwalkeko---code-history-queries-for-java">damp.qwalkeko - Code History Queries for Java</h4>
+
+<p>In an effort to expose the good habits of one programming sub-community to others, I thought I’d talk to the Ruby developers about the tools that Java developers are working on to make understanding their code easier. This project, still being developed, allows for a query language to be used to ask deep questions about your code base that take into account how your code has changed over time - it accesses your Git repository. A query to ask “show me when I changed method x” or “show me all of the times I’ve pulled a method up from a subclass into superclass” are possible. It’s very interesting to think what it could do for developers in other languages as well.</p>
+
+<p><a href="https://github.com/ReinoutStevens/damp.qwalkeko">Click here</a> to check out the repo.</p>
+
+<h4 id="tcs-ruby---a-performance-oriented-ruby-fork">TCS Ruby - A Performance Oriented Ruby Fork</h4>
+
+<p>Some very interesting work has been going on in this fork of Ruby which I stumbled across last year. I know of a few different Ruby shops that are experimenting with it, and it’s very promising. It’s a good reminder that Ruby is just C code - that you can understand it if you try, and that changing it is a good thing.</p>
+
+<p><a href="https://github.com/thecodeshop/ruby/tree/tcs-ruby_1_9_3">Click here</a> to check out the repo.</p>
+
+<h4 id="rblineprof---next-gen-ruby-performance-tool">rblineprof - Next Gen Ruby Performance Tool</h4>
+
+<p>Aman Gupta at GitHub is working on some performance tools again (lucky us!) and this line profiler for Ruby is especially cool. I recommend making this kind of profiling available on your site - there are some clever ways to allow you to profile any route that you want in your app (e.g. for a logged in admin, if they pass a specific secure param, generate the profile page) - line profilers are extremely helpful for tracking down performance issues.</p>
+
+<p><a href="https://github.com/tmm1/rblineprof">Click here</a> to check out the repo.</p>
+
+<p>That’s all I got! Thanks for checking out my lists.</p>
+
+:ET

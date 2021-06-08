@@ -1,0 +1,232 @@
+I"�Z<p>#</p>
+<h3 id="matter-anti-matter-and-the-unified-theory-of-garbage-collection">Matter, Anti-Matter, and the Unified Theory of Garbage Collection</h3>
+
+<p>Introduced in 1960 by John McCarthy and George Collins respectively, <em>tracing</em> and <em>reference counting</em> are both forms of the type of automatic memory management known as <em>garbage collection</em> (GC).<a href="#bib4">[4]</a> <a href="#bib2">[2]</a> This name is derived from the fact that GC algorithms exist to seek out and reclaim memory that has been allocated, but is no longer needed.</p>
+
+<p>Reference counting and tracing are often viewed as fundamentally different, incompatible forms of memory management. An extraordinarily insightful 2004 paper by Bacon, Cheng, and Rajan, <em>A Uniﬁed Theory of Garbage Collection</em> draws incredible parallels between these two approaches to GC.<a href="#bib1">[1]</a> It begins by introducing the insight that tracing and counting are related and goes so far as to formalize and generalize the work done by GC algorithms in order to prove their point: these approaches are in fact “algorithmic duals” of each other which take the same approach from different starting points. In other words, the difference is that:</p>
+
+<blockquote>
+  <p>“…tracing operates on live objects, or ‘matter’, while reference counting operates on dead objects, or ‘anti-matter’. For every operation performed by the tracing collector, there is a precisely corresponding anti-operation performed by the reference counting collector.”</p>
+</blockquote>
+
+<h4 id="the-technique">The Technique</h4>
+
+<p>I’m very interested in this deep insight and thought it would be fun to share the technique that they use to demonstrate their point. While the heart of the paper is actually based on a mathematical formalization known as a <em>fix-point formulation,</em> the basic intuition is easily expressed. It is more or less as follows:</p>
+
+<ol>
+  <li>Explain the basics of naive implementations of tracing and reference counting</li>
+  <li>Introduce small, commonly applied optimizations to each algorithm which do not impact their complexity</li>
+  <li>Illustrate how these optimizations “pull” each paradigm toward a common center-point</li>
+  <li>Examine <em>real-world</em> GCs and illustrate that they are in fact, hybrid counter-tracers</li>
+</ol>
+
+<p>A naive implementation of <em>reference counting</em> is very simple. Objects on the heap have an associated <em>reference count.</em> References are maintained by a <em>write barrier</em> through which all destructive actions are routed. Here’s a Ruby pseudocode version of the algorithm, adapted from Jones et al.’s <em>The Garbage Collection Handbook.</em><a href="#bib3">[3]</a></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># The program interface to the heap</span>
+<span class="k">def</span> <span class="nf">new</span>
+  <span class="n">ref</span> <span class="o">=</span> <span class="n">allocate</span>
+  <span class="k">if</span> <span class="n">ref</span><span class="p">.</span><span class="nf">nil?</span>
+    <span class="k">raise</span> <span class="s2">"Out of memory"</span>
+  <span class="k">end</span>
+  <span class="n">ref</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">ref</span>
+<span class="k">end</span>
+
+<span class="c1"># The write barrier - all writes are redefined to include administrative</span>
+<span class="c1"># duties for reference counts.</span>
+<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
+  <span class="n">add_reference</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+  <span class="n">delete_reference</span><span class="p">(</span><span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ref</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">add_reference</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+  <span class="n">rc</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">=</span> <span class="n">rc</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">delete_reference</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+  <span class="n">ref</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">=</span> <span class="n">ref</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="k">if</span> <span class="n">ref</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="n">ref</span><span class="p">.</span><span class="nf">pointers</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">field</span><span class="o">|</span>
+      <span class="n">delete_reference</span><span class="p">(</span><span class="n">field</span><span class="p">.</span><span class="nf">address</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>The naive mark and sweep implementation is even simpler than reference counting in the respect that no write barrier is involved. When object allocation is requested, if no memory is available, the GC is invoked. Starting from a set of objects (the <em>matter</em> in Bacon et al.’s formulation) known as the <em>roots</em>, the entire reachable heap is scanned, and objects which are referenced are <em>marked</em> as alive. The full heap is then scanned and objects which aren’t marked are presumed dead, and collected. Here’s Ruby pseudocode for a naive mark and sweep, again translated from Jones.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># The program interface to the heap</span>
+<span class="k">def</span> <span class="nf">new</span>
+  <span class="n">ref</span> <span class="o">=</span> <span class="n">allocate</span>
+  <span class="k">if</span> <span class="n">ref</span><span class="p">.</span><span class="nf">nil?</span>
+    <span class="c1"># The following two methods are the GC</span>
+    <span class="n">mark_from_roots</span>
+    <span class="n">sweep</span><span class="p">(</span><span class="no">HEAP_START</span><span class="p">,</span> <span class="no">HEAP_END</span><span class="p">)</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">allocate</span>
+    <span class="k">if</span> <span class="n">ref</span><span class="p">.</span><span class="nf">nil?</span>
+      <span class="k">raise</span> <span class="s2">"Out of memory"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="n">ref</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">mark_from_roots</span>
+  <span class="n">worklist</span> <span class="o">=</span> <span class="no">Worklist</span><span class="p">.</span><span class="nf">new</span>
+  <span class="n">heap_roots</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">root</span><span class="o">|</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="p">.</span><span class="nf">address</span>
+    <span class="k">if</span> <span class="n">ref</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">ref</span><span class="p">.</span><span class="nf">is_marked?</span>
+      <span class="n">ref</span><span class="p">.</span><span class="nf">set_marked</span>
+      <span class="n">worklist</span> <span class="o">&lt;&lt;</span> <span class="n">ref</span>
+      <span class="c1"># performs mark on the descendants of this ref</span>
+      <span class="n">recursive_mark</span><span class="p">(</span><span class="n">ref</span><span class="p">.</span><span class="nf">children</span><span class="p">,</span> <span class="n">worklist</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">sweep</span><span class="p">(</span><span class="n">heap_start</span><span class="p">,</span> <span class="n">heap_end</span><span class="p">)</span>
+  <span class="n">object_cursor</span> <span class="o">=</span> <span class="n">heap_start</span>
+  <span class="k">while</span> <span class="n">object_cursor</span> <span class="o">&lt;</span> <span class="n">heap_end</span>
+    <span class="k">if</span> <span class="n">object_cursor</span><span class="p">.</span><span class="nf">is_marked?</span>
+      <span class="n">object_cursor</span><span class="p">.</span><span class="nf">unset_marked</span>
+    <span class="k">else</span>
+      <span class="n">free</span><span class="p">(</span><span class="n">object_cursor</span><span class="p">.</span><span class="nf">ref</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="n">object_cursor</span><span class="p">.</span><span class="nf">next</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>#</p>
+<h4 id="the-tweaks">The Tweaks</h4>
+
+<p>There are situations in which the way that naive reference counting algorithms allocate and free memory are desirable, but for the most part, it is necessary to offload some of the tax on the <em>mutator</em>, or main thread of program execution. While not a recommended optimization, in order to push the two paradigms toward each other, the authors suggest a simple tweak to the reference counting algorithm: buffer decrement operations. Under this algorithm, when space is needed during an allocation, decrement operations which have been buffered in a <em>work-list</em> are recursively iterated over. Objects with a zero reference count are collected and objects which reference them are handled appropriately. This work-list contains <em>anti-matter.</em> I have translated both the tracing and reference counting modified algorithms to Ruby for comparison with the naive implementations above.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">new</span>
+  <span class="n">ref</span> <span class="o">=</span> <span class="n">allocate</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">collect</span>
+  <span class="n">scan_by_counting</span>
+  <span class="n">sweep_for_counting</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">scan_by_counting</span>
+  <span class="n">work_list</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">work</span><span class="o">|</span>
+    <span class="n">work</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">=</span> <span class="n">work</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">work</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">==</span> <span class="mi">0</span>
+      <span class="n">recursively_scan</span><span class="p">(</span><span class="n">work</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">sweep_for_counting</span>
+  <span class="n">object_cursor</span> <span class="o">=</span> <span class="n">heap_start</span>
+  <span class="k">while</span> <span class="n">object_cursor</span> <span class="o">&lt;</span> <span class="n">heap_end</span>
+    <span class="k">if</span> <span class="n">object_cursor</span><span class="p">.</span><span class="nf">ref_count</span><span class="p">.</span><span class="nf">zero?</span>
+      <span class="n">free</span><span class="p">(</span><span class="n">object_cursor</span><span class="p">.</span><span class="nf">ref</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="n">object_cursor</span><span class="p">.</span><span class="nf">next</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">dec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">work_list</span> <span class="o">&lt;&lt;</span> <span class="n">x</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">assign</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">p</span><span class="p">)</span>
+  <span class="n">old</span> <span class="o">=</span> <span class="n">a</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="nb">p</span>
+  <span class="n">dec</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
+  <span class="n">inc</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>The mark and sweep algorithm is altered in a similarly interesting way: instead of maintaining a <em>mark bit</em> for whether the object is live or not, a true reference count is maintained. This doesn’t impact the algorithm in complexity or really change it much conceptually, but it does allow the Ruby pseudocode for tracing and counting to look eerily similar.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">new</span>
+  <span class="n">ref</span> <span class="o">=</span> <span class="n">allocate</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">collect</span>
+  <span class="n">initialize_for_tracing</span>
+  <span class="n">scan_by_tracing</span>
+  <span class="n">sweep_for_tracing</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">initialize_for_tracing</span>
+  <span class="n">work_list</span> <span class="o">&lt;&lt;</span> <span class="n">heap_roots</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">scan_by_tracing</span>
+  <span class="n">work_list</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">work</span><span class="o">|</span>
+    <span class="n">work</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">=</span> <span class="n">work</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">work</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">==</span> <span class="mi">1</span>
+      <span class="n">recursively_scan</span><span class="p">(</span><span class="n">work</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">sweep_for_tracing</span>
+  <span class="n">object_cursor</span> <span class="o">=</span> <span class="n">heap_start</span>
+  <span class="k">while</span> <span class="n">object_cursor</span> <span class="o">&lt;</span> <span class="n">heap_end</span>
+    <span class="k">if</span> <span class="n">object_cursor</span><span class="p">.</span><span class="nf">ref_count</span><span class="p">.</span><span class="nf">zero?</span>
+      <span class="n">free</span><span class="p">(</span><span class="n">object_cursor</span><span class="p">.</span><span class="nf">ref</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="n">object_cursor</span><span class="p">.</span><span class="nf">ref_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">end</span>
+    <span class="n">object_cursor</span><span class="p">.</span><span class="nf">next</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>In this modified form, the heart of each algorithm is very similar. As the authors say:</p>
+
+<blockquote>
+  <p>“By changing two characters in the heart of the algorithm, we have changed from tracing to reference counting!”</p>
+</blockquote>
+
+<p>And indeed I applaud their use of an exclamation point. This is truly an amazing insight and the mechanics of explaining it are made very plain in the original paper, which as always I suggest you read. The work-list in one algorithm is full of <em>matter,</em> and in the other, <em>anti-matter.</em> The heap is swept, counts are maintained, garbage is collected. What do we have to learn from the similarities of these two algorithms? Most compellingly, the authors demonstrate that “realistic” Garbage Collectors that we use every day are all hybrids.</p>
+
+<h4 id="real-world-hybrids">Real-World Hybrids</h4>
+
+<blockquote>
+  <p>“…all high-performance garbage collectors are in fact hybrids of tracing and reference counting techniques.”</p>
+</blockquote>
+
+<p>Generational GC, <a href="http://michaelrbernste.in/2013/05/28/a-generation-ago-a-thoroughly-modern-sampling.html">which I have written about elsewhere</a>, is an excellent example of a class of GC algorithms which are hybrids. Generational GC is based on the hypothesis that most objects “die young,” so objects which have survived multiple generations should not be swept before objects which have not. These “generations” are maintained by dividing the heap into a <em>young</em> and <em>mature</em> space which are each collected at their own rate. There are issues with GCing objects when older generation objects refer to younger generation objects, but not vice versa. In order to avoid these safety issues, generational GCs maintain a <em>remembered set</em> of objects in the young generation which are pointed to by objects in the mature space. From the paper:</p>
+
+<blockquote>
+  <p>“The remembered set is maintained by a write barrier which is executed at every heap pointer update. The write barrier checks whether the pointer crosses from mature space to the nursery, and if so adds it to the remembered set. By now, the analogy with previous collectors should be somewhat obvious: the write barrier is the assign function, which we have observed is correlated to the reference counting portion of a collector.”</p>
+</blockquote>
+
+<p>In other words, Generational GCs are hybrid tracer-collectors. Other compelling examples are offered in the paper. Additionally, the cost calculation formula that the authors devised is thoroughly discussed, cycle collection is treated in-depth, and more.</p>
+
+<h4 id="conclusions">Conclusions</h4>
+
+<p>This post merely attempts to expose the central most interesting technique used in this paper to illustrate the point of the “algorithmic duality” between reference counting and mark and sweep, or tracing, garbage collection. After implementing various real-world GCs, the authors had formed a deep intuition for the heart of GC algorithms and this insight sprang from this experience. After studying GC heavily in preparation for this blog and a conference talk, I felt that nothing made the abstract concepts at play click for me as well as this paper did. I hope I have been able to share some of this paper’s insight if not some of its enthusiasm.</p>
+
+<p>After demonstrating these similarities, the authors also posit that the design of GCs could be “made more deliberate.” Instead of choosing between reference counting and tracing, designers should consider the following choices:</p>
+
+<blockquote>
+  <p>“Partition: divide memory (heap, stack, and global variables) into a set of partitions, within which different strategies may be applied; Traversal: for each partition, decide whether the object graph will be traversed by tracing or reference counting; and Trade-offs: for each partition, choose space-time trade-offs such as semi-space vs. sliding compaction, pointer reversal vs. stack traversal, etc.”</p>
+</blockquote>
+
+<p>This shows that the GCs which are successful in real-world application exhibit either a great degree of flexibility through tunable parameters or specialization in a field like Real-Time GC, but are always hybrids. In other words, successful GCs are those which are chosen based on a fine-grained understanding of their operational characteristics and how they will support the mutator most efficiently.</p>
+
+<p>On a parting note, the comparison of two long-standing approaches to a common challenging problem reminded me of the tensions between the successes and failures of Object-Oriented and Functional Programming. Though not “algorithmic duals” by Bacon et al.’s definition, there are many texts which, using a Lisp implementation for example, stretch a functional system until it appears Object Oriented, or torture the Object Oriented principles until they appear functional. More than a similarity in expositional style, however, these two pairs of systems share parity in other interesting ways. A distant, vague connection, perhaps, but that’s enough for me.</p>
+
+<p><em>If you like this kind of content, <a href="http://twitter.com/mrb_bk">follow me on Twitter</a> for more.</em></p>
+
+<h4 id="works-cited">Works Cited</h4>
+
+<p><a id="bib1">[1]</a>David F. Bacon, Perry Cheng, and V. T. Rajan. <em>A Uniﬁed Theory of Garbage Collection</em> In OOPSLA 2004 [OOPSLA04], 2004, pages 50-68</p>
+
+<p><a id="bib2">[2]</a> George E. Collins. <em>A method for overlapping and erasure of lists.</em> Communications of the ACM, 3(12):655-657, December 1960.</p>
+
+<p><a id="bib3">[3]</a>Richard Jones, Antony Hosking, and Eliot Moss. <em>The Garbage Collection Handbook: The Art of Automatic Memory Management.</em> CRC Applied Algorithms and Data Structures. Chapman &amp; Hall, August 2012.</p>
+
+<p><a id="bib4">[4]</a>John McCarthy. <em>Recursive functions of symbolic expressions and their computation by machine, Part I.</em> Communications of the ACM, 3(4):184-195, April 1960.</p>
+
+:ET

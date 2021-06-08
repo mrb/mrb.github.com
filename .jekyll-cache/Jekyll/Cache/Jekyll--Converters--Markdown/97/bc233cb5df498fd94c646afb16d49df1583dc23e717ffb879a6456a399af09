@@ -1,0 +1,188 @@
+I"cr<p>#
+#</p>
+<h3 id="formalizing-concurrency-distribution-and-mobility">Formalizing Concurrency, Distribution, and Mobility</h3>
+
+<p>Carlos A. Varela’s <em>Programming Distributed Computing Systems: A Foundational Approach</em> is a slim but impressive volume which takes a methodical approach to exploring the landscape of distributed computation, with very rich results.<a href="#bib1">[1]</a> A major premise of the book, that <em>an awareness and understanding of the various models of concurrent computation is necessary for reasoning about various methods of distributed computation</em> inspired this post, which will cover the major models used.</p>
+
+<p>A computational model is a formal mathematical model that is used as a representation of computation, the most prominent example being the <a href="http://mathworld.wolfram.com/LambdaCalculus.html">the λ (lambda) calculus</a>, developed by Church and Kleene in the 1930s. Varela’s coverage of the models of computation is carried out with precision, and is based on the idea that, at an even higher level than the discussion of distributed computing:</p>
+
+<blockquote>
+  <p>“Theoretical models of computation are critical to be able to reason about properties of software, including the programming languages used to develop the software. Examples of software properties include expressive power, correctness, performance and reliability.”</p>
+</blockquote>
+
+<p>Nothing revolutionary perhaps, but no less meaningful. Considering that each of the five models introduced could alone occupy several years if not a lifetime of research, this post aims to give an overview, and to  provide some insight into the relationship that these models have to each other. Many of the most practical lessons one can take away from theoretical computer science result from comparing and contrasting computational models, and that practice is at the heart of this book.</p>
+
+<p>Covered in the text are the <strong>λ (lambda) calculus</strong>, the <strong>π (pi) calculus</strong>, the <strong>actor model</strong>, the <strong>join calculus</strong>, and the <strong>ambient calculus</strong>. Most distributed computing work uses ideas taken from the π calculus or the actor model, though others are becoming more prominent. For me the impressive aspect of Varela’s work is how through rigorous comparisons and painstaking research, he shows the direct relationships between the computational models and the semantics of the programming languages which implement them. The direct encoding of the concept of concurrency into the post λ calculus models is an abstract but powerful concept that Varela communicates quite effectively.</p>
+
+<h4 id="the-λ-calculus">The λ Calculus</h4>
+
+<p>The earliest and best known model is notable for its ability to concisely express sequential computation. While the λ calculus does not explicitly encode concurrency, it is the basis for all other models (even appearing “inside” the actor model) and understanding sequential computation is crucial for understanding concurrent computation.</p>
+
+<p>The λ calculus (like all of the other models presented) is Turing-complete, that is “any computable function can be expressed and evaluated using the calculus.” The usefulness of a formal model like the λ calculus is that its simplicity and high level of abstraction make it very easy to reason about. This quality makes it well suited for studying and formalizing even complex programming language concepts.</p>
+
+<p>A direct connection with programming languages is made in covering the various evaluation orders that have been explored for the λ calculus. Evaluation order refers to the rules for <em>reducing</em> or “solving” λ calculus expressions. This concept maps cleanly onto the semantics of modern functional programming languages. <em>Normal-order</em> is the simplest in many ways and is the “best-behaved” with respect to termination guarantees, but most programming languages use applicative order, for efficiency reasons. The Haskell programming language is well known for implementing a <em>by-need</em> or <em>lazy</em> evaluation order where partially computed functions are passed around to represent the results of not-yet-needed work. The following trivial example shows how values are passed in to a function and evaluated:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>λx.x<span class="k">*</span>2 2<span class="o">)</span>
+2<span class="k">*</span>2
+4</code></pre></figure>
+
+<p>The value of 2 is captured by the free variable x in a substitution. The function <code class="language-plaintext highlighter-rouge">x*2</code> becomes <code class="language-plaintext highlighter-rouge">2*2</code> which becomes <code class="language-plaintext highlighter-rouge">4</code>. This should start to give you a feel for the semantics of the calculus, which are simple but very powerful, but by no means represents what is possible. If the λ calculus is new to you, seek its beauty elsewhere.</p>
+
+<p>In addition to evaluation order, other familiar concepts to functional programmers are covered included Currying, higher-order programming, sequencing, and recursion. Finally some details on how numbers and booleans can be represented in the calculus are discussed, which is a fascinating bit of detail that many professional programmers might not be familiar with. <em>Combinators used to express numbers</em> and <em>true and false as a curried function</em> is not day-to-day programming, but can provide some deep insights into the foundations of the systems we become intimately familiar with through use.</p>
+
+<p>While it is amazing how deeply the model tracks with a host of mathematical concepts, as the author proceeds to introduce other models, the depth of the fundamental hook of <em>explicitly representing multiple processes</em>, which is missing from this model, becomes clear.</p>
+
+<h4 id="the-π-calculus">The π Calculus</h4>
+
+<p>The <a href="http://en.wikipedia.org/wiki/%CE%A0-calculus">π Calculus</a> is a formal model for specification, analysis and verification of systems composed of communicating concurrent processes, developed by Robin Milner et al in 1992, as a continuation of Milner’s earlier work in specifying a process calculus known as the calculus of communicating systems (CCS). In the π calculus, <em>concurrent computation is modeled as processes communicating over shared channels</em>. The operational semantics of the π calculus is presented, which explains how a well-defined set of inference rules determine the evaluation order and scoping rules of a π calculus expression.</p>
+
+<p>The π calculus syntax includes operations for reading and writing values on channels, in addition to operations for declaring, composing, comparing, and executing processes. Take the following basic example of a π calculus interaction:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">a<span class="o">(</span>x<span class="o">)</span>.P | āb.Q.
+P<span class="o">{</span>b/x<span class="o">}</span> | Q.</code></pre></figure>
+
+<p>The <code class="language-plaintext highlighter-rouge">|</code> operator denotes <em>concurrent composition</em>. Process <code class="language-plaintext highlighter-rouge">P</code> and process <code class="language-plaintext highlighter-rouge">Q</code> are communicating over channel <code class="language-plaintext highlighter-rouge">a</code>. The first line represents the initial state, and the second line represents the state post-transition. The <code class="language-plaintext highlighter-rouge">Q</code> process will write the value <code class="language-plaintext highlighter-rouge">b</code> over the channel <code class="language-plaintext highlighter-rouge">a</code>, written here as <code class="language-plaintext highlighter-rouge">ā</code> because it is being written to. The value <code class="language-plaintext highlighter-rouge">b</code> has been communicated from <code class="language-plaintext highlighter-rouge">Q</code> to <code class="language-plaintext highlighter-rouge">P</code> over <code class="language-plaintext highlighter-rouge">a</code>. Being able to model concurrent processes in practice make expressing complex systems easier and formal reasoning about them possible.</p>
+
+<p>The model relies on the concept of <em>strong bisimilarity</em> to provide a notion of <em>process equivalence</em>. In using modern programming languages, we sometimes take for granted our ability to compare two abstract entities and ask the computation at hand if they are in some way equivalent. This idea drills all the way down to the model level, where those decisions have to be made, based on the rules of reduction, possible inputs, etc. In other words, it is mathematically possible to prove, even in the full π calculus, that two processes are functionally equivalent.</p>
+
+<p>We also see various examples modeled in the π calculus that very viscerally demonstrate how concepts common to a practitioner (a “get server” and a “set server” are modeled, along with a mutex and an implementation of the dining philosophers problem) relate to the expressiveness of the underlying computational model. Varela says “The semantics of a concurrency model explains precisely the behavior of its elements.” We see written “in math” what is normally written in a scripting language to make similar points. Varela fearlessly tackles this challenge, providing these examples not only in each computational model discussed, but also in programming languages which rely on these models later in the book.</p>
+
+<p>The key difference between the π calculus and its predecessors in CCS and C.A.R. Hoare’s communicating sequential processes (CSP) is its explicit ability to send channel names between processes, allowing dynamic topologies, a property known as <em>mobility</em>. The remaining models in the book also have this property, which was inspired by the actor model. Since the π calculus can explicitly model changing topologies, it takes a very strong step in the right direction of <em>unifying the practice with the underlying computational model</em>.</p>
+
+<h4 id="the-actor-model">The Actor Model</h4>
+
+<p>Of the models covered in this book, the actor model is probably the best known besides the λ calculus. Embodied in programming libraries and languages like Erlang, the actor model defines <em>actors</em> as the primary components of computation, where shared-nothing memory and asynchronous communication are assumed. Varela’s snappy definition says that:</p>
+
+<blockquote>
+  <p>“Actors are first-class history-sensitive entities with an explicit identity used for communication.”</p>
+</blockquote>
+
+<p>In practice, actors are somewhat complex when combined in large numbers. The rules on a micro level, however, are simple. Actors can perform one or more of the following actions upon receiving an asynchronous message:</p>
+
+<ol>
+  <li>send a message to an <em>acquaintance,</em> an actor whose identity is known to the actor <em>a</em>,</li>
+  <li>create a new actor <em>a’</em>, with a given <em>behavior b</em>, or</li>
+  <li>become <em>ready</em> to receive a new message with new <em>behavior b</em></li>
+</ol>
+
+<p>This behavior allows the actor model to be an <em>open</em> system, so called because new components can be added by creating new actors dynamically, and because an actor can change behaviors dynamically. This means that a few actors can create a large graph of actors, and that the messages between them can include the names of actors, making very complex systems possible.</p>
+
+<p>The actor model assumes <em>fairness</em> in a way that the other models do not - message delivery is guaranteed, and thus message processing is guaranteed under the correct conditions. It is worth noting that while assuming fairness makes reasoning simple, it potentially makes implementation challenging and expensive.</p>
+
+<p>The formalized version of the actor model presented in this book is a more modern semantics that is sensitive to the realities of the implementations of actors in programming languages. The computational expense of creating new actors impacted the decision for which primitives to include, favoring a more efficient approach. Varela has this to say on the influence of the actor model on programming language theory:</p>
+
+<blockquote>
+  <p>“The actor model has influenced the development of several programming languages. Sussman and Steele developed Scheme in 1975 in an attempt to understand the actor model first conceived by Carl Hewitt (Sussman and Steele, 1998). Early actor languages developed at MIT include PLASMA (Hewitt, 1975) and Act1 (Lieberman, 1981). More recent actor languages include Acor, Rosette, ABCL, Erlang, E, and SALSA.”</p>
+</blockquote>
+
+<p>Actors stand outside the other process calculi presented in many ways - seemingly spontaneously conceived and radically different in formation then the others, actors seem more tangible, can be explained simply, and model real world problems well. But because they are “higher level” and guarantee fairness, but do not explicitly encode notions of location, for instance, research continues toward designing models that approach being isomorphic with production distributed systems.</p>
+
+<h4 id="the-join-calculus">The Join Calculus</h4>
+
+<p>At this point in the book it becomes clear that we are searching for a model which allows for explicit reasoning about <em>distribution</em> and <em>mobility</em>. As straightforward as the translation from the actor model to a programming language is, given my background, the join calculus was equally abstract and bizarre to encounter. Varela has a concise definition, which is nicely fleshed out throughout the chapter that covers it:</p>
+
+<blockquote>
+  <p>“Concurrent computation is modeled in the join calculus as a reflective chemical abstract machine, where heating and cooling of molecules and atoms occurs according to <em>reaction rules</em> that can evolve over time.”</p>
+</blockquote>
+
+<p>Molecules are processes running in parallel, which can combine and evolve into other processes over time according to the <em>reaction rules</em>. This sounds similar to how in the actor model, actors can change behaviors. In the join calculus, distribution and mobility are represented with a combination of molecules and <em>reaction sites</em> that model localities and correspond to rules with <em>statically scoped names</em>. Communication is constrained to reaction sites which are lexically scoped definitions. The join calculus, like the π calculus, but unlike the actor model, does not address fairness.</p>
+
+<p>The join calculus is the first model I encountered that represents systems using the idea that <em>conditional actions in a distributed system can be modeled as conditional reactions occurring at explicitly visited sites.</em> Isolating the logic of a system to the sites where they occur is definitely a step in the right direction. To show a very simple example, as shown below: reactions are denoted <code class="language-plaintext highlighter-rouge">D</code> or <code class="language-plaintext highlighter-rouge">J ▸ P</code> where <code class="language-plaintext highlighter-rouge">J</code> denotes a <em>join pattern</em> that molecules must match for a reaction to take place, and <code class="language-plaintext highlighter-rouge">P</code> denotes the resulting molecules from the reaction.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">D <span class="o">=</span> ready&lt;printer&gt; | job&lt;file&gt; ▸ printer&lt;file&gt;
+D ⊢ ready&lt;laser&gt; | job&lt;f1&gt;
+D ⊢ laser&lt;f1&gt;.</code></pre></figure>
+
+<p>The initial solution shows that if the pattern <code class="language-plaintext highlighter-rouge">ready&lt;printer&gt; | job&lt;file&gt;</code> is matched, the reaction <code class="language-plaintext highlighter-rouge">printer&lt;file&gt;</code> will take place, ostensibly sending the data from <code class="language-plaintext highlighter-rouge">file</code> to the <code class="language-plaintext highlighter-rouge">printer</code>. The second line shows <code class="language-plaintext highlighter-rouge">ready&lt;laser&gt;</code> and <code class="language-plaintext highlighter-rouge">job&lt;f1&gt;</code> visiting the reaction site, thus activating the condition above. The final line shows <code class="language-plaintext highlighter-rouge">laser&lt;f1&gt;</code>, the data from <code class="language-plaintext highlighter-rouge">f1</code> is sent to the <code class="language-plaintext highlighter-rouge">printer</code> called <code class="language-plaintext highlighter-rouge">laser</code>. This kind of program can become arbitrarily elaborate, but this simple program shows a novel approach. The challenge remains of how to represent the rules in a distributed system in as concise, declarative, and central manner. There is a later chapter in <em>Varela</em> that is devoted to programming in <em>JOCaml</em>, an OCaml variant that uses the join calculus model for concurrency.</p>
+
+<p>Processes in the join calculus can be compared for equivalence based on the idea that “Two programs are considered to be <em>equivalent</em> if they behave the same when placed in any observing contexts.” The join calculus is extremely complex and the semantics are hard to grasp. While I still struggle with them, I have taken away the idea that the join calculus provides at least the power of the π calculus with some apparent gains in expressiveness. Additionally since the join calculus explicitly reasons about <em>distribution</em> and <em>mobility,</em> the challenges of addressing locality, for example, in distributed systems becomes possible where it is now very challenging.</p>
+
+<h4 id="the-ambient-calculus">The Ambient Calculus</h4>
+
+<p>Besides having an awesome name, the ambient calculus is a fascinating formulation of a very difficult type of system to model - one where <em>mobility</em> and <em>hierarchies of process</em>  are explicit. From a paper by the authors of the model:</p>
+
+<blockquote>
+  <p>“The ambient calculus is a process calculus whose basic abstraction, the ambient, represents mobile, nested, computational environments, with local communications. Ambients can represent the standard components of distributed systems, such as nodes, channels, messages, and mobile code. They can also represent situations where entire active computational environments are moved, as happens with mobile computing devices, and with multi-threaded mobile agents.” <a href="#bib2">[2]</a></p>
+</blockquote>
+
+<p>Varela’s treatment of the ambient calculus conveys the novelty of the expressive power of the model, illustrating how <em>ambients,</em> which contain calculations, are reduced from complex expressions to calculated outcomes. Notions of scope, memory sharing and fairness are covered, as well as how the semantics of the model relates to the others presented. The following example is given to introduce the expressive powers and aims of the model:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">m[p[out m.in n.&lt;M&gt;]] | n[open p.<span class="o">(</span>x<span class="o">)</span>.Q].
+m[] | n[open p.<span class="o">(</span>x<span class="o">)</span>.Q] | p[in n.&lt;M&gt;].
+m[] | n[open p.<span class="o">(</span>x<span class="o">)</span>.Q | p[&lt;M&gt;]].
+m[] | n<span class="o">(</span>x<span class="o">)</span>.Q | &lt;M&gt;].
+m[] | n[Q<span class="o">{</span>M/x<span class="o">}]</span>.</code></pre></figure>
+
+<p>These five lines represent an initial state, three transitions, and a final state for a simple interaction where a network packet <code class="language-plaintext highlighter-rouge">p</code> moves between two machines on a network represented by two processes <code class="language-plaintext highlighter-rouge">m</code> and <code class="language-plaintext highlighter-rouge">n</code>. The keywords <code class="language-plaintext highlighter-rouge">out</code>, <code class="language-plaintext highlighter-rouge">open</code>, and <code class="language-plaintext highlighter-rouge">in</code> should stand out, as they are used to represent the notion of ambients representing mobile data in a system. <code class="language-plaintext highlighter-rouge">&lt;M&gt;</code> is data ready to be written and <code class="language-plaintext highlighter-rouge">(x).Q</code> is data to be read. To step through:</p>
+
+<ol>
+  <li>Process <code class="language-plaintext highlighter-rouge">m</code> is an ambient which contains one other ambient, <code class="language-plaintext highlighter-rouge">p</code>. Ambient <code class="language-plaintext highlighter-rouge">n</code> contains some instructions pertaining to ambient <code class="language-plaintext highlighter-rouge">p</code>.</li>
+  <li>Ambient <code class="language-plaintext highlighter-rouge">p</code> moves outside of ambient <code class="language-plaintext highlighter-rouge">m</code>.</li>
+  <li>Ambient <code class="language-plaintext highlighter-rouge">p</code> moves inside ambient <code class="language-plaintext highlighter-rouge">n</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">open</code> expression inside ambient <code class="language-plaintext highlighter-rouge">n</code> is now activated: an ambient named <code class="language-plaintext highlighter-rouge">p</code> is on the same level and a message is ready to be sent.</li>
+  <li><code class="language-plaintext highlighter-rouge">p</code> has been opened and destroyed, and the processes can now interact, the data is read, and instances of <code class="language-plaintext highlighter-rouge">x</code> are replaced with <code class="language-plaintext highlighter-rouge">M</code>.</li>
+</ol>
+
+<p>While a bit confusing out of context, the above should illustrate how far we have come in being capable of modeling in a formal sense what we have had to deal with on a <em>library level</em> for so long. Concurrency, distribution, and mobility being baked into our formal models can have potentially huge payoff. As Varela says:</p>
+
+<blockquote>
+  <p>“The key difference between the π calculus and the ambient calculus is the latter’s ability to model hierarchical process boundaries, movement of <em>active</em> ambients across those boundaries, and the restricted interprocess communication to inside an ambient boundary.”</p>
+</blockquote>
+
+<p>Unique to the ambient model are the concepts of <em>entry,</em> <em>exit,</em> and <em>open,</em> which are the operations the model uses to specify the movement of ambients. The notation is illustrated and although even basic examples take time to get through, it is worth it to see how a correct program concerning the communication of distributed processes might look, however tiny.</p>
+
+<p>In fact the idea that the calculus is capable of explicitly modeling mobility and hierarchies makes me believe that some day we will have verified distributed programs written in higher level languages whose semantics are modeled after advanced models of computation such as the ambient or join calculi.</p>
+
+<h4 id="ontological-commitments-expressive-power-and-semantics">Ontological Commitments, Expressive Power, and Semantics</h4>
+
+<p>One of the highlights of the book is the chapter that acts as a bridge between the description of the various models and the example implementations. After laying out the models, we see how to compare them, which prepares us well for how they will be implemented in a programming language and used in various examples.</p>
+
+<p>The <strong>ontological commitments</strong> of each model consist of two primary decisions - <strong>synchronous vs. asynchronous communication</strong> and <strong>shared vs. distributed memory</strong>. The actor model stands out amongst all of the others: it alone assumes an <em>asynchronous</em> approach to communication and a <em>distributed</em> approach to modeling memory. If you’ve wondered about the depth of Hewitt’s work on the actor model but haven’t been convinced, this chapter will likely give you pause - it is truly a radical, simple, powerful abstraction.</p>
+
+<p>The section about the <strong>expressive power</strong> of each model is dense but fascinating. Each model is shown to be <em>Turing complete,</em> and each is expressed in terms of either the λ or the π calculus, which is mind-bending and something that I surely do not fully grasp the depth of. You might, in which case I recommend this book highly.</p>
+
+<p>Finally the <strong>semantics</strong> of each model is discussed, with the following properties being highlighted:</p>
+
+<ul>
+  <li>Can it model <em>unbounded concurrency</em>? According to Varela:</li>
+</ul>
+
+<blockquote>
+  <p>“One of the key differences between earlier models of concurrency – such as Petri nets, calculus of communicating systems (CCS), or communicating sequential processes (CSP) – and more recent ones is the latter’s ability to model unbounded concurrency.”</p>
+</blockquote>
+
+<p>In this context, <em>unbounded concurrency</em> relates to the expressive power of the model.</p>
+
+<ul>
+  <li>
+    <p><em>Composability</em> refers to the ability to combine simpler systems into more complex ones. In order to be composable, a model must be modular. Modularity relates to how reasoning that applies to the parts of a system hold when the system becomes more complex through composition. Each of the modern models of concurrency supports composition through an interface that allows the model to consider processes interacting with each other.</p>
+  </li>
+  <li>
+    <p><em>Fairness</em> is “a semantic property that ensures that valid (infinite) computation paths do not consistently ignore one of the possible ways in which a computation may evolve.” The only model that explicitly supports fairness is the actor model. The others are designed in a way which hopefully mitigates this necessity.</p>
+  </li>
+</ul>
+
+<p>The discussion of the final two semantic properties, <em>distribution</em> and <em>mobility</em>, drive home some of the central points this book is trying to make.</p>
+
+<blockquote>
+  <p>“Distributed computing is inherently concurrent. However, distributed aspects go far beyond concurrency. Of particular importance from a modeling perspective is the capability to reason about the location (and potential co-location) of concurrent computations, the heterogeneous cost of interaction, the security aspects of interaction across multiple locations, and the potential for partial failures.”</p>
+</blockquote>
+
+<p>Each of the models presented allow us to reason about distribution to varying degrees. The π calculus has no explicit representation of locations, although it can implement a variety of (potentially expensive) abstractions to represent mobility. The actor model similarly does not provide a semantic distinction between processes on the same machine and processes distributed across a network.</p>
+
+<p>The formal aspects of this chapter were very helpful in my attempts to understand the subtleties and value of each model, and the categories above are valuable when evaluating other models.</p>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<p>The five computational models presented as the basis for understanding concurrent computation in Varela’s <em>Programming Distributed Computing Systems</em> present an array of approaches for representing computation in a distributed system. What is made explicit in this text is that computational models exist which explicitly model qualities of distributed computation. Programming languages based on these computational models will inherently be more powerful and potentially more expressive (if they are implemented properly) because they do not have to consider or implement qualities which their models do not account for.</p>
+
+<p>The last part of the book covers programming languages which implement these various models. While far from perfect, these languages and their summation provides evidence that there is purposeful work to be done if we are to achieve a natural system of designing programs destined to run on a distributed platform. Layers and layers of software currently represent what could be shed if assumptions were baked into the design of systems from the outset. Distributed systems practitioners could benefit from researching the various process calculi and their predecessors, to appreciate the deep connection between their work and the theoretical underpinnings which sometimes seem so distant.</p>
+
+<h4 id="works-cited">Works Cited</h4>
+
+<p><em>All quotes unless otherwise noted from Varela</em></p>
+
+<p><a id="bib1">[1]</a> Varela, Carlos A. <em>Programming Distributed Computing Systems: A Foundational Approach</em> MIT Press, hardcover, ISBN 978-0-262-01898-2, 2013</p>
+
+<p><a id="bib2">[2]</a> Luca Cardelli, Giorgio Ghelli, and Andrew D. Gordon. 2002. Types for the ambient calculus. Inf. Comput. 177, 2 (September 2002), 160-194.</p>
+:ET

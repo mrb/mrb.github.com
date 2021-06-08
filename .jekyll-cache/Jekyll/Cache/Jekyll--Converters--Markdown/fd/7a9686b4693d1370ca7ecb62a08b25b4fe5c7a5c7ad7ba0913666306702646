@@ -1,0 +1,81 @@
+I"f<p>#</p>
+
+<h3 id="the-beginning-of-a-long-journey-notes-on-ctm-chapter-01">The Beginning of a Long Journey: Notes on <em>CTM</em> Chapter 01</h3>
+
+<p>This is the first in a series of posts I will be making about Van Roy and Haridi’s <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a>. <a href="http://twitter.com/brixen">Several</a> <a href="http://twitter.com/swannodette">smart</a>  <a href="http://twitter.com/fogus">people</a> have recommended the book for various reasons, and it fits in with my recent attempts to destroy and rebuild my knowledge of Computer Science and programming, from scratch.</p>
+
+<p>The book is immensely long and complex, so posting may take a long time. I plan to post a summary of each chapter, along with some thoughts, and then I’ll post as much of my note taking while reading as possible. I hope you’ll follow along and enjoy my take.</p>
+
+<h4 id="chapter-1---introduction-to-programming-concepts">Chapter 1 - Introduction to Programming Concepts</h4>
+
+<p>A whirlwind tour through pretty much every concept that is essential to understanding how to “tell a computer how to do its job.” Refreshingly devoid of the baggage of other typical techniques for explaining difficult concepts, the authors plow through various subjects in a crisp, enlightening way. The relationships between each topic are made clear, and you get the sense that they are setting the stage for some deep exploration.</p>
+
+<p>Here are some of my favorite quotes from the chapter, which mostly take the form of very precise definitions for key concepts, and highlight the very readable writing style:</p>
+
+<blockquote>
+  <p>“This expression uses <code class="language-plaintext highlighter-rouge">Fact</code>, the very function we are defining! This is called recursion. It is perfectly normal and no cause for alarm.”</p>
+</blockquote>
+
+<blockquote>
+  <p>A program’s specification is “a mathematical definition of the inputs that a program needs and the output that it calculates”</p>
+</blockquote>
+
+<blockquote>
+  <p>Concurrency is “Several independent activities, each of which executes at its own pace”</p>
+</blockquote>
+
+<blockquote>
+  <p>A race condition is “observable nondeterminism”</p>
+</blockquote>
+
+<blockquote>
+  <p>“Programming with concurrency and state together is largely a question of mastering the interleavings”</p>
+</blockquote>
+
+<blockquote>
+  <p>“An operation is atomic if no intermediate states can be observed”</p>
+</blockquote>
+
+<p>The pedagogy that the authors employ is introduced in this chapter, and I find it effective. The authors introduce ideas with simple explanations and minimal examples, and pay close attention to the progression as they go.</p>
+
+<p>Starting with a calculator that is used to describe functions, and running through data structures, program correctness, semantics, higher order programming, concurrency, nondeterminism, and atomicity, a system which starts simply and then becomes complexity is not only explained to us, it is plainly illustrated.</p>
+
+<p>This chapter makes me very excited for the book though I’m nervous because I know things are going to get considerably more difficult. The end of the chapter contains some hints as to the means by which all of the various programming paradigms will be explored, and the breadth is impressive.</p>
+
+<h4 id="unabridged-notes">Unabridged Notes</h4>
+
+<ul>
+  <li>“Programming is telling a computer how it should do its job.”</li>
+  <li>A calculator - printing, variables, functions</li>
+  <li>Recursion - factorial - “This expression uses <code class="language-plaintext highlighter-rouge">Fact</code>, the very function we are defining! This is called recursion. It is perfectly normal and no cause for alarm.”</li>
+  <li>Introduces concepts of time and space complexity right away - factorial functions</li>
+  <li>A lot of talk about real world resource issues - memory, etc.</li>
+  <li>Combinations, Functional abstraction - “top down” program design, decomposition</li>
+  <li>Data structures like Lists, constructions, cons, head and rest, and their functions, Pattern matching</li>
+  <li>A discussion of the concept of correctness and its application to computer programs. In order to ascertain a program’s correctness, we need to reason about the program. We reason about programs with:
+    <ul>
+      <li>A model of the programming language’s operations, defining what they should do - “This model is called the language’s semantics”</li>
+      <li>A program’s “specification” - “a mathematical definition of the inputs that a program needs and the output that it calculates”</li>
+      <li>Mathematical techniques such as induction - prove the simplest case, and then prove for the next case, and induce the rest of the cases - i.e. for integers, prove for 0, prove for 1, infer from 1 on</li>
+    </ul>
+  </li>
+  <li>Complexity is demonstrated by showing the <code class="language-plaintext highlighter-rouge">Pascal</code> function with and without a local variable for memoizing a step of a recursion</li>
+  <li>2^N or Exponential Time is impractical for all but the smallest number of inputs, while N^2 or Polynomial Time is practical for a wider range of input sizes</li>
+  <li>We are teased with the concept of a “Future” during the section about Lazy Evaluation and its role in efficiency in program execution. Proof of concept is shown for how Mozart/Oz can execute lazy functions which are created by using the <code class="language-plaintext highlighter-rouge">lazy</code> keyword during function declaration.</li>
+  <li>Higher order programming - “The ability to pass functions as arguments” - a flexible <code class="language-plaintext highlighter-rouge">Pascal</code> function is created which can execute arbitrary functions in place of the normal addition it uses for calculation.</li>
+  <li>Concurrency - “Several independent activities, each of which executes at its own pace” - Concurrency is introduced by creating threads in an example that calls <code class="language-plaintext highlighter-rouge">Pascal</code> in a background thread and then independently displays a different value. I enjoyed this simple thread demonstration - it makes the ideas simple before scaring you about nondeterminism.</li>
+  <li>Dataflow - introduced as a “civilized behavior” to help reason about concurrent operations and deal with issues of unbound variables. A nice illustration is given of a function that uses X without having to know if it has been bound or not. The execution is simply paused until the variable is bound.</li>
+  <li>Explicit State - “How can we let a function learn from its past?” - we want a function to be able to count the number of times it is called, for example.</li>
+  <li>Objects “A functional with internal memory is usually called an object”</li>
+  <li>Local variables are mentioned along with the concept of encapsulation - an object can control the access to its internal attributes</li>
+  <li>A factory for objects is called a class - a simple illustration of binding data and functions together to create an “OBJECT” with “METHODS”</li>
+  <li>“Programming with classes and objects is called Object Based Programming”</li>
+  <li>Object Oriented Programming is Object Based Programming + Inheritance</li>
+  <li>A demonstration of nondeterminism and interleaving - different discrete operations from different threads can be interleaved in a way that can cause unexpected results if no protection is used</li>
+  <li>A race condition is “observable nondeterminism”</li>
+  <li>“A first lesson for programming with state and concurrency - if possible, do not use them together”</li>
+  <li>“An operation is atomic if no intermediate states can be observed”</li>
+  <li>Atomicity is offered as a means to avoid race conditions</li>
+  <li>Locks are introduced as a mechanism to provide atomicity</li>
+</ul>
+:ET

@@ -1,0 +1,85 @@
+I"VB<p>#</p>
+<h4 id="a-nice-feature-in-corelogic-and-thoughts-about-a-data-structure">A Nice Feature in core.logic and Thoughts About A Data Structure</h4>
+
+<p><a href="http://github.com/clojure/core.logic">core.logic</a> is a library for the <a href="http://clojure.org/">Clojure programming language</a> that allows the functionality of Relational or Logic Programming to be embedded in your regular Clojure code. The driving force behind core.logic is <a href="http://swannodette.github.io/">David Nolen</a>, who puts a lot of effort into maintaining and improving the codebase of this fascinating library. Recently, David <a href="http://stackoverflow.com/questions/15821718/how-do-i-de-structure-a-map-in-core-logic">responded on Stack Overflow</a> to a very good question:</p>
+
+<blockquote>
+  <p>How do I de-structure a map in core.logic?</p>
+</blockquote>
+
+<p>David gives a very nice answer which has a few interesting pieces to it, but I just want to focus on one - the relation called <code class="language-plaintext highlighter-rouge">featurec</code>. Here’s the documentation for it:</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="n">clojure.core.logic/featurec</span><span class="w">
+</span><span class="p">([</span><span class="n">x</span><span class="w"> </span><span class="n">fs</span><span class="p">])</span><span class="w">
+  </span><span class="n">Ensure</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nb">map</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">least</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">key-value</span><span class="w"> </span><span class="n">pairs</span><span class="w">
+  </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nb">map</span><span class="w"> </span><span class="n">fs.</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">partially</span><span class="w"> </span><span class="n">instantiated</span><span class="w"> </span><span class="nb">-</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">is,</span><span class="w">
+  </span><span class="n">it</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">contain</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">support</span><span class="w">
+  </span><span class="n">feature</span><span class="w"> </span><span class="n">extraction.</span><span class="w">
+</span><span class="n">nil</span></code></pre></figure>
+
+<p>I asked David where the name came from, as it seemed kind of strange. He responded with a link to this tweet:</p>
+
+<center><blockquote class="twitter-tweet"><p>Does no Prolog support feature structures (attribute value matrices) as terms?! @<a href="https://twitter.com/swannodette">swannodette</a> <a href="http://t.co/Z9HfCCQ7" title="http://stackoverflow.com/questions/12809075/partial-hash-map-unification">stackoverflow.com/questions/1280…</a></p>&mdash; Chung-chieh Shan (@ccshan) <a href="https://twitter.com/ccshan/status/255802743699161089">October 9, 2012</a></blockquote></center>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Which takes us to yet another Stack Overflow question, this time asked by David himself. It is summed up by Chung-chieh Shan as “Does no Prolog support feature structures (attribute value matrices) as terms!?” The short of it is this: there is a dearth of material concerning Prolog or other logic programming environment’s treatment of <code class="language-plaintext highlighter-rouge">records</code>, <code class="language-plaintext highlighter-rouge">dictionaries</code>, <code class="language-plaintext highlighter-rouge">hashes</code>, or whatever you prefer to call them.</p>
+
+<p>After some back and forth in the thread, some attention was drawn to the <a href="http://www.nactem.ac.uk/tsujii/lilfes/">LiLFeS</a> project and its concept of <a href="http://www.nactem.ac.uk/tsujii/lilfes/manual/chap3.html">Feature Structures</a>. LiLFeS is extremely obscure, but it is definitely legitimized by its logo:</p>
+
+<center><img src="http://www.nactem.ac.uk/lilfes/lilfes-ninomi.gif" /></center>
+
+<p>LiLFeS is built to be a fast Logic Programming system where a dictionary like data structure, called a “Feature Structure” is a first-class citizen. I found it interesting that this was unique amongst Logic Programming enthusiasts and academics, as dictionary-like structures are the High Fructose Corn Syrup of modern dynamic languages.</p>
+
+<p>This episode highlights one of the differences between the work being done on core.logic, and the “Academic” work being done on the inspiration for core.logic, <a href="http://minikanren.org">miniKanren</a>. Both push boundaries in different and interesting ways, but core.logic’s integration with Clojure makes treating maps and other import Clojure Data Structures properly that much more important. Developers who come from dynamic programming backgrounds want feature rich support for associative data structures, and <code class="language-plaintext highlighter-rouge">featurec</code> is an example of how that can be provided. Let’s take a look at some of the tests for it from the <a href="https://github.com/clojure/core.logic/blob/master/src/test/clojure/clojure/core/logic/tests.clj#L3146-L3162">core.logic test suite</a>.</p>
+
+<p>The first test is a very simple three line core.logic program:</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">is</span><span class="w"> </span><span class="p">(</span><span class="nb">=</span><span class="w"> </span><span class="p">(</span><span class="nf">run*</span><span class="w"> </span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="w">
+         </span><span class="p">(</span><span class="nf">featurec</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">{</span><span class="no">:foo</span><span class="w"> </span><span class="mi">1</span><span class="p">})</span><span class="w">
+         </span><span class="p">(</span><span class="nb">==</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">{</span><span class="no">:foo</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="no">:bar</span><span class="w"> </span><span class="mi">2</span><span class="p">}))</span><span class="w">
+       </span><span class="o">'</span><span class="p">({</span><span class="no">:foo</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="no">:bar</span><span class="w"> </span><span class="mi">2</span><span class="p">})))</span></code></pre></figure>
+
+<p>Let’s look at it line by line.</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">run*</span><span class="w"> </span><span class="p">[</span><span class="n">q</span><span class="p">]</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">run*</code> starts the core.logic engine with the understanding that the program will return as many results as possible given the conditions provided, and the logic variable or lvar <code class="language-plaintext highlighter-rouge">q</code> is instantiated for use.</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">featurec</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">{</span><span class="no">:foo</span><span class="w"> </span><span class="mi">1</span><span class="p">})</span></code></pre></figure>
+
+<p>The first condition on <code class="language-plaintext highlighter-rouge">q</code> is provided in the next line, above. It states that <code class="language-plaintext highlighter-rouge">q</code> is a map which contains the key value pair <code class="language-plaintext highlighter-rouge">{:foo 1}</code>. We now know two things about <code class="language-plaintext highlighter-rouge">q</code> that we didn’t after the first line ran - that <code class="language-plaintext highlighter-rouge">q</code> is a map, and that it contains <code class="language-plaintext highlighter-rouge">{:foo 1}</code>.</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">==</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">{</span><span class="no">:foo</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="no">:bar</span><span class="w"> </span><span class="mi">2</span><span class="p">}))</span></code></pre></figure>
+
+<p>The last line unifies (the <code class="language-plaintext highlighter-rouge">==</code> operator stands for unification in this context) the partially defined map <code class="language-plaintext highlighter-rouge">q</code> with the value <code class="language-plaintext highlighter-rouge">{:foo 1 :bar 2}</code>. Essentially, this program asks the following question:</p>
+
+<blockquote>
+  <p>When <code class="language-plaintext highlighter-rouge">q</code> is <code class="language-plaintext highlighter-rouge">{:foo 1 :bar 2}</code> and <code class="language-plaintext highlighter-rouge">q</code> contains <code class="language-plaintext highlighter-rouge">{:foo 1}</code>, what are <em>all</em> of the possible values of <code class="language-plaintext highlighter-rouge">q</code>?</p>
+</blockquote>
+
+<p>Let’s look at another test which puts a finer point on the above:</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">is</span><span class="w"> </span><span class="p">(</span><span class="nb">=</span><span class="w"> </span><span class="p">(</span><span class="nf">run*</span><span class="w"> </span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="w">
+         </span><span class="p">(</span><span class="nf">featurec</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">{</span><span class="no">:foo</span><span class="w"> </span><span class="mi">1</span><span class="p">})</span><span class="w">
+         </span><span class="p">(</span><span class="nb">==</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">{</span><span class="no">:bar</span><span class="w"> </span><span class="mi">2</span><span class="p">}))</span><span class="w">
+       </span><span class="p">()))</span></code></pre></figure>
+
+<p>We don’t need to break this one down quite as far. Let’s talk about the two important lines - the <code class="language-plaintext highlighter-rouge">featurec</code> and the <code class="language-plaintext highlighter-rouge">==</code> clauses. The <code class="language-plaintext highlighter-rouge">featurec</code> constrains q to maps which contain the map <code class="language-plaintext highlighter-rouge">{:foo 1}</code>, and the <code class="language-plaintext highlighter-rouge">==</code> unifies <code class="language-plaintext highlighter-rouge">q</code> with the value <code class="language-plaintext highlighter-rouge">{:bar 2}</code>. This program asks if there are any possible values of <code class="language-plaintext highlighter-rouge">q</code> where <code class="language-plaintext highlighter-rouge">q</code> is <code class="language-plaintext highlighter-rouge">{:bar 2}</code> and <code class="language-plaintext highlighter-rouge">q</code> contains <code class="language-plaintext highlighter-rouge">{:foo 1}</code>. Since the answer is no, this program returns the empty list - there are no possible values of <code class="language-plaintext highlighter-rouge">q</code> which satisfy these conditions.</p>
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">is</span><span class="w"> </span><span class="p">(</span><span class="nb">=</span><span class="w"> </span><span class="p">(</span><span class="nf">run*</span><span class="w"> </span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="w">
+         </span><span class="p">(</span><span class="nf">fresh</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w">
+           </span><span class="p">(</span><span class="nf">featurec</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">{</span><span class="no">:foo</span><span class="w"> </span><span class="n">q</span><span class="p">})</span><span class="w">
+           </span><span class="p">(</span><span class="nb">==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">{</span><span class="no">:foo</span><span class="w"> </span><span class="mi">1</span><span class="p">})))</span><span class="w">
+        </span><span class="o">'</span><span class="p">(</span><span class="nf">1</span><span class="p">)))</span></code></pre></figure>
+
+<p>The last test shows more advanced usage of <code class="language-plaintext highlighter-rouge">featurec</code>, bringing us full circle to map de-structuring. Since the maps passed to the second position of <code class="language-plaintext highlighter-rouge">featurec</code> do not need to be fully bound, <code class="language-plaintext highlighter-rouge">featurec</code> can constrain <code class="language-plaintext highlighter-rouge">x</code> to maps which contain the key value pair <code class="language-plaintext highlighter-rouge">{:foo q}</code> even though <code class="language-plaintext highlighter-rouge">q</code> is the output variable provided to <code class="language-plaintext highlighter-rouge">run*</code> and at this point has no specific value. Simply stated:</p>
+
+<blockquote>
+  <p>If <code class="language-plaintext highlighter-rouge">x</code> is a map which contains a key <code class="language-plaintext highlighter-rouge">:foo</code> and a value <code class="language-plaintext highlighter-rouge">q</code>, and <code class="language-plaintext highlighter-rouge">x</code> is also a map with the value <code class="language-plaintext highlighter-rouge">{:foo 1}</code>, then the unbound variable <code class="language-plaintext highlighter-rouge">q</code> must have the value of <code class="language-plaintext highlighter-rouge">1</code>.</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">featurec</code> is an example of a very useful constraint relation that can serve to declaratively describe loose structure in core.logic programs and replace clumsier attempts to use <code class="language-plaintext highlighter-rouge">matche</code> and pattern matching to unify maps. <code class="language-plaintext highlighter-rouge">featurec</code> is built on top of the concept of a partial map (<code class="language-plaintext highlighter-rouge">PMap</code> in the core.logic source) that encapsulates the functionality of maps which play nicely with purely relational functions. This is nicer than pattern matching for the same purpose because you do not need to explicitly specify all of the keys using <code class="language-plaintext highlighter-rouge">featurec</code> as you do with <code class="language-plaintext highlighter-rouge">matche</code>.</p>
+
+<p>Clojure programmers often resort to a lot of trickery in core.logic to massage their data structures into lists for compatibility with the classic examples of Prolog, miniKanren, etc. Rich support for maps is one of the things that makes core.logic such an exciting library that is edging ever closer to wider adoption amongst Clojure programmers in non-trivial applications. Drawing on inspiration from a wide array of sources is what makes Clojure so fascinating and vital, and core.logic is clearly following in these footsteps. I hope this blog post helps get you excited enough to <code class="language-plaintext highlighter-rouge">run*</code> your own.</p>
+
+:ET

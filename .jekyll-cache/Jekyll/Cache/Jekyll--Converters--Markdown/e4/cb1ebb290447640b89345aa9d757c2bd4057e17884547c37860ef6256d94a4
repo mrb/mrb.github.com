@@ -1,0 +1,174 @@
+I"�H<p>#</p>
+
+<div class="lead">This post is part of a series exploring the incredible book known as <a href="http://www.info.ucl.ac.be/~pvr/book.html">CTM</a>. Check the <a href="/">blog index</a> for more.</div>
+
+<p>#</p>
+<h3 id="declarative-computation-syntactic-sugar-and-the-abstract-machine">Declarative Computation, Syntactic Sugar, and the Abstract Machine</h3>
+
+<p>The first kernel language that is explored and expanded upon in Van Roy and Haridi’s <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models</a> expresses what the authors call the Declarative Computation Model.<a href="#bib3">[3]</a> Starting with Chapter 2, there is a large amount of material about this model in the book, and I hope to cover various aspects of it over the course of a few posts.</p>
+
+<p>Leveraging the simplicity of the declarative model, in Chapter 2 we see up close how <em>syntactic sugar</em> enhances expressivity, and are treated to an in-depth look at the mechanics of the <em>abstract machine</em>, a device to reason about the execution of our code. I’ll dive a little bit into each in this post to lay the ground work for expanding the declarative model to include, for example, the primitives for “declarative concurrency.”</p>
+
+<p>We aren’t given the best definition of declarative computation to start, only that it is “evaluating functions over partial data structures” and is sometimes known as “stateless programming.” The few examples here begin to flesh it out, but it is more interesting to grasp the basic mechanics here than to attempt to fill out a larger picture at this point.</p>
+
+<p><em>Note: All quotes directly from CTM unless noted. Most code adapted from the text.</em></p>
+
+<h4 id="syntactic-sugar">Syntactic Sugar</h4>
+
+<p>The declarative kernel language in the second chapter of CTM is very simple. There are few moving parts, and programs can be read and understood in a linear, predictable way. Nearly the entirety of the syntax of the language (excluding the value expression syntax) including everything we need to declare variables, assign values, execute statements, use conditionals, execute procedures, <em>etc.</em> fits in this small box:</p>
+
+<center><img src="/images/declarative_kernel.png" /></center>
+
+<p>This predictability of the language comes at the cost of reduced expressiveness, but the idea is not to produce a perfect, industrial programming language. The point is to start from the basics, understand their formal foundations, and then progressively expand the expressive capabilities (and therefore the complexity of the underlying semantics) of your kernel language.</p>
+
+<p>For our purposes, we need to know that:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">local</span> <span class="no">X</span> <span class="k">in</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>declares an <code class="language-plaintext highlighter-rouge">X</code> variable. In other words it makes a variable <code class="language-plaintext highlighter-rouge">X</code> available to be bound to another variable or value within the scope of <code class="language-plaintext highlighter-rouge">in</code>…<code class="language-plaintext highlighter-rouge">end</code>. We also need to understand basic assignment:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">X</span> <span class="o">=</span> <span class="mi">2</span></code></pre></figure>
+
+<p>In our data store <code class="language-plaintext highlighter-rouge">X</code> will now be forever bound to 2, and will be indistinguishable from its value. Finally, we have the concept of a procedure (<code class="language-plaintext highlighter-rouge">proc</code>). A procedure is a building block for a function in kernel languages. Take the following simple <code class="language-plaintext highlighter-rouge">Simple</code> proc form for example:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">local</span> <span class="no">Simple</span> <span class="k">in</span>
+  <span class="no">Simple</span> <span class="o">=</span> <span class="nb">proc</span> <span class="p">{</span><span class="err">$</span> <span class="no">X</span> <span class="p">?</span><span class="no">Z</span><span class="p">}</span>
+    <span class="no">Z</span><span class="o">=</span><span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>This proc will take a variable <code class="language-plaintext highlighter-rouge">X</code> and then regardless of its value, bind <code class="language-plaintext highlighter-rouge">?Z</code> to 1. So:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">local</span> <span class="no">W</span> <span class="k">in</span>
+  <span class="p">{</span><span class="no">Simple</span> <span class="mi">1999</span> <span class="no">W</span><span class="p">}</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Will end with 1 bound to <code class="language-plaintext highlighter-rouge">W</code>. Variables used within a <code class="language-plaintext highlighter-rouge">proc</code> do not have to be declared outside of it, but should be bound inside of it to ensure consistent behavior due to static scoping.</p>
+
+<p>Using no syntactic shortcuts, here is how we we could define and use a <code class="language-plaintext highlighter-rouge">Max</code> procedure (as it is shown in the book), which given two inputs returns the one that is of greater numerical value. For example, <code class="language-plaintext highlighter-rouge">{Max 3 5 X}</code> should bind <code class="language-plaintext highlighter-rouge">X</code> to <code class="language-plaintext highlighter-rouge">5</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">local</span> <span class="no">Max</span> <span class="k">in</span>
+  <span class="n">local</span> <span class="no">A</span> <span class="k">in</span>
+    <span class="n">local</span> <span class="no">B</span> <span class="k">in</span>
+      <span class="n">local</span> <span class="no">C</span> <span class="k">in</span>
+        <span class="no">Max</span> <span class="o">=</span> <span class="nb">proc</span> <span class="p">{</span><span class="err">$</span> <span class="no">X</span> <span class="no">Y</span> <span class="p">?</span><span class="no">Z</span><span class="p">}</span>
+          <span class="n">local</span> <span class="no">T</span> <span class="k">in</span>
+            <span class="no">T</span><span class="o">=</span><span class="p">(</span><span class="no">X</span><span class="o">&gt;=</span><span class="no">Y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="no">T</span> <span class="k">then</span> <span class="no">Z</span><span class="o">=</span><span class="no">X</span> <span class="k">else</span> <span class="no">Z</span><span class="o">=</span><span class="no">Y</span> <span class="k">end</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="no">A</span> <span class="o">=</span> <span class="mi">3</span>
+      <span class="no">B</span> <span class="o">=</span> <span class="mi">5</span>
+      <span class="p">{</span><span class="no">Max</span> <span class="no">A</span> <span class="no">B</span> <span class="no">C</span><span class="p">}</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Using some shortcuts, the authors then show the following version. This can be unpacked to create the code above, or it can be used as it appears here:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">local</span> <span class="no">Max</span> <span class="no">C</span> <span class="k">in</span> <span class="c1"># declare variables Max (to hold proc) and C (to hold result)</span>
+  <span class="nb">proc</span> <span class="p">{</span><span class="no">Max</span> <span class="no">X</span> <span class="no">Y</span> <span class="p">?</span><span class="no">Z</span><span class="p">}</span> <span class="c1"># declare the proc (two inputs and one output), store it in Max</span>
+    <span class="k">if</span> <span class="no">X</span><span class="o">&gt;=</span><span class="no">Y</span> <span class="k">then</span> <span class="no">Z</span><span class="o">=</span><span class="no">X</span> <span class="k">else</span> <span class="no">Z</span><span class="o">=</span><span class="no">Y</span> <span class="k">end</span> <span class="c1"># the Max algorithm</span>
+  <span class="k">end</span>
+  <span class="p">{</span><span class="no">Max</span> <span class="mi">3</span> <span class="mi">5</span> <span class="no">C</span><span class="p">}</span> <span class="c1"># call Max with 3 and 5, store the result in C</span>
+<span class="k">end</span></code></pre></figure>
+
+<p><strong><em>Syntactic Sugar</em></strong> is a code transformation which preserves semantics but eases use through clarification of intent. The following examples of syntactic sugar have been applied to the code in this example:</p>
+
+<ul>
+  <li>Multiple variables declared per line (<code class="language-plaintext highlighter-rouge">local Mac C in</code>)</li>
+  <li>‘In-line’ values instead of variables (<code class="language-plaintext highlighter-rouge">proc {Max X Y ?z}</code>)</li>
+  <li>Operations as expressions (<code class="language-plaintext highlighter-rouge">if X&gt;=Y</code>)</li>
+</ul>
+
+<p>This illustration of syntactic sugar was an extremely effective way of understanding how the transformations the authors refer to actually work. It also showed me a way to keep programming languages simple: instead of changing semantics or introducing new operators, language authors can find more compact means of expressing the same semantics. The beauty of this reminds me of the tendency toward spare efficiency in good code. Code that can keep functions tight and packed with meaning by providing APIs that are composable is preferable because it easier to understand and reuse.</p>
+
+<h4 id="the-abstract-machine-definitions">The Abstract Machine: Definitions</h4>
+
+<p>While syntactic sugar is one of the main mechanisms used to extend language functionality, the heart of understanding how the kernel languages operate is in how they execute in the abstract machine. As the authors say:</p>
+
+<blockquote>
+  <p>“We will define the kernel semantics as an operational semantics, i.e., it defines the meaning of the kernel language through its execution on an abstract machine.”</p>
+</blockquote>
+
+<p>In other words, the abstract machine is the device, or the main metaphor, that is used to explain how the language works. An abstract machine executes the instructions that we give it in a predictable, repeatable way, and gives <em>formal credence</em> to our <em>programmer’s intuition</em> for how some basic programs work.</p>
+
+<p>The abstract machine has a few components that need defining before we can examine how a relatively simple bit of code is executed.</p>
+
+<p><strong>Single assignment store ($\sigma$)</strong>: a set of variables. Variables can be unbound (declared but not assigned a value) or bound (declared and assigned a value). Bound variables can be assigned the value of a number, a data structure, or another variable, but not rebound.</p>
+
+<p><strong>Environment ($E$)</strong>: a mapping from variables to members of the single assignment store $\sigma$.</p>
+
+<p><strong>Semantic Statement ($ST$)</strong>: a pair &lt;$S$, $E$&gt; where $S$ is a statement to be executed in environment $E$.</p>
+
+<p><strong>Execution State</strong>: The current state of the abstract machine.</p>
+
+<p><strong>Computation</strong>: The work done by the abstract machine:</p>
+
+<blockquote>
+  <p>“A single transition in a computation is called a computation step. A computation step is atomic, i.e., there are no visible intermediate states. It is as if the step is done ‘all at once.’”</p>
+</blockquote>
+
+<p>With these definitions in place, we can proceed with program execution.</p>
+
+<h4 id="the-abstract-machine-program-execution">The Abstract Machine: Program Execution</h4>
+
+<p>An illustration of a small bit of declarative code (which actually does not have much syntactic sugar applied to it) as executed in the abstract machine can appear simple but still be quite instructive. The following piece of code and the accompanying prose that explains how it is executed in the abstract machine will illustrate how the declarative kernel language’s notion of static or lexical scope is calculated.  Note the new <code class="language-plaintext highlighter-rouge">Browse</code> function, which displays the value given to the user, and that the <code class="language-plaintext highlighter-rouge">&lt;s&gt;</code> statement comments are referred to in the steps below.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">local</span> <span class="no">X</span> <span class="k">in</span> <span class="c1">#&lt;s&gt; begin</span>
+  <span class="no">X</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="n">local</span> <span class="no">X</span> <span class="k">in</span> <span class="c1">#&lt;s&gt;1 begin</span>
+    <span class="no">X</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">{</span> <span class="no">Browse</span> <span class="no">X</span> <span class="p">}</span>
+  <span class="k">end</span> <span class="c1">#&lt;s&gt;1 end</span>
+  <span class="p">{</span> <span class="no">Browse</span> <span class="no">X</span> <span class="p">}</span> <span class="c1"># &lt;s&gt;2 begin/end</span>
+<span class="k">end</span> <span class="c1">#&lt;s&gt; end</span></code></pre></figure>
+
+<p>Because the code and the kernel language in this state are so simple, you should be able to easily reason about it and predict how it will execute. As an exercise, answer the following question: <em>What values will the Browse functions display, and in what order?</em></p>
+
+<p>Luckily, we don’t have to just guess or work it out in our heads. The formalization of the abstract machine allows us to “calculate with environments,” or express its execution in a series of steps:</p>
+
+<p><strong>(1)</strong>   $(ST, \sigma)$</p>
+
+<p>The execution state is represented by a <a href="http://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> of semantic statements $ST$ and a value store $\sigma$.</p>
+
+<p><strong>(2)</strong>   $([(\lt s \gt, \emptyset)], \emptyset)$</p>
+
+<p>The initial execution state of our program in the abstract machine. $E$ has been replaced with $\lt s \gt$, a statement which represents the outermost $local$ statement in the program, and $\emptyset$, meaning there are not yet any mappings present. The value store has also been replaced with $\emptyset$ - it has no members.</p>
+
+<p><strong>(3)</strong>   $([(\lt s \gt_1  \lt s \gt_2,\{X \rightarrow x\})], \{x = 1\})$</p>
+
+<p>The outermost $local$ statement and $X = 1$ are executed. There is a sequential composition $\lt s \gt_1\lt s \gt_2$ remaining, the environment reflects that $X$ refers to the store variable $x$, and one binding ($x=1$) is added to $\sigma$.</p>
+
+<p><strong>(4)</strong>   $([(\lt s \gt_1, \{X \rightarrow x\}),  (\lt s \gt_2,\{X \rightarrow x\})], \{x = 1\})$</p>
+
+<p>After executing the sequential composition we see that each statement ends up with its own environment; they are now on the execution stack. We will sequentially execute each statement next.</p>
+
+<p><strong>(5)</strong>   $([(X=2 \{Browse \space X\}, \{X \rightarrow x’\}),  (\lt s \gt_2,\{X \rightarrow x\})], \{x’, x = 1\})$</p>
+
+<p>Executing $\lt s \gt_1$ binds a new variable $x’$ and calculates a new environment. This has a clear semantic specification; given an initial $E$ of $\{X \rightarrow x\}$, adding $\{X \rightarrow x’\}$ to it will yield $\{X \rightarrow x’\}$. The second mapping of $X$ overrides the first.</p>
+
+<p><strong>(6)</strong>   $([(\{Browse \space X\}, \{X \rightarrow x’\}),  (\{Browse \space X\}, \{X \rightarrow x\})], \{x’ = 2, x = 1\})$</p>
+
+<p>$\lt s \gt_2$ is a $Browse$ statement, and $X = 2$ is bound. From this we can tell that we will see $Browse$ run twice - the first will show 2, and the second will show 1.</p>
+
+<p>As demonstrated, the programmer’s intuition for scope can be reduced to a mechanical calculation. Awesome.</p>
+
+<h4 id="conclusions">Conclusions</h4>
+
+<p>Most of us spend our time using programming languages which are considerably more expressive and complex than the declarative kernel language. The power of the kernel language approach is in its ability to illustrate how complexity and expressiveness can be derived from simple tools. As more elements are added to the language, the rules involved in translating the results from the computation steps in the abstract machine will also become more complex.</p>
+
+<p>It’s an interesting exercise to consider how the programming language constructs you rely on could be composed of smaller, more atomic elements. Are all of the reducible? Working on a language like Ruby would be quite different than trying to reduce JavaScript or Scheme. Other paradigms for teaching computation from the ground up, including the interpreter approach championed by Friedman and Sussman advocate extending interpreters for smaller languages in order to run more complex ones. <a href="#bib1">[1]</a><a href="#bib2">[2]</a> This is an equally compelling approach that I intend to investigate in the future.</p>
+
+<p>Now that we have seen how to define and execute a small language, we can begin to extend it. The variables in the Single Assignment Store have interesting properties that the authors leverage for various purposes, and before long a useful, beautiful language emerges.</p>
+
+<h4 id="works-cited">Works Cited</h4>
+
+<p><a id="bib1">[1]</a> Harold Abelson, Gerald Jay Sussman, and Julie Sussman. <em>Structure and Interpretation of Computer Programs, Second Edition.</em> The MIT Press, Cambridge, Mass, 1996.</p>
+
+<p><a id="bib2">[2]</a> Friedman and Wand. <em>Essentials of Programming Languages.</em> MIT Press, hardcover, ISBN-10: 0-262-206279-8, April 2008</p>
+
+<p><a id="bib3">[3]</a> Van Roy and Haridi. <em>Concepts, Techniques, and Models of Computer Programming</em> MIT Press, hardcover, ISBN 0-262-22069-5, March 2004</p>
+:ET

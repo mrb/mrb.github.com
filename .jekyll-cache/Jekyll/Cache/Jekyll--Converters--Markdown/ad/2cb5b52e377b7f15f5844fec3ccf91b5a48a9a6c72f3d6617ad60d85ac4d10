@@ -1,0 +1,32 @@
+I")<p>#
+#</p>
+<h3 id="dont-bet-against-yourself">Don’t Bet Against Yourself</h3>
+
+<p>In startup land these days, there’s a lot of discussion around the “right tool for the job.” You should “never invent here,” you should “use boring tools,” you should “use whatever the hell you want.” I’m currently involved in my third consecutive startup, and have the dubious distinction of having a lot of friends who are in similar positions - they’ve seen a lot, made a lot of mistakes, and have tried to learn what impact that the tools we choose have on our ability to do the three things that matter when starting a business:</p>
+
+<ul>
+  <li>Making something that works</li>
+  <li>Making customers happy</li>
+  <li>Making money</li>
+</ul>
+
+<p>While I hardly know everything, I am decent at observing patterns. In these discussions (commiserations), one theme is predominant:</p>
+
+<blockquote>
+  <p>“Don’t bet against yourself.”</p>
+</blockquote>
+
+<p>The idea here is that today’s throwaway prototype is tomorrow’s successful prototype (“<code class="language-plaintext highlighter-rouge">rails new</code> with rockets strapped to it”, to paraphrase the ever-wise Coda Hale) and that each decision you make to please yourself, to try something new, or to just fuck around will have consequences later.</p>
+
+<p>So when you’re choosing the tools for the job, it’s a bit of a quandary. It can feel like choosing “too conservatively” will have the negative impact of not being exciting enough for people to work on. Examining this idea quickly makes it fall apart, though. If you’re only interested in working with the kinds of developers that are only attracted by using new, unproven technology, what does this say about them? Or you? To me it seems like an easy way to perpetuate the state we’re in is to keep doing the same old thing, which in this case, ironically, is to stop doing the same old thing and try something new. Confusing, right? The status quo is to choose something new. How did we end up in this situation?</p>
+
+<p>On the other hand, choosing “too liberally” will leave you with a whole lot of uncertainty. You don’t know if the tools you’re playing around with will even exist in N years. This might be worth it to you, but what’s important is considering the tradeoffs up front. Perhaps your choice is so revolutionary, so bold, and so right that you can’t help but make it. In that case I say to you - congratulations, but with a word of caution:</p>
+
+<blockquote>
+  <p>“Being right doesn’t pay the bills.”</p>
+</blockquote>
+
+<h4 id="further-listening">Further Listening</h4>
+
+<p>Aaron Quint and I discussed some of these ideas on our podcast, Beats, Rye &amp; Types. Check out <a href="http://beatsryetypes.com/episodes/2015/03/30/episode-9-magic.html">Episode 9: Magic</a>.</p>
+:ET

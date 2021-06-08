@@ -1,0 +1,219 @@
+I"?n<p>#</p>
+
+<div class="lead">This post is part of a series exploring <a href="http://www.info.ucl.ac.be/~pvr/book.html">Concepts, Techniques, and Models of Computer Programming</a> by Van Roy and Haridi. Check the <a href="/">blog index</a> for more.</div>
+
+<p>#</p>
+<h3 id="message-passing-and-concurrent-program-design">Message-Passing and Concurrent Program Design</h3>
+
+<p>After a thorough discussion of the semantics and application of <a href="http://michaelrbernste.in/2013/07/01/concurrency-made-simple.html">declarative concurrency</a> in chapter 4, Van Roy and Haridi turn their attention to an alternative design solution for the same challenging problem space. Chapter 5, “Message-Passing Concurrency” covers the necessary changes to the kernel language to make this kind of programming possible, discusses the design of programs using this paradigm, and takes a brief aside to look at the Erlang language and its OTP framework.</p>
+
+<p>Beyond covering the technical aspects of concurrency, the authors also emphasize the application of these concurrency primitives as design solutions for particular kinds of problems. Concurrent program design, reasoning, and proofs are given a fair amount of treatment, and attention is paid to the realism of applying the ideas as they are presented in the book. The authors advise programmers to keep programs simple, to isolate non-declarative components, and to model all possible states in advance of writing code.</p>
+
+<h4 id="message-passing-and-observable-nondeterminism">Message Passing and Observable Nondeterminism</h4>
+
+<p>The concept of studying computation as the passing of messages between independent agents was first explored by Carl Hewitt in his work on the Actor Model.  Primarily concerned with modeling computation for the purposes of exploring Artificial Intelligence, Hewitt realized early on that concurrency was an inevitable area of interest for Computer Science, and the Actor model and his work on Planner were revolutionary in their explorations towards these ends. <a href="#bib2">[2]</a> Van Roy and Haridi introduce message-passing concurrency in part to address limitations in the semantics of the declarative concurrency model presented in chapter 4, which enables concurrent stream programming but does not allow for any observable nondeterminism. Consumers of stream data must know where the next messages will come from, making many-to-one or many-to-many communication impossible in any practical sense.</p>
+
+<p>In the message-passing paradigm, however, programming with streams loses its declarative properties because it allows <em>observable nondeterminism</em>. In practical terms this means that since the <em>name</em> of a stream can escape the local scope and be accessed by other parts of the computation concurrently, we can no longer rely on the soundness of our computation with respect to knowing its outcomes. Declarativeness is the assurance that computation meaningful to the environment is localized to the extent that you simply <em>cannot</em> be surprised by the outcome. Ports are asynchronous and give streams a name that can be embedded in a data structure, passed around between scopes, and written to or read from freely. This is contrary to the kinds of programs we have seen up until this point, which have ardently adhered to the strictness (and resultant sacrifices in clarity and expressiveness) of declarative programming. It is both a welcome relief and a terrifying prospect to gaze into the abyss of state and nondeterminism.</p>
+
+<h4 id="extending-the-kernel-language-with-ports">Extending The Kernel Language with Ports</h4>
+
+<p>The transition from declarative concurrency to message-passing concurrency is small but powerful. To keep the magnitude of these changes in perspective, I find it instructive to take a look at the language specification, which as usual fits in a neat little box:</p>
+
+<center>
+<img src="https://dl.dropboxusercontent.com/u/1401061/message_passing_kernel.png" />
+<div class="lead">The Message-Passing Concurrency Kernel Language<a href="#bib1">[1]</a></div>
+</center>
+
+<p>As succinct as that language looks, we know that Van Roy and Haridi are always good for a pithy quote. Here is how they sum up the changes:</p>
+
+<blockquote>
+  <p>“The message-passing concurrent model extends the declarative concurrent model by adding just one new concept, an asynchronous communication channel.”</p>
+</blockquote>
+
+<p>The asynchronous communication channel is implemented as an abstract data type which combines a FIFO (first-in, first-out) queue called a <em>Port</em> and two operations: <code class="language-plaintext highlighter-rouge">NewPort</code> and <code class="language-plaintext highlighter-rouge">Send</code>. A fundamental implementation detail of ports is that they rely on streams to exchange information, giving them a name and allowing other parts of the computation to write to and read from them. Here are more complete definitions of the two new operations:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">{NewPort ?S ?P}</code> creates a new port with <strong>entry point</strong> <code class="language-plaintext highlighter-rouge">P</code> and <strong>stream</strong> <code class="language-plaintext highlighter-rouge">S</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">{Send P X}</code> appends <code class="language-plaintext highlighter-rouge">X</code> to the stream corresponding to the entry point <code class="language-plaintext highlighter-rouge">P</code>.</li>
+</ul>
+
+<p>These operations are integrated into the execution state by extending the abstract machine definition inherited from the previous chapters with a Mutable Store μ. That makes the execution state <code class="language-plaintext highlighter-rouge">(MST, σ, μ)</code> where <strong>MST</strong> is the multiset of semantic stacks, <strong>σ</strong> is the single assignment store, and <strong>μ</strong> is the mutable store (this <a href="http://michaelrbernste.in/2013/06/17/declarative-computation-and-the-abstract-machine.html">earlier post in the series</a> contains an overview of computing with the abstract machine). To illustrate the layout of the concurrent model, the authors provide an excellent illustration:</p>
+
+<center>
+<img src="https://dl.dropboxusercontent.com/u/1401061/message_passing_diagram.png" />
+<div class="lead">The Message-Passing Concurrent Model, Diagrammatically<a href="#bib1">[1]</a></div>
+</center>
+
+<p>This diagram is useful for understanding what role the mutable store plays in the execution state, and what happens when a <code class="language-plaintext highlighter-rouge">NewPort</code> operation is executed. The two bubbles at the top of the diagram contain program fragments that represent threads of execution. This code is interpreted and the data is combined with the two semantically distinct data stores to create an environment. The <strong>immutable store σ</strong>, well covered in other posts (and also known as the “single-assignment store”), contains most of the data in the environment, while the newly introduced <strong>mutable store μ</strong> contains pairs of the form <code class="language-plaintext highlighter-rouge">x:y</code> to represent Ports, where <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> are variables of the single assignment store. The visual separation between the two stores in the diagram is telling with respect to the isolation of the nondeclarative components of the message-passing concurrency model. The combination of the immutable and mutable stores provides a neat, contained mechanism for defining ports.</p>
+
+<p>A line of code containing a <code class="language-plaintext highlighter-rouge">{NewPort ?S p1}</code> call can be reduced to the semantic statement <code class="language-plaintext highlighter-rouge">({NewPort &lt;x&gt; &lt;y&gt;}, E)</code>, which does the following:</p>
+
+<ul>
+  <li>Creates a fresh port with identifier or “entry point” <em>p1</em></li>
+  <li>Binds <code class="language-plaintext highlighter-rouge">E(&lt;y&gt;)</code> and <em>p1</em> in the immutable store σ</li>
+  <li>If binding succeeds, adds <code class="language-plaintext highlighter-rouge">E(&lt;y&gt;):E(&lt;x&gt;)</code> to the mutable store μ</li>
+  <li>Raises an error condition if binding fails</li>
+</ul>
+
+<p>The noteworthy aspect of this computational model is how the mutable store <em>isolates</em> the mutability, thus allowing for further isolation of the nondeclarative properties of message-passing. The mutable store binds the name or “entry point” <code class="language-plaintext highlighter-rouge">p1</code> to the unbound tail element of the stream <code class="language-plaintext highlighter-rouge">?S</code>, so that other threads of execution may safely read from the tail of the stream in a read-only manner. In order to add elements to the stream, the <code class="language-plaintext highlighter-rouge">Send</code> operation is used.</p>
+
+<p>A send operation <code class="language-plaintext highlighter-rouge">{Send p1 1}</code> can be semantically reduced to <code class="language-plaintext highlighter-rouge">({Send &lt;x&gt; &lt;y&gt;}, E)</code>, which does the following:</p>
+
+<ul>
+  <li>If the activation condition is true <code class="language-plaintext highlighter-rouge">(E(&lt;x&gt;)</code> is determined, or has a binding):
+    <ul>
+      <li>If <code class="language-plaintext highlighter-rouge">(E(&lt;x&gt;)</code> is not bound to the name of a port, raise an error condition</li>
+      <li>If the mutable store contains <code class="language-plaintext highlighter-rouge">E(&lt;x&gt;):z</code>, then do the following:
+        <ul>
+          <li>Create a new variable <code class="language-plaintext highlighter-rouge">z'</code> in the immutable store σ</li>
+          <li>Update the mutable store μ to be <code class="language-plaintext highlighter-rouge">E(&lt;x&gt;):z'</code></li>
+          <li>Create a new list pair <code class="language-plaintext highlighter-rouge">E(&lt;y&gt;)|z'</code> and bind <code class="language-plaintext highlighter-rouge">z</code> with it in the store.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>If the activation condition is false, suspend execution</li>
+</ul>
+
+<p><em>Note that changes have to be made to the memory manager to redefine reachability in light of changes to the abstract machine. These changes are simple and are covered in the chapter.</em></p>
+
+<p>Between <code class="language-plaintext highlighter-rouge">NewPort</code> and <code class="language-plaintext highlighter-rouge">Send</code>, programmers using the message-passing concurrent model have the ability to model a wide range of applications. As is the case with most primitives introduced to the kernel language, there is some nice syntactic sugar we can apply to make the creation and manipulation of ports simpler.</p>
+
+<h4 id="from-ports-to-port-objects">From Ports to Port Objects</h4>
+
+<p>The authors introduce a new data type called a <strong>port object</strong>, which combines one or more ports and a stream object. Port objects are superior to stream objects in a variety of ways, but the focus in this section is on the means by which they allow for more complex communication and encapsulate state transitions. Streams are limited to communicating with the thread that extended them; semantically this means that streams must always “know where their next message is coming from.” Port objects as they are known in the kernel language are known by other names elsewhere - Erlang’s <strong>processes</strong> are similar, though they are extended and allow for more sophisticated handling of messages. The authors build up to a sophisticated abstraction with an example program, starting with the existing abstractions, adding a trivial example with the new abstractions, and then showing everything in action.</p>
+
+<p>Here is what a port object built from the existing abstractions might look like:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">declare </span>P <span class="k">in
+</span><span class="nb">local </span>S <span class="k">in</span>
+	<span class="o">{</span>NewPort S P<span class="o">}</span>
+	thread <span class="k">for </span>M <span class="k">in </span>S <span class="k">do</span> <span class="o">{</span>Browse M<span class="o">}</span> end end
+end</code></pre></figure>
+
+<p>The port object <code class="language-plaintext highlighter-rouge">P</code> can called in the form <code class="language-plaintext highlighter-rouge">{Send P hi}</code>, which will eventually display <code class="language-plaintext highlighter-rouge">hi</code> in the Browse window. With the <code class="language-plaintext highlighter-rouge">NewPortObject</code> abstraction, however, it can be easier and more flexible to program with port objects.</p>
+
+<p>Two port object functions are introduced in this chapter: <code class="language-plaintext highlighter-rouge">NewPortObject</code> and <code class="language-plaintext highlighter-rouge">NewPortObject2</code>. <code class="language-plaintext highlighter-rouge">NewPortObject</code> is used to encapsulate state transitions, and <code class="language-plaintext highlighter-rouge">NewPortObject2</code> simply executes a given <code class="language-plaintext highlighter-rouge">proc</code> when a message is received.</p>
+
+<p><code class="language-plaintext highlighter-rouge">NewPortObject</code> is called in the form <code class="language-plaintext highlighter-rouge">{NewPortObject Init Fun}</code>. <code class="language-plaintext highlighter-rouge">Init</code> is an initial state and <code class="language-plaintext highlighter-rouge">Fun</code> is the state transition function. The state transition function is of the type <code class="language-plaintext highlighter-rouge">&lt;fun {$ TS TM} : TS&gt;</code> where <code class="language-plaintext highlighter-rouge">TS</code> is the state type and <code class="language-plaintext highlighter-rouge">TM</code> is the message type. We are going to focus on port objects that have no internal state, however, because they are considerably simpler.</p>
+
+<p><code class="language-plaintext highlighter-rouge">NewPortObject2</code> is a function that allows the user to specify a <code class="language-plaintext highlighter-rouge">Proc</code> to be executed each time a message is received, thus maintaining no internal state:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">fun <span class="o">{</span>NewPortObject2 Proc<span class="o">}</span>
+Sin <span class="k">in
+	</span>thread <span class="k">for </span>Msg <span class="k">in </span>Sin <span class="k">do</span> <span class="o">{</span>Proc Msg<span class="o">}</span> end end
+	<span class="o">{</span>NewPort Sin<span class="o">}</span>
+end</code></pre></figure>
+
+<p>Here is some simple client-server code that the authors use to illustrate <strong>Remote Method Invocation</strong> using <code class="language-plaintext highlighter-rouge">NewPortObject2</code>. First, the server, which will accept messages from remote clients, perform a polynomial computation (the <code class="language-plaintext highlighter-rouge">proc</code> passed in to <code class="language-plaintext highlighter-rouge">NewPortObject2</code>) based on the message received, and then bind the result to a dataflow variable passed in by the client.</p>
+
+<p><em>Note that the <code class="language-plaintext highlighter-rouge">of calc(X Y) then</code> and <code class="language-plaintext highlighter-rouge">of work(Y) then</code> syntax below is the notation for matching incoming messages based on a pattern.</em></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">proc <span class="o">{</span>ServerProc Msg<span class="o">}</span>
+	<span class="k">case</span> Msg
+	of calc<span class="o">(</span>X Y<span class="p">)</span> <span class="k">then
+		</span><span class="nv">Y</span><span class="o">=</span>X<span class="k">*</span>X+2.0+X<span class="k">*</span>2.0
+	end
+end
+<span class="nv">Server</span><span class="o">={</span>NewPortObject2 ServerProc<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">Server</code> is now available for other parts of the program to access, and the nice syntactic sugar added makes for some pretty neat separation of server and client code.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">proc <span class="o">{</span>ClientProc Msg<span class="o">}</span>
+	<span class="k">case</span> Msg
+	of work<span class="o">(</span>Y<span class="p">)</span> <span class="k">then </span>Y1 Y2 <span class="k">in</span>
+		<span class="o">{</span>Send Server calc<span class="o">(</span>10.0 Y1<span class="o">)}</span>
+		<span class="o">{</span>Wait Y1<span class="o">}</span>
+		<span class="o">{</span>Send Server calc<span class="o">(</span>20.0 Y2<span class="o">)}</span>
+		<span class="o">{</span>Wait Y2<span class="o">}</span>
+		<span class="nv">Y</span><span class="o">=</span>Y1+Y2
+	end
+end
+<span class="nv">Client</span><span class="o">={</span>NewPortObject2 ClientProc<span class="o">}</span>
+<span class="nb">local </span>X <span class="k">in</span> <span class="o">{</span>Send Client work<span class="o">(</span>X<span class="o">)}</span> <span class="o">{</span>Browse X<span class="o">}</span> end</code></pre></figure>
+
+<p>This allows for us to guarantee that calls are executed sequentially by the server, thus simplifying a lot of the reasoning typically necessary in a complex data interchange situation.</p>
+
+<p>While powerful, the stateless port objects are somewhat limited, and the stateful port objects discussed in Chapter 5 allow for very flexible expressions of complex concurrent programs where <code class="language-plaintext highlighter-rouge">NewPortObject</code> is used to define distributed state machines. The <code class="language-plaintext highlighter-rouge">NewPortObject</code> examples are complex and challenging to cover in a blog post, so I recommend seeking out the chapter to see these in action.</p>
+
+<h4 id="using-message-passing-primitives-directly">Using Message-Passing Primitives Directly</h4>
+
+<p>Port objects are one way to program concurrently using the message-passing model in the kernel language, but it is also possible to combine threads and ports to create useful abstractions like this concurrent queue:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">fun <span class="o">{</span>NewQueue<span class="o">}</span>
+	Given <span class="nv">GivePort</span><span class="o">={</span>NewPort Given<span class="o">}</span>
+	Taken <span class="nv">TakePort</span><span class="o">={</span>NewPort Taken<span class="o">}</span>
+	proc <span class="o">{</span>Match Xs Ys<span class="o">}</span>
+		<span class="k">case</span> Xs <span class="p">|</span> Ys
+		of <span class="o">(</span>X|Xr<span class="p">)</span> | <span class="o">(</span>Y|Yr<span class="o">)</span> <span class="k">then
+			</span><span class="nv">X</span><span class="o">=</span>T <span class="o">{</span>Match Xr Yr<span class="o">}</span>
+		<span class="o">[]</span> nil | nil <span class="k">then </span>skip
+		end
+	end
+<span class="k">in
+	</span>thread <span class="o">{</span>Match Given Taken<span class="o">}</span> end
+	queue<span class="o">(</span>put:proc <span class="o">{</span><span class="nv">$ </span>X<span class="o">}</span> <span class="o">{</span>Send GivePort X<span class="o">}</span> end
+		    get:proc <span class="o">{</span><span class="nv">$ </span>X<span class="o">}</span> <span class="o">{</span>Send TakePort X<span class="o">}</span> end<span class="o">)</span>
+end</code></pre></figure>
+
+<p>The <code class="language-plaintext highlighter-rouge">put</code> and <code class="language-plaintext highlighter-rouge">get</code> operations on this Queue allow for concurrent access, and even further, can do cool things because they can take advantage of dataflow variables:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">declare </span>Q X <span class="k">in
+</span>thread <span class="nv">Q</span><span class="o">={</span>NewQueue<span class="o">}</span> end
+<span class="o">{</span>Q.put 1<span class="o">}</span>
+<span class="o">{</span>Q.get X<span class="o">}</span>
+<span class="o">{</span>Wait X<span class="o">}</span>
+end</code></pre></figure>
+
+<p>The above code instantiates a Queue, puts <code class="language-plaintext highlighter-rouge">1</code> on it, and then runs a <code class="language-plaintext highlighter-rouge">get</code> with an unbound variable. Because there is a value to consume on this queue, the ‘Wait’ will proceed and the call will end. You can similarly run a <code class="language-plaintext highlighter-rouge">put</code> onto the Queue before the value is bound, allowing your code to synchronize access in a variety of ways.</p>
+
+<h4 id="concurrent-program-design">Concurrent Program Design</h4>
+
+<p>In addition to providing an exhausting quantity of abstractions and ideas for concurrent programming with message-passing, the authors provide guidelines and wisdom about concurrent program design. Because CTM is a textbook that is aimed at communicating a deep philosophy, the authors know that presenting a well-rounded and practical view to their readers will be persuasive, and in this case they do an admirable job.</p>
+
+<blockquote>
+  <p>“Designing a concurrent program is more difficult than designing a sequential program, because there are usually many more potential interactions between the different parts. To have confidence that the concurrent program is <strong>correct</strong>, we need to follow a sequence of unambiguous design rules.”</p>
+</blockquote>
+
+<p>The word <strong>correct</strong> above (emphasis mine) refers to <a href="http://en.wikipedia.org/wiki/Correctness_(computer_science)">this type of correctness</a>, and shows a side of reasoning about computer programs that is underrepresented in much modern programming language literature. The authors’ pursuit of declarativeness, for example, is toward the end of creating programs which are simpler, thus easier to reason about.</p>
+
+<p>Beginning with a specification and ending with a period of testing and iteration, the methods that the authors advocate might not be revolutionary, but its simplicity and practicality is noteworthy. Here are the steps suggested:</p>
+
+<p>Create an <strong>informal specification</strong> which serves to communicate what the system should do, at varying levels of granularity for various purposes.</p>
+
+<p>Enumerate all forms of concurrent activity in a specification, and label each one as a <strong>component</strong>. These components can be connected and turned into a diagram to understand the flow of data in the specification.</p>
+
+<p>Once components are in place, <strong>message protocols</strong> are required to nail down the implementation of what data will be exchanged and what form the data will take. Augment diagrams with message protocol information.</p>
+
+<p>For each component, create a <strong>state diagram</strong> which describes for each state how the component will react to incoming messages. This should be handled with extreme care.</p>
+
+<p>Finally, the authors sugges to <strong>implement</strong> the program in your “favorite programming language,” and to <strong>test and iterate</strong> until the program meets the specification.</p>
+
+<p>There is a demonstration of this method for a design problem given in the chapter, and although the problem itself is fairly simple, it is illustrative in how detail oriented and correctness-obsessed the solution needs to be to truly implement the specification.</p>
+
+<h4 id="a-look-at-erlang-and-otp">A Look at Erlang and OTP</h4>
+
+<p>Perhaps unsurprisingly given the subject of this chapter, the authors seem to find an affinity in the existing software surrounding <a href="http://www.erlang.org/">Erlang</a> and its <a href="http://learnyousomeerlang.com/what-is-otp">OTP framework</a>. The Erlang equivalent of the book’s <code class="language-plaintext highlighter-rouge">Thread</code> is an Erlang process, which is created with a port object and a mailbox to form a very powerful and flexible unit of concurrent execution. I won’t dive too deeply into the chapter’s treatment of Erlang and OTP, but like the examination of Haskell earlier in the book, I find an important link between the ideas the authors present and the concrete implementation of Erlang.</p>
+
+<p>The computation model is discussed, and Erlang is characterized as having a “Functional core” with a “Message-passing extension.” The term “process independence” is applied to the idea that in Erlang, each running process theoretically has no impact on any other, and nothing is shared between them. According to the authors, “Process independence makes it easier to build highly reliable systems.”</p>
+
+<p>Erlang’s combination of pattern matching for consuming messages from a process’s mailbox, a dedicated location for persistent data and the scheduler to map processes onto system threads provides an excellent framework for the kind of system the authors advocate for. Erlang has declarative properties and favors a functional approach, and there are demonstrations in the text of converting Erlang code to the kernel language that aren’t as outrageous as you’d expect.</p>
+
+<p>As far as production-ready systems go, there are a lot of the ideas of the ideal kernel language present in Erlang and the OTP framework. Erlang is known for being highly concurrent and much like the kernel language, it is crucial to understand the impact that the implementation of the units of concurrent execution have on the semantics of the language. The authors present the idea that message-passing is a powerful approach to concurrency and Erlang and its success lends credence to this idea.</p>
+
+<p>My take on it is that as far as all of the options go, if you’re looking for a programming language with interesting ideas that you could actually make money using, Erlang is a good choice. Erlang has a good mix of the practical and theoretical, and while there is perhaps a strange beauty to its syntax, there is undoubtedly a ton of elegance in the abstractions it makes available.</p>
+
+<h4 id="conclusions">Conclusions</h4>
+
+<p>The expansion from declarative concurrency to message-passing concurrency in the kernel language serve to do far more than illuminate the reader about a <em>new mechanism</em> to deal with the challenges of concurrent programs. Rather the chapter gives rare insight into the complexity of concurrent programs at even a small scale. The towers of code and state built from small, mostly declarative units illustrate the interconnectedness of even well thought out programs and the intricacies of timing in a distributed system.</p>
+
+<p>As the limitations of the declarative concurrent system previously presented were extensively discussed in the previous chapters, it is encouraging that the authors are capable of alleviating some of those unappealing aspects by making trade-offs between functionality and expressiveness, declarativeness and statefulness, and so on. Various design solutions and abstractions are introduced that reinforce, to my mind, the importance of the careful consideration of correctness and design in creating flexible, powerful, concurrent software.</p>
+
+<h4 id="works-cited">Works Cited</h4>
+
+<p><em>All quotes unless otherwise cited from Van Roy and Haridi.</em></p>
+
+<p><a id="bib1">[1]</a> Van Roy and Haridi. <em>Concepts, Techniques, and Models of Computer Programming</em> MIT Press, hardcover, ISBN 0-262-22069-5, March 2004</p>
+
+<p><a id="bib2">[2]</a> Hewitt, Carl <em>Viewing Control Structures as Patterns of Passing Messages</em> Journal of Artificial Intelligence, June 1977</p>
+:ET

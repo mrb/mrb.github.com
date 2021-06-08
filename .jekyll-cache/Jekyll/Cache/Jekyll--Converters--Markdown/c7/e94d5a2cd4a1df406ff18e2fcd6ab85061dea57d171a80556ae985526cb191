@@ -1,0 +1,100 @@
+I"�<p>#</p>
+
+<div class="lead">This post is one of a series on <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a> by Benjamin C. Pierce.</div>
+
+<p>#</p>
+<h3 id="types-are-the-truth">Types Are The Truth</h3>
+
+<p>In Chapter 9 of <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a>, Pierce presents his exposition of the Simply typed Lambda-Calculus. It is a truly awesome chapter - each subsection in succession constructs a rich and very well detailed system of computation and Pierce is a master of precision, guiding the reader through the maze of theory very carefully. Exploring the mechanics of the various calculi Pierce presents reveal the hidden connections between this core kernel of an idea to many, many practical applications - type systems, compilers, program optimization, and more draw on these ideas.</p>
+
+<p>On the other hand, studying Chapter 9 of TAPL will have you well on your way to hallucinating these mechanics everywhere. You may see their shapes, in passing, and then lose them. Sounds kind of scary, but we could all use some more hallucinations in our lives, right? Among the various sub-explorations in the chapter, “Section 9.5: Erasure and Typability,” grabbed my attention in particular. It contained a new bit of information for me, confirmed some interesting intuitions, and put a name on an idea I was curious about: type erasure.</p>
+
+<h4 id="what-is-type-erasure">What is Type Erasure?</h4>
+
+<p>Pierce begins the section by pointing out that the evaluation relation as defined on simply typed terms has the property that it carries along the type information in the terms, <em>but does not actually use them during run-time</em>. This is in contrast to how things work in “full-scale” programming languages:</p>
+
+<p>“Most compilers for full-scale programming languages actually avoid carrying annotations at run time: they are used during typechecking (and during code generation, in more sophisticated compilers), but do not appear in the compiled form of the program.”</p>
+
+<p>That’s a really cool idea: <em>The safety that is guaranteed by type checks at compile time can be removed at run-time with no change in the results.</em> This process of removal is called type erasure, a new concept to me.</p>
+
+<p>I was previously aware that programs can be compiled down to intermediate representations which may not carry type information, and I knew that in the end the instructions carried out while executing the code have very little to do with my type annotations, but the impact of seeing the mechanics of it and how it actually works was very impactful to me. I think this is because the relationship between fully annotated programs and their “erased” counterparts is echoed in other important place in Computer Science theory. I’ll try to elaborate later. First let’s see the mechanics.</p>
+
+<h4 id="how-does-type-erasure-work">How Does Type Erasure Work?</h4>
+
+<p>Pierce explains that in most situations, “programs are converted back to an untyped form before they are evaluated,” but that doesn’t really speak to how it actually works. <a href="#bib1">[1]</a> A bunch of questions come to mind:</p>
+
+<ul>
+  <li>How can you be sure that the semantics won’t change?</li>
+  <li>Is this universally true?</li>
+  <li>Are there exceptions?</li>
+  <li>Is there a theorem?</li>
+  <li>Yes. It’s TAPL. Of course there’s a theorem.</li>
+</ul>
+
+<p>With respect to type erased typed terms, Pierce notes that:</p>
+
+<blockquote>
+  <p>“This style of semantics can be formalized using an <em>erasure</em> function mapping simply typed terms into the corresponding untyped terms.”</p>
+</blockquote>
+
+<p>For a term <strong>t</strong>, Pierce gives the following definition of erasure, naming the function <code class="language-plaintext highlighter-rouge">erase</code>. Rules are given for each of the three types of terms - variables, abstractions, and applications.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>erase(x)         = x                   -- 1 - Variable
+erase(λx:T1. t2) = λx. erase(t2)       -- 2 - Abstraction
+erase(t1 t2)     = erase(t1) erase(t2) -- 3 - Application
+</code></pre></div></div>
+
+<p>For each of these rules in order, here is how I would write it out in english:</p>
+
+<ol>
+  <li>If you apply the erase function to a variable x, you get x.</li>
+  <li>If you apply the erase function to an abstraction which is annotated (in this case, a function that accepts a term of type T1), it is equivalent to an untyped abstraction with an erased input.</li>
+  <li>If you apply the erase function to the application of a term to another, it is equivalent to erasing them first and then applying them.</li>
+</ol>
+
+<p>In other words:</p>
+
+<blockquote>
+  <p>“…it doesn’t really matter whether we evaluate a typed term directly, or whether we erase it and evaluate the underlying untyped term.”</p>
+</blockquote>
+
+<p>Whoah, that’s awesome, and we just saw exactly how it works. While we’re at it, here’s one more pithy Piercism on erasure:</p>
+
+<blockquote>
+  <p>“evaluation commutes with erasure”</p>
+</blockquote>
+
+<p>Let it sink in. That means that the commutative property holds between evaluation and erasure - the order you apply them does not matter. The proof is constructed by induction on the following derivations:</p>
+
+<ol>
+  <li>
+    <p>If <strong>t -&gt; t’</strong> under the typed evaluation relation, then <strong>erase(t) -&gt; erase(t’)</strong>.</p>
+  </li>
+  <li>
+    <p>If <strong>erase(t) -&gt; m’</strong> under the typed evaluation relation, then there is a simply typed term <strong>t’</strong> such that <strong>t -&gt; t’</strong> and <strong>erase(t’) = m’</strong>.</p>
+  </li>
+</ol>
+
+<p>It’s useful to write down some sample terms that follow this form to get a feel for the mechanics of it, but it’s not necessary to understand the proof component at this point to grok the bigger ideas at play.</p>
+
+<h4 id="the-implications-of-erasure">The Implications of Erasure</h4>
+
+<p>So what are those echoes that I referred to above? Isn’t erasure kind of an obvious idea once you think about it for a moment? While not being the most complex concept with the most tendrils to unravel, I feel that its structure is quite elegant, and I believe that Pierce does too:</p>
+
+<blockquote>
+  <p>“For more interesting languages and more interesting compilers, it becomes a quite important property: it tells us that a “high-level” semantics, expressed directly in terms of the language that the programmer writes, coincides with an alternative, lower-level evaluation strategy actually used by an implementation of the language.”</p>
+</blockquote>
+
+<p>That makes me wonder what other kinds of transformations you can make to terms in programs that won’t change their meaning. The fact that you can assert properties of programs with types, erase them, and have the same guarantees of semantics is fascinating to me. That’s the idea I was hinting at with this tweet:</p>
+
+<center><blockquote class="twitter-tweet" lang="en"><p>Types are the truth: they&#39;re there whether you want them to be or not</p>&mdash; mrb (@mrb_bk) <a href="https://twitter.com/mrb_bk/statuses/455736689114492928">April 14, 2014</a></blockquote></center>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Whether your programming language “embraces” types or has a modern type system or not, these concepts are central to how programs execute, because they are a fundamental part of how computation works. Adding types to the lambda calculus is what transformed the primordial ooze of computation into the complex ecosystem of programming, and its mysteries and intricacies are manifold.</p>
+
+<h4 id="works-cited">Works Cited</h4>
+
+<p><em>All quotes unless otherwise cited from Pierce.</em></p>
+
+<p><a id="bib1">[1]</a> Benjamin C. Pierce. 2002. <em>Types and Programming Languages</em>. MIT Press, Cambridge, MA, USA.</p>
+:ET

@@ -1,0 +1,39 @@
+I"<p>#
+#</p>
+<h3 id="the-false-economy-of-metaprogramming">The False Economy Of Metaprogramming</h3>
+
+<p>Modern web frameworks often attempt to provide “convenience” and “expressiveness” to their users by generating code using a technique commonly called either “template programming” or “metaprogramming.” It often starts with code like this:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="no">SomeVeryLargeORMClass</span>
+  <span class="n">attribute</span> <span class="ss">:bar</span><span class="p">,</span> <span class="no">Boolean</span>         
+  <span class="n">attribute</span> <span class="ss">:baz</span><span class="p">,</span> <span class="no">String</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Here we’re declaring a class <code class="language-plaintext highlighter-rouge">Foo</code> which inherits from <code class="language-plaintext highlighter-rouge">SomeVeryLargeORMClass</code>. We’re using the class method <code class="language-plaintext highlighter-rouge">attribute</code>, which comes from <code class="language-plaintext highlighter-rouge">SomeVeryLargeORMClass</code> to declare a field named <code class="language-plaintext highlighter-rouge">bar</code>, which is a <code class="language-plaintext highlighter-rouge">Boolean</code>, and a field named <code class="language-plaintext highlighter-rouge">baz</code>, which is a <code class="language-plaintext highlighter-rouge">String</code>.</p>
+
+<p>There is already a whole lot of functionality being included in our class simply because we inherit from <code class="language-plaintext highlighter-rouge">SomeVeryLargeORMClass</code>, and much of it is useful. We don’t have to connect to the database directly from this class to query it, and it’s nice and neat to be able to declare our database using a nice <code class="language-plaintext highlighter-rouge">DSL</code> like <code class="language-plaintext highlighter-rouge">attribute</code>. Unfortunately, that’s not where it tends to stop.</p>
+
+<p>In addition to getting setter methods like <code class="language-plaintext highlighter-rouge">Foo.new.bar=</code> and getter methods like <code class="language-plaintext highlighter-rouge">Foo.new.bar</code> “for free,” we also get a lot of other things. Things that might seem nice on the surface, but cross an important axis: they generate more incidental complexity than the convenience they supply is worth.</p>
+
+<p>An example of this is a method like <code class="language-plaintext highlighter-rouge">Foo.new.bar?</code>. For <code class="language-plaintext highlighter-rouge">Boolean</code> fields in ORMs, it is common to see “question mark” methods generated alongside other getters. The ORM uses sophisticated reflection and metaprogramming techniques to determine the type of the field and then insert other methods accordingly. This leads to situations where a developer might write the following code inside the <code class="language-plaintext highlighter-rouge">Foo</code> method:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">a_method</span>
+  <span class="k">if</span> <span class="n">bar?</span>
+    <span class="c1"># do something</span>
+  <span class="k">else</span>
+    <span class="c1"># do something else</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>The method <code class="language-plaintext highlighter-rouge">bar?</code> is generated for us because <code class="language-plaintext highlighter-rouge">bar</code> is a <code class="language-plaintext highlighter-rouge">Boolean</code>. The method is not something you can find by searching through the code base. It is only something you can know if you know how all of the underlying machinery of <code class="language-plaintext highlighter-rouge">SomeVeryLargeORMClass</code> works. After a while, this stops being convenient, and starts being annoying and expensive.</p>
+
+<p>According to everyone’s favorite primary source of infallible and always perfect truths, Wikipedia, a false economy is defined as:</p>
+
+<blockquote>
+  <p>“… an action that saves money at the beginning but which, over a longer period of time, results in more money being spent or wasted than being saved.”</p>
+</blockquote>
+
+<p>If the “money we spend” at the beginning is everything that we get for “free” by inheriting from <code class="language-plaintext highlighter-rouge">SomeVeryLargeORMClass</code>, then the money “being spent or wasted” is our attention, our ability to know what is going on, to reason about our code easily without having to boot into <code class="language-plaintext highlighter-rouge">SomeVeryLargeORMClass</code> every time.</p>
+
+<p>So called “question mark” methods are a prime example of code that does nothing more than “look nice” without giving us any other benefit: in fact I feel they cost us more than they provide us with. For code to be “expressive” does not mean that it should “look” or “feel” like “natural language.” Code can’t look like natural language and anything that goes this far is a costly half-measure that we will regret in the long run.</p>
+:ET

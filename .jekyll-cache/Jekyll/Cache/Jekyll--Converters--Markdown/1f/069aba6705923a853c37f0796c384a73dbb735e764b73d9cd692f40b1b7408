@@ -1,0 +1,190 @@
+I"�V<p>#</p>
+
+<div class="lead">This post is one of a series on <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a> by Benjamin C. Pierce.</div>
+
+<p>#</p>
+<h3 id="translating-a-typechecker-from-math-to-ocaml">Translating a Typechecker from ‘Math’ to OCaml</h3>
+
+<p>Chapters 9 and 10 of Benjamin C. Pierce’s <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a> are dedicated to the presentation and implementation of a <em>Simply Typed</em> Lambda Calculus (STLC). Computation with the Lambda Calculus is extended with a syntactic and semantic type system that allows for the annotation and verification of a term’s type, while preserving the <a href="http://michaelrbernste.in/2014/02/17/what-is-a-type-system-for.html">progress and preservation theorems</a> that we discussed last time.</p>
+
+<p>After coming across this idea many times – a Lambda Calculus with types – and not really having any idea what that means or why it is of any importance, it is very satisfying to read a thorough and well-executed explanation. My take-away is that the formal basis of the semantics of the Lambda Calculus can be extended to elucidate the fundamental role that types seem to play in how we reason about programs and what they mean. Applying type theory to the Lambda Calculus has provided some of the deepest insights regarding our intuition about questions like “What is computation?”</p>
+
+<p>Most impressive and resonant to me amongst the material, however, is one bit that Pierce mentions towards the end of Chapter 10. After describing the calculus and discussing its implementation, Pierce notes that:</p>
+
+<blockquote>
+  <p>“The typechecking function <strong>typeof</strong> can be viewed as a direct translation of the typing rules for the Simply Typed Lambda-Calculus, or, more accurately, as a transcription of the inversion lemma.”</p>
+</blockquote>
+
+<p>The idea that moving between the mathematical/symbolic expression and code could be so straightforward appeals to me greatly - I’ve read positions advocating this way of thinking about programs, researched the idea, and even written and spoken about some of the implications of taking a more foundationally formal approach to program construction and algorithm verification. I wanted to unpack this statement to see what it really meant.</p>
+
+<p>What does it mean to translate a proof into code, though, specifically? Why is a transcription of the inversion lemma alone enough to implement the typechecker?</p>
+
+<blockquote>
+  <p>“…because it is the inversion lemma that tells us, for every syntactic form, exactly what conditions must hold in order for a term of this form to be well typed.”</p>
+</blockquote>
+
+<p>Well, that’s pretty clear. The lemma is a statement of each of the possible forms in the system which defines how to create expressions that are well typed. Pierce provides the code version of the typing rules, dedicating a chapter to describing it. It is very instructive to see it after the system has been thoroughly and formally described, and in the spirit of the book, I’m going to walk through the lemma show the equivalent OCaml code, to see how well the <em>translation</em> idea works out, from words to code. The lambda calculus has variables, abstraction, application, boolean, and conditional forms to be typed, so we will see how each of these work - how they look in their formal description, and what the corresponding code looks like.</p>
+
+<p><em>If you’d like to follow along, I suggest at least opening up the <a href="https://gist.github.com/mrb/9105122">full OCaml definition of the typechecking function here</a>, or better yet, download and check out the <a href="http://www.cis.upenn.edu/~bcpierce/tapl/checkers/simplebool/">full source code for the interpreter</a>, as provided by Pierce.</em></p>
+
+<h4 id="the-new-typing-relation">The New Typing Relation</h4>
+
+<p>There are a few new ideas that are worth noting before walking through the translation, which stem from the question of how to actually apply types to forms like abstraction and application. A new typing relation is introduced, which needs to be able to type forms more complex than <code class="language-plaintext highlighter-rouge">t:T</code> where <code class="language-plaintext highlighter-rouge">t</code> is a term and <code class="language-plaintext highlighter-rouge">T</code> is its type. The new relation appears in terms like this - <code class="language-plaintext highlighter-rouge">Γ ⊢ t1:T1</code>. I’ll describe the symbols now and their meaning through the description of each type of form in the STLC which we will be translating.</p>
+
+<p><strong>Γ</strong> is known as the <em>typing context</em>, which consists of “a sequence of variables and their types.” For explicitly typed languages, it is enough to assume that the declared type should hold in order for safety to be preserved. This is essentially the “environment” for type-relations which holds the known facts about types.</p>
+
+<p>The <strong>⊢</strong> “Turnstile” operator reads “under the set of assumptions”</p>
+
+<p>The <strong>:</strong> operator assigns a type to a term, like <strong>t1:T1</strong> for “term t1 has type T1”</p>
+
+<p>So that <strong>Γ ⊢ t1:T1</strong> reads “Under the set of assumptions in Γ, the type of t1 is T1”</p>
+
+<h4 id="the-typeof-function">The typeof function</h4>
+
+<p>The function which we are exploring has the job of ensuring that declared programs are well-typed. That means that it upholds the formal rules that are encoded into the type system, and that it is provable that programs that are verified with this typechecker are well-typed. Having an OCaml implementation of this is very interesting because it allows us to see the size and shape of a function with such deeply encoded and knowable semantics. Each of the sections below walks through one of the potential forms that the typechecker will encounter as a program is typechecked. Put all together, it can typecheck any well-formed program in the STLC.</p>
+
+<h4 id="typing-variables">Typing variables</h4>
+
+<p>The first step toward creating a basic type system for the Lambda-Calculus is to provide a mechanism for the typing of variables. As Pierce explains, there are type systems with different approaches to determining the type safety of their terms. <em>Explicitly typed</em> languages, like the Simply Typed Lambda-Calculus, rely on annotations to determine if terms are type safe. <em>Implicitly typed</em> languages use analysis and type reconstruction to determine types. In order to keep things basic, we begin with an annotated, or explicit language where variables are declared along with their types.</p>
+
+<p>The first step of the inversion lemma on the typing relation reads as follows:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">If Γ ⊢ x:R, <span class="k">then </span>x:R ∈ Γ.</code></pre></figure>
+
+<p>First, let’s translate this from the propositional form to a less symbolic sentence.</p>
+
+<blockquote>
+  <p>“If variable x is declared with type R, then the typing context contains the mapping from x to R.”</p>
+</blockquote>
+
+<p>And now, the line of code in the <strong>typeof</strong> function which deals with variables:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nc">TmVar</span><span class="p">(</span><span class="n">fi</span><span class="o">,</span><span class="n">i</span><span class="o">,_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">getTypeFromContext</span> <span class="n">fi</span> <span class="n">ctx</span> <span class="n">i</span></code></pre></figure>
+
+<p>OCaml’s pattern matching facilities come in handy to declutter the function a bit. Each step in the inversion lemma will be accompanied by a similarly shaped form:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nc">MatchedPattern</span><span class="p">(</span><span class="n">values</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">...</span> <span class="c">(* execute when MatchedPattern is matched *)</span></code></pre></figure>
+
+<p>When the interpreter happens upon a variable (<code class="language-plaintext highlighter-rouge">TmVar(fi,i,_)</code>), it can derive its type by looking up the type by index in the typing context. The function which accomplishes this, <code class="language-plaintext highlighter-rouge">getTypeFromContext</code>, does just this. It’s a simple intuition that is matched quite nicely by the code.</p>
+
+<h4 id="typing-abstractions">Typing abstractions</h4>
+
+<p>Typing abstractions (or lambda expressions, or functions as they are known in programming languages) is probably the most interesting aspect of constructing a Simply-Typed Lambda Calculus. If you’ve seen type systems like those in Haskell or OCaml, you may be familiar with function type syntax like the following:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="o">#</span> <span class="k">let</span> <span class="n">square</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;;</span> <span class="c">(* entered by the user *)</span>
+<span class="o">-&gt;</span> <span class="k">val</span> <span class="n">square</span> <span class="o">:</span> <span class="kt">int</span> <span class="o">-&gt;</span> <span class="kt">int</span> <span class="o">=</span> <span class="o">&lt;</span><span class="k">fun</span><span class="o">&gt;</span> <span class="c">(* returned by the type inferencer *)</span></code></pre></figure>
+
+<p>Above, the user enters the definition of the <code class="language-plaintext highlighter-rouge">square</code> function in the REPL, and the type inferencer, based on the types for the <code class="language-plaintext highlighter-rouge">*</code> multiplication function, guesses that it is a function that takes an <code class="language-plaintext highlighter-rouge">int</code> and returns an <code class="language-plaintext highlighter-rouge">int</code>, which is written <code class="language-plaintext highlighter-rouge">int -&gt; int</code>. The formalism for the Simply-Typed Lambda Calculus uses similar notation. The <code class="language-plaintext highlighter-rouge">-&gt;</code> operator is used to denote that a function accepts a value with the type on the left hand side of the arrow, and returns a value with the type on the right hand side of the arrow.</p>
+
+<p>In the initial presentation of these ideas in the book, typing functions actually comes first, and the other definitions follow. Since up until Chapter 9, we have only seen simply typed expressions such as variables with declared types, the typing relation we have no longer holds, as we saw above. As Pierce states:</p>
+
+<blockquote>
+  <p>“This changes the typing relation from a two-place relation, <strong>t:T</strong>, to a three-place relation <strong>Γ ⊢ t:T</strong>, where <strong>Γ</strong> is a set of assumptions about the types of the free variables in <strong>t</strong>.”</p>
+</blockquote>
+
+<p>The second step of the inversion lemma deals with these, and reads as follows:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">If Γ ⊢ λx:T1.t2:R, <span class="k">then </span>R <span class="o">=</span> T1 -&gt; R2 <span class="k">for </span>some R2 with Γ, x:T1 ⊢ t2:R2.</code></pre></figure>
+
+<blockquote>
+  <p>“If a function is declared which expects a term of type T1 and returns a term t2, then the function has type T1-&gt;R2 where t2:R2.”</p>
+</blockquote>
+
+<p>It’s nice to see the formal construction of the <code class="language-plaintext highlighter-rouge">-&gt;</code> operator, so now let’s see the code:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nc">TmAbs</span><span class="p">(</span><span class="n">fi</span><span class="o">,</span><span class="n">x</span><span class="o">,</span><span class="n">tyT1</span><span class="o">,</span><span class="n">t2</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="k">let</span> <span class="n">ctx'</span> <span class="o">=</span> <span class="n">addbinding</span> <span class="n">ctx</span> <span class="n">x</span> <span class="p">(</span><span class="nc">VarBind</span><span class="p">(</span><span class="n">tyT1</span><span class="p">))</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">tyT2</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">ctx'</span> <span class="n">t2</span> <span class="k">in</span>
+      <span class="nc">TyArr</span><span class="p">(</span><span class="n">tyT1</span><span class="o">,</span> <span class="n">tyT2</span><span class="p">)</span></code></pre></figure>
+
+<p>When the matched pattern is an <strong>abstraction</strong>, declare an intermediate representation of the typing context, adding the binding declared on the input variable in the abstraction. Calculate the value of the type for t2 by looking it up in the context.</p>
+
+<h4 id="typing-application">Typing application</h4>
+
+<p>Application (also known function application) shows how we can compose terms to perform computation. <code class="language-plaintext highlighter-rouge">t1 t2</code> could be, for example <code class="language-plaintext highlighter-rouge">λx:Boolean.x true</code>, which would apply the identity function to the value true. Here’s how it looks in the lemma:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">If Γ ⊢ t1 t2 :R, <span class="k">then </span>there is some <span class="nb">type </span>T11 such that Γ ⊢ t1:T11 -&gt; R 
+and Γ ⊢ t2:T11.</code></pre></figure>
+
+<p>This can be read as:</p>
+
+<blockquote>
+  <p>“If the application of t1 to t2 has type R, then there is some type T11 where T11 -&gt; R. Additionally, t2 has type T11.”</p>
+</blockquote>
+
+<p>It has taken me quite a bit of time to be able to work through the symbols, but I believe that this captures the intuition. The OCaml implementation can be seen here:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nc">TmApp</span><span class="p">(</span><span class="n">fi</span><span class="o">,</span><span class="n">t1</span><span class="o">,</span><span class="n">t2</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="k">let</span> <span class="n">tyT1</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">ctx</span> <span class="n">t1</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">tyT2</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">ctx</span> <span class="n">t2</span> <span class="k">in</span>
+  <span class="p">(</span><span class="k">match</span> <span class="n">tyT1</span> <span class="k">with</span>
+      <span class="nc">TyArr</span><span class="p">(</span><span class="n">tyT11</span><span class="o">,</span><span class="n">tyT12</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="c">(* looking for the Arrow Type for functions *)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">=</span><span class="p">)</span> <span class="n">tyT2</span> <span class="n">tyT11</span> <span class="k">then</span> <span class="n">tyT12</span>
+        <span class="k">else</span> <span class="n">error</span> <span class="n">fi</span> <span class="s2">"parameter type mismatch"</span>
+    <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">error</span> <span class="n">fi</span> <span class="s2">"arrow type expected"</span><span class="p">)</span></code></pre></figure>
+
+<p>Here we see that typing function application boils down to checking the types of the two terms in question and looking for appropriate supporting types in the typing context. The types of t1 and t2 are stored and then the left hand side and right hand side of an arrow type for the function t1 are composed and searched for in the typing context. You can follow through by applying arguments to this function mentally and seeing what you arrive at - the errors are useful for guidance.</p>
+
+<h4 id="typing-boolean-values">Typing Boolean values</h4>
+
+<p>Our Simply Typed Lambda-Calculus has been extended to include boolean values, which is a good thing, because otherwise it would be pretty boring. Typing boolean values is straightforward because they are built into the language. I’ll repeat the definitions for true and false for the sake of completeness:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">If Γ ⊢ <span class="nb">true</span> : r, <span class="k">then </span>R <span class="o">=</span> Bool.</code></pre></figure>
+
+<blockquote>
+  <p>“If term r is true, then its type is Bool.”</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nc">TmTrue</span><span class="p">(</span><span class="n">fi</span><span class="p">)</span> <span class="o">-&gt;</span> 
+  <span class="nc">TyBool</span></code></pre></figure>
+
+<p>If the interpreter encounters the value <code class="language-plaintext highlighter-rouge">true</code>, we know it is of type Boolean.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">If Γ ⊢ <span class="nb">false</span> : r, <span class="k">then </span>R <span class="o">=</span> Bool.</code></pre></figure>
+
+<blockquote>
+  <p>“If term r is false, then its type is Bool.”</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nc">TmFalse</span><span class="p">(</span><span class="n">fi</span><span class="p">)</span> <span class="o">-&gt;</span> 
+  <span class="nc">TyBool</span></code></pre></figure>
+
+<p>If the interpreter encounters the value <code class="language-plaintext highlighter-rouge">false</code>, we know it is of type Boolean.</p>
+
+<h4 id="typing-conditional-statements">Typing conditional statements</h4>
+
+<p>After we have typed variables, functions and their application, and booleans, we can type conditional statements. The Simply Typed Lambda-Calculus has the facility for an <code class="language-plaintext highlighter-rouge">if...then...else</code> statement, and here is its formal statement, the final step in the inversion lemma:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">If Γ ⊢ <span class="k">if </span>t1 <span class="k">then </span>t2 <span class="k">else </span>t3 : R, <span class="k">then </span>Γ ⊢ t1 : Bool and Γ ⊢ t2, t3 : R.</code></pre></figure>
+
+<p>As often as we have used if statements as programmers, we don’t always see them looking like this. Here’s an interpretation:</p>
+
+<blockquote>
+  <p>“If t1, t2, and t3 are the three parts of a well typed conditional, then t1 is a boolean and t2 and t3 are the same type.”</p>
+</blockquote>
+
+<p>And now the code:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nc">TmIf</span><span class="p">(</span><span class="n">fi</span><span class="o">,</span><span class="n">t1</span><span class="o">,</span><span class="n">t2</span><span class="o">,</span><span class="n">t3</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">=</span><span class="p">)</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">ctx</span> <span class="n">t1</span><span class="p">)</span> <span class="nc">TyBool</span> <span class="k">then</span>
+    <span class="k">let</span> <span class="n">tyT2</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">ctx</span> <span class="n">t2</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">=</span><span class="p">)</span> <span class="n">tyT2</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">ctx</span> <span class="n">t3</span><span class="p">)</span> <span class="k">then</span> <span class="n">tyT2</span>
+    <span class="k">else</span> <span class="n">error</span> <span class="n">fi</span> <span class="s2">"arms of conditional have different types"</span>
+  <span class="k">else</span> <span class="n">error</span> <span class="n">fi</span> <span class="s2">"guard of conditional not a boolean"</span></code></pre></figure>
+
+<p>We check the type of the first term to make sure it is a boolean and then compare the types of t2 and t3. Again, seeing the error messages helps us see the form of the conditional in the code.</p>
+
+<p>We now have conditionals! Nice. And with that, we can compute quite a bit.</p>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<p>Type systems in the wild are often large, scary, unapproachable things. Working through some relatively simple logic in “Math” and seeing how it manifests as code has helped me see that at their core, they are really not very different at all. Understanding the boundaries between theory and application is important for practitioners as well as theorists, and seeing how these systems are implemented is very instructive in this regard.</p>
+
+<p>In my estimation, Pierce is correct and the idea of a <em>translation</em> does work. When the inversion lemma is written as OCaml code, it bears the realities of the system it runs on: it has to handle errors with words, use specific names for functions, etc. To me, that’s a beautiful thing.</p>
+
+<h4 id="works-cited">Works Cited</h4>
+
+<p><em>All quotes unless otherwise cited from Pierce, all code from <a href="http://www.cis.upenn.edu/~bcpierce/tapl/checkers/">provided implementations</a>.</em></p>
+
+<p><a id="bib1">[1]</a> Benjamin C. Pierce. 2002. <em>Types and Programming Languages</em>. MIT Press, Cambridge, MA, USA.</p>
+:ET
