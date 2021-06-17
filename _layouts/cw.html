@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <title>mrb: {{ page.title }}</title>
+  <link rel="stylesheet" href="/stylesheets/mrb.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}/feed.xml">
+  <script src="/javascripts/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38740175-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</head>
+<body>
+  <a href="/">Home</a>
+  <div class = 'site'>
+    {{ content }}
+    <br/>
+    <br/>
+    <hr/>
+    <form name="mailinglist" netlify netlify-honeypot="bot-field">
+      <p style="font-size: 16px; line-height:24px; font-weight: bold;">
+        <i>Join the list and get new writing in your inbox as it is published.</i>
+        <span style="display:none;">
+          <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+        </span>
+        <label> <input type="email" name="email" value="Your@email" /></label>
+
+        <button type="submit">Join</button>
+      </p>
+    </form>
+    <div class='footer'>
+      <div class="contact">
+        <p>
+          Michael Robert Bernstein<br />
+          <a href="http://twitter.com/mrb_bk">@mrb_bk</a><br/>
+          michaelrbernstein@gmail.com<br/>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
