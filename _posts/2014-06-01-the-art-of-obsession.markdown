@@ -4,8 +4,8 @@ title: "The Art of Obsession: !!Con 2014"
 published: true
 talks: true
 ---
-# 
-# 
+#
+#
 ### The Art of Obsession: !!Con 2014
 
 
@@ -31,10 +31,7 @@ How many people know who this person is?
 Okay. A few of you? Cool. So this is
 Harry Smith. I first saw this photograph
 when I was a teenager. About 14 or 15
-years old. And I was at my friend
-Stinky's house. He's my best friend. His
-name is Matt, but I've called him Stinky
-his whole life. And the thing about this
+years old. And I was at my friend's house. And the thing about this
 photograph is that it was in a book of
 photographs by Allen Ginsberg, who was
 my favorite poet at the time. I fancied
@@ -703,6 +700,3 @@ and learn. Get obsessed, and that's it.
 Thank you.
 
 (applause)
-
-
-

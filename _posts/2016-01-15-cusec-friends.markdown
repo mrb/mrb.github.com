@@ -219,10 +219,6 @@ Speaking of changing the way you think about the world, a few years after I got 
 
 I was a classic pretentious teenager with pretentious friends who collected difficult books and tried as hard as possible to sound intelligent, therefore sounding very unintelligent indeed.
 
-This time it was a different friend who was guilty of introducing me to the dangerous ideas of someone I had never heard of. His name is Matt, and I call him Stinky, and he is my oldest and closest friend.
-
-I'm not quite sure how he got into Deleuze to begin with - it may have been through the work of DJ Spooky, or maybe it was in the back of a Role Playing Game book about vampires. I'm unclear about this and I forgot to ask him before this talk was complete, but it's not really important.
-
 Regardless, something about the work in Gilles Deleuze's "A Thousand Plateaus" stuck with me and seriously continues to impact my thinking in ways that I don't think any other person's thoughts have done for me.
 
 "A Thousand Plateaus," which is subtitled "Capitalism and Schizophrenia," is a book that is very difficult to describe. It is the second volume of a collaborative effort between Deleuze, a philosopher, and Felix Guattari, a psychoanalyst.
@@ -267,7 +263,7 @@ I'm not going to try and connect Baudelaire to software engineering because I th
 
 ## Brian Eno - Hone Your Aesthetics
 
-From "Music for Airports" to his famous pop albums of the 70s, Brian Eno is one of the deepest and most successful sound thinkers of the 20th century. I learned about Eno late in my High School career. Again I don't really know how I first came across him, but I would suspect that Stinky had something to do with it. Maybe I should have just dedicated this whole talk to him? He's probably going to watch this video and so let me just say it: THANKS MATT!
+From "Music for Airports" to his famous pop albums of the 70s, Brian Eno is one of the deepest and most successful sound thinkers of the 20th century. I learned about Eno late in my High School career. Again I don't really know how I first came across him. 
 
 Eno was a maverick who created an entire world of music out of nothing. He was one of the founders of the group Roxy Music, who infused a hell of lot of weirdness into the 1970s UK Rock Scene. Roxy Music, like the Velvet Underground, is one of those bands about whom you can say that "Not many people liked Roxy Music, but all of them went on to form their own bands."
 
